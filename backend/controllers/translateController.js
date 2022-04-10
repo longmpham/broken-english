@@ -1,21 +1,3 @@
-const express = require("express")
-const cors = require("cors")
-const dotenv = require("dotenv").config()
-
-const port = 8001
-const app = express()
-app.use(express.json())
-app.use("*", cors())
-
-
-app.get('/', (req,res) => {
-  res.send('Hello World!')
-})
-
-
-// app.use("/api/translate", require("./routes/translateRoute"))
-app.use("/api/users", require("./routes/userRoute"))
-
 app.post('/', async (req, res) => {
   console.log(req.body)
   const q = req.body.q;
@@ -36,8 +18,4 @@ app.post('/', async (req, res) => {
   //   console.log(body);
   //   // res.send(body);
   // });
-})
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
 })
