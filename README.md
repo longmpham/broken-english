@@ -9,5 +9,5 @@ The sender will send it (most likely in English for now), and the receiver will 
 The receiver will have a "tolerance" bar to set the level of translated messages (beginner, intermediate, advanced, fluent). My hopes is that when the messages goes through to the receiver, the function will randomly select (at first) words in the sent message and translate them based on the tolernace set, hence, Broken English.
 
 # Development Pictures...
-
-![alt text](./devImages/firstTranslatedMessage.png)
+My first message translated using RapidAPI - Google Translate. Unforunately this is limited to 500 calls / month... so this may get annoying...
+![my first translated message!](./devImages/firstTranslatedMessage.png)

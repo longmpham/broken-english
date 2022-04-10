@@ -23,7 +23,6 @@ const App = () => {
       ),
     }
     
-
     const res = await fetch(url, requestOptions)
     // console.log(`res: ${res}`)
     const data = await res.json()

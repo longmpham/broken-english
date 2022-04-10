@@ -17,7 +17,7 @@ const translateMessage = expressAsyncHandler(async (req,res) => {
       'content-type': 'application/x-www-form-urlencoded',
       'Accept-Encoding': 'application/gzip',
       'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-      'X-RapidAPI-Key': '33f1715bdamsh74b4838bbaaff5ap1381c4jsne7a041ab0a2f'
+      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY
     },
     data: encodedParams,
   };
@@ -27,6 +27,7 @@ const translateMessage = expressAsyncHandler(async (req,res) => {
     const res = await axios.request(options)
     translatedMessage = res.data
     console.log(translatedMessage)
+    console.log(translatedMessage.translations)
   } catch (error) {
     console.log(`Unable to translate message: ${error}`)
   }
