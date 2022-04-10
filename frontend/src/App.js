@@ -10,7 +10,7 @@ const App = () => {
   );
 
   const getTranslation = async () => {
-    const url = "http://localhost:8001/"
+    const url = "http://localhost:9000/api/translate"
     const requestOptions = {
       method: "POST",
       headers: {

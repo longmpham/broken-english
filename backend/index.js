@@ -18,7 +18,7 @@ app.get('/', (req,res) => {
   res.send('Hello World!');
 })
 
-// app.use("/api/translate", require("./routes/translateRoute"))
+app.use("/api/translate", require("./routes/translateRoute"))
 app.use("/api/users", require("./routes/userRoute"));
 
 // app.post('/', async (req, res) => {

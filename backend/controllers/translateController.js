@@ -1,4 +1,8 @@
-app.post('/', async (req, res) => {
+const expressAsyncHandler = require("express-async-handler");
+
+
+
+const translateMessage = expressAsyncHandler(async (req,res) => {
   console.log(req.body)
   const q = req.body.q;
   // console.log(`q is: ${q}`);
@@ -12,10 +16,12 @@ app.post('/', async (req, res) => {
   //   } 
   // };
   // res.json({test: "test"});
-  res.json("thisisatest");
+  res.status(200).json("thisisatest");
   // request(options, (error, response, body) => {
   //   if (error) throw new Error(error);
   //   console.log(body);
   //   // res.send(body);
   // });
 })
+
+module.exports = { translateMessage }
