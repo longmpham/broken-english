@@ -25,9 +25,11 @@ const App = () => {
     
 
     const res = await fetch(url, requestOptions)
+    // console.log(`res: ${res}`)
     const data = await res.json()
-    setTranslatedMessage(data)
-    console.log(data)
+    let translatedMessageFromGoogle = data.data.translations[0].translatedText
+    setTranslatedMessage(translatedMessageFromGoogle)
+    console.log(translatedMessageFromGoogle)
   }
 
   const handleSubmit = (event) => {
@@ -42,8 +44,6 @@ const App = () => {
     // call fetch here?
     getTranslation(formData.message)
   }
-
-
 
   const handleChange = (event) => {
     setFormData((prevFormData) => {
