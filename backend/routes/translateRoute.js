@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { translateMessage } = require("../controllers/translateController");
+const { translateMessage, getLanguages } = require("../controllers/translateController");
 
-// we need functions to translate message
-
-// router.get("/", getMessage);
+// GET REQUEST -> get languages that google can translate
+router.get("/", getLanguages);
 
 // POST REQUEST -> get translated message
 router.post("/", translateMessage)
