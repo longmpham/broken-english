@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom"
 
 import Conversation from "./components/Conversation/Conversation";
+import ConversationList from "./components/Conversation/ConversationList";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="*" element={<Home />} />
         </Routes>
       </Router>
+      <ConversationList />
       <Conversation />
     </div>
   );
