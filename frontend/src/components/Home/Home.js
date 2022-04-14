@@ -8,7 +8,7 @@ const Home = () => {
         <h1>Welcome to Broken-English</h1>
         <p>Here, you can send a message and translate it to your partner!</p>
         <button><Link to="/login">Login</Link></button>
-        <button><Link to="/login">Register</Link></button>
+        <button><Link to="/register">Register</Link></button>
       </div>
     </div>
   );
