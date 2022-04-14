@@ -5,12 +5,14 @@ import Conversation from "./components/Conversation/Conversation";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
 
   return (
     <div>
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
