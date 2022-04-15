@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import Navbar from "./components/Navbar/Navbar";
 import Conversation from "./components/Conversation/Conversation";
+import Chat from "./components/Conversation/Chat";
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
         </Routes>
       </Router>
       <Translate />
+      <Chat />
     </div>
   );
 };

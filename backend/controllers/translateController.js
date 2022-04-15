@@ -26,7 +26,7 @@ const translateMessage = expressAsyncHandler(async (req,res) => {
     const response = await axios.request(options)
     const translatedMessage = response.data
     // console.log(translatedMessage)
-    console.log(translatedMessage.translations)
+    // console.log(translatedMessage.translations)
     res.status(200).json(translatedMessage);
   } catch (error) {
     console.log(`Unable to translate message: ${error}`)
@@ -59,7 +59,7 @@ const getLanguages = expressAsyncHandler(async (req, res) => {
   try {
     const response = await axios.request(options)
     const languages = response.data
-    console.log(languages)
+    // console.log(languages)
     res.status(201).json(languages)
   } catch (error) {
     console.log(`Unable to get languages: ${error}`)
