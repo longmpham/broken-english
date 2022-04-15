@@ -1,12 +1,13 @@
 import React from 'react'
 import io from "socket.io-client"
+import Conversation from './Conversation'
 
 // global socket so that react doesnt refresh it (for now? => useEffect?)
 const url = "http://localhost:9000"
 const socket = io.connect(url)
 
 const Chat = () => {
-
+  
   // socket connection
 
   const [form, setForm] = React.useState({
@@ -17,7 +18,7 @@ const Chat = () => {
   const joinRoom = () => {
     if(form.username === "" && form.room === "") console.log("fields are empty. not able to join")
 
-
+    socket.emit("join_room", form.room)
   }
 
   const handleChange = ((event) => {
@@ -33,6 +34,9 @@ const Chat = () => {
     event.preventDefault()
     console.log(form)
     console.log("joining chat room")
+
+    // join the room
+    joinRoom()
   })
 
   return (
@@ -43,6 +47,7 @@ const Chat = () => {
         <input type="text" name="room" value={form.room} placeholder="room id..." onChange={handleChange}></input>
         <button type="submit">Start Chatting</button>
       </form>
+      <Conversation socket={socket} form={form} />
     </div>
   )
 }

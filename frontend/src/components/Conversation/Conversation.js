@@ -1,48 +1,93 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React from "react";
+import "./Conversation.css"
 
-const Conversation = () => {
+const Conversation = ({ socket, form: { username, room } }) => {
 
+  const [message, setMessage] = React.useState("")
+  const [messages, setMessages] = React.useState([])
 
+  const sendMessage = async () => {
+    if(message === "") console.log("fields are empty. not able to join")
 
-  
-  const mockData = [
-    {
-      id: 1,
-      name: "Bob",
-      message: "Bob's message",
-      date: new Date('April 13, 2022 22:30:00')
-    },
-    {
-      id: 2,
-      name: "John",
-      message: "John's message",
-      date: new Date('April 1, 2022 03:24:00')
-    },
-    {
-      id: 3,
-      name: "Jane",
-      message: "Jane's message",
-      date: new Date('January 13, 2022 22:30:00')
-    },
-    {
-      id: 4,
-      name: "Sally",
-      message: "Sally's message",
-      date: new Date('November 17, 2001 03:24:00')
-    },
-  ]
+    const currentDate = new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+    const messageData = {
+      room: room,
+      author: username,
+      message: message,
+      time: currentDate
+    }
 
-  const { id } = useParams()
-  console.log(id)
-  const foundUser = mockData.find(user => user.id.toString() === id)
-  console.log(foundUser)
+    console.log(messageData)
+    await socket.emit("send_chat", messageData)
+    setMessages(prevMessages => [
+      ...prevMessages,
+      messageData,
+    ])
+  }
+
+  const handleChange = (event) => {
+    setMessage(prevMessage => event.target.value)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    sendMessage()
+  }
+
+  const getMessages = async (data) => {
+    socket.on("broadcast_data", (data) => {
+      setMessages(prevMessages => [
+        ...prevMessages,
+        data,
+      ])
+    })
+  }
+
+  React.useEffect( () => {
+    getMessages()
+  },[socket])
 
   return (
     <div>
-      <p>{foundUser.message}</p>
+      <div className="conversation-header">
+        <h1>Private Conversation</h1>
+      </div>
+      <div className="conversation-body">
+        <ul>
+          {messages.map((msg,index) => {
+            return(
+              <li key={index}>
+                <div className="message-content" id={username === msg.author ? "me" : "other"}>
+                  <p>{msg.message}</p>
+                </div>
+                <div className="message-meta">
+                  <p>{msg.author}</p>
+                  <p>{msg.time}</p>
+                </div> 
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      <div className="conversation-footer">
+        {/* input */}
+        <ul>
+          
+        </ul>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="message"
+            value={message}
+            placeholder="say hello!"
+            onChange={handleChange}
+            autoComplete="off"
+          ></input>
+          <button type="submit">SEND</button>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Conversation
+export default Conversation;

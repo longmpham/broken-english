@@ -69,7 +69,7 @@ const ConversationList = () => {
               <p>{data.name}</p>
               <p>{data.message}</p>
               <p>{formatTime(data.date)}</p>
-              <button onClick={() => { navigate(`/conversation/${data.id}`)}}>CHAT</button>
+              {/* <button onClick={() => { navigate(`/conversation/${data.id}`)}}>CHAT</button> */}
             </div>
             
           )

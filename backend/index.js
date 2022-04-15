@@ -44,8 +44,13 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (data) => {
     socket.join(data);
+    console.log(`User with socket ID: ${socket.id} joined room with ID: ${data}`)
   })
 
+  socket.on("send_chat", (data) => {
+    console.log(data)
+    socket.to(data.room).emit("broadcast_data", data)
+  })
 
   // listen for disconnection
   socket.on("disconnect", () => {
