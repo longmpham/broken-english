@@ -26,7 +26,7 @@ const App = () => {
           <Route path="*" element={<Home />} />
         </Routes>
       </Router>
-      <Translate />
+      {/* <Translate /> */}
       <Chat />
     </div>
   );

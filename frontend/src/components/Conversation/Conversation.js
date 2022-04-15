@@ -1,5 +1,6 @@
 import React from "react";
 import "./Conversation.css"
+import Translate from "./Translate";
 
 const Conversation = ({ socket, form: { username, room } }) => {
 
@@ -47,10 +48,16 @@ const Conversation = ({ socket, form: { username, room } }) => {
     getMessages()
   },[socket])
 
+
+  const handleTranslate = (translatedMessage) => {
+    console.log(`translated message from child: ${translatedMessage}`)
+    setMessage(translatedMessage)
+  }
+
   return (
     <div>
       <div className="conversation-header">
-        <h1>Private Conversation</h1>
+        <h1>Live Conversation in Room: {room}</h1>
       </div>
       <div className="conversation-body">
         <ul>
@@ -71,9 +78,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
       </div>
       <div className="conversation-footer">
         {/* input */}
-        <ul>
-          
-        </ul>
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -85,6 +90,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
           ></input>
           <button type="submit">SEND</button>
         </form>
+        <Translate handleTranslate={handleTranslate}/>
       </div>
     </div>
   );

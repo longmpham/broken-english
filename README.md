@@ -12,3 +12,4 @@ The receiver will have a "tolerance" bar to set the level of translated messages
 My first message translated using RapidAPI - Google Translate. Unforunately this is limited to 500 calls / month... so this may get annoying...
 
 ![my first translated message!](./devImages/firstTranslatedMessage.png)
+![Sockets and Translations!](./devImages/socketandtranslate.png)

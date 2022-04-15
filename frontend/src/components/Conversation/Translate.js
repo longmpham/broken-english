@@ -1,6 +1,6 @@
 import React from "react";
 
-const Translate = () => {
+const Translate = (props) => {
 
 
   const [translatedMessage, setTranslatedMessage] = React.useState("")
@@ -20,8 +20,8 @@ const Translate = () => {
       const url = "http://localhost:9000/api/translate"
       const res = await fetch(url)
       const data = await res.json();
-      console.log(data.data.languages)
-      console.log(data.data.languages[26]) // returns "af"
+      // console.log(data.data.languages)
+      console.log(data.data.languages[26]) // returns "fr"
       setLanguages(data.data.languages)
       setFormData((prevFormData) => {
         return {
@@ -56,8 +56,13 @@ const Translate = () => {
     const data = await res.json()
     let translatedMessageFromGoogle = data.data.translations[0].translatedText
     setTranslatedMessage(translatedMessageFromGoogle)
+    props.handleTranslate(translatedMessageFromGoogle)
     console.log(translatedMessageFromGoogle)
   }
+
+  // const mytesthandle = () => {
+  //   props.handleTranslate("this is a test")
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -68,7 +73,8 @@ const Translate = () => {
     // console.log(formData)
     console.log("success! Form submitted")
 
-    // call fetch here?
+    // call fetch here
+    // mytesthandle()
     getTranslation()
   }
 
