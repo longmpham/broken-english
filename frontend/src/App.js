@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom"
 
-import Conversation from "./components/Conversation/Conversation";
+import Translate from "./components/Conversation/Translate";
 import ConversationList from "./components/Conversation/ConversationList";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import Navbar from "./components/Navbar/Navbar";
+import Conversation from "./components/Conversation/Conversation";
 
 const App = () => {
 
@@ -18,12 +19,13 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/conversation" element={<Conversation />} />
+          <Route path="/translate" element={<Translate />} />
+          <Route path="/conversations" element={<ConversationList />} />
+          <Route path="/conversation/:id" element={<Conversation />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Router>
-      <ConversationList />
-      <Conversation />
+      <Translate />
     </div>
   );
 };

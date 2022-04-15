@@ -1,117 +1,48 @@
-import React from "react";
+import React from 'react'
+import { useParams } from 'react-router-dom'
 
 const Conversation = () => {
 
 
-  const [translatedMessage, setTranslatedMessage] = React.useState("")
-  const [languages, setLanguages] = React.useState()
-  const [formData, setFormData] = React.useState(
+
+  
+  const mockData = [
     {
-      message: "",
+      id: 1,
+      name: "Bob",
+      message: "Bob's message",
+      date: new Date('April 13, 2022 22:30:00')
     },
     {
-      language: "fr" // french default
-    }
-  );
+      id: 2,
+      name: "John",
+      message: "John's message",
+      date: new Date('April 1, 2022 03:24:00')
+    },
+    {
+      id: 3,
+      name: "Jane",
+      message: "Jane's message",
+      date: new Date('January 13, 2022 22:30:00')
+    },
+    {
+      id: 4,
+      name: "Sally",
+      message: "Sally's message",
+      date: new Date('November 17, 2001 03:24:00')
+    },
+  ]
 
-  // call the languages google can translate 
-  React.useEffect( () => {
-    const getLanguages = async () => {
-      const url = "http://localhost:9000/api/translate"
-      const res = await fetch(url)
-      const data = await res.json();
-      console.log(data.data.languages)
-      console.log(data.data.languages[26]) // returns "af"
-      setLanguages(data.data.languages)
-      setFormData((prevFormData) => {
-        return {
-          ...prevFormData,
-          language: data.data.languages[0].language,
-        }
-      })
-    }
-    getLanguages();
+  const { id } = useParams()
+  console.log(id)
+  const foundUser = mockData.find(user => user.id.toString() === id)
+  console.log(foundUser)
 
-  },[])
-
-  const getTranslation = async () => {
-    const url = "http://localhost:9000/api/translate"
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        {
-          q: formData.message,
-          target: formData.language,
-          source: "en" // set english text as default
-        }
-      ),
-    }
-
-    console.log(formData)
-
-    const res = await fetch(url, requestOptions)
-    const data = await res.json()
-    let translatedMessageFromGoogle = data.data.translations[0].translatedText
-    setTranslatedMessage(translatedMessageFromGoogle)
-    console.log(translatedMessageFromGoogle)
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if(formData.message === "") {
-      alert("message is empty")
-      return
-    }
-    // console.log(formData)
-    console.log("success! Form submitted")
-
-    // call fetch here?
-    getTranslation()
-  }
-
-  const handleChange = (event) => {
-    setFormData((prevFormData) => {
-      return {
-        ...prevFormData,
-        [event.target.name]: event.target.value,
-      }
-    })
-  }
-  
   return (
     <div>
-      <h1>Type in your message here</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={formData.message}
-          name="message"
-          onChange={handleChange}
-          type="text"
-          placeholder="type your message here"
-        />
-        <select
-          name="language"
-          value={formData.language}
-          onChange={handleChange}
-        >
-          {languages &&
-            languages.map((language) => {
-              return (
-                <option key={language.language} value={language.language}>
-                  {language.name}, {language.language.toUpperCase()}
-                </option>
-              );
-            })}
-          {/* <option name="language" value={formData.value}>English</option> */}
-        </select>
-        <button type="submit">Send</button>
-      </form>
-      <h2>{translatedMessage}</h2>
+      <p>{foundUser.message}</p>
     </div>
-  );
-};
+  )
+}
 
-export default Conversation;
+export default Conversation
