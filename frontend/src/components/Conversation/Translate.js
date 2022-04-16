@@ -89,14 +89,14 @@ const Translate = (props) => {
   
   return (
     <div>
-      <h1>Type in your message here</h1>
+      <h1>Translate Your Message!</h1>
       <form onSubmit={handleSubmit}>
         <input
           value={formData.message}
           name="message"
           onChange={handleChange}
           type="text"
-          placeholder="type your message here"
+          placeholder="your message here..."
         />
         <select
           name="language"
