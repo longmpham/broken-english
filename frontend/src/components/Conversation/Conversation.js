@@ -1,58 +1,51 @@
 import React from "react";
-import "./Conversation.css"
+import "./Conversation.css";
 import Translate from "./Translate";
 
 const Conversation = ({ socket, form: { username, room } }) => {
-
-  const [message, setMessage] = React.useState("")
-  const [messages, setMessages] = React.useState([])
+  const [message, setMessage] = React.useState("");
+  const [messages, setMessages] = React.useState([]);
 
   const sendMessage = async () => {
-    if(message === "") console.log("fields are empty. not able to join")
+    if (message === "") console.log("fields are empty. not able to join");
 
-    const currentDate = new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+    const currentDate =
+      new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
     const messageData = {
       room: room,
       author: username,
       message: message,
-      time: currentDate
-    }
+      time: currentDate,
+    };
 
-    console.log(messageData)
-    await socket.emit("send_chat", messageData)
-    setMessages(prevMessages => [
-      ...prevMessages,
-      messageData,
-    ])
-  }
+    console.log(messageData);
+    await socket.emit("send_chat", messageData);
+    setMessages((prevMessages) => [...prevMessages, messageData]);
+  };
 
   const handleChange = (event) => {
-    setMessage(prevMessage => event.target.value)
-  }
+    setMessage((prevMessage) => event.target.value);
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    sendMessage()
-  }
+    event.preventDefault();
+    sendMessage();
+  };
 
   const getMessages = async (data) => {
     socket.on("broadcast_data", (data) => {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        data,
-      ])
-    })
-  }
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+  };
 
-  React.useEffect( () => {
-    getMessages()
-  },[socket])
-
+  React.useEffect(() => {
+    getMessages();
+  }, [socket]);
 
   const handleTranslate = (translatedMessage) => {
-    console.log(`translated message from child: ${translatedMessage}`)
-    setMessage(translatedMessage)
-  }
+    console.log(`translated message from child: ${translatedMessage}`);
+    setMessage(translatedMessage);
+  };
 
   return (
     <div>
@@ -61,18 +54,21 @@ const Conversation = ({ socket, form: { username, room } }) => {
       </div>
       <div className="conversation-body">
         <ul>
-          {messages.map((msg,index) => {
-            return(
+          {messages.map((msg, index) => {
+            return (
               <li key={index}>
-                <div className="message-content" id={username === msg.author ? "me" : "other"}>
+                <div
+                  className="message-content"
+                  id={username === msg.author ? "me" : "other"}
+                >
                   <p>{msg.message}</p>
                 </div>
                 <div className="message-meta">
                   <p>{msg.author}</p>
                   <p>{msg.time}</p>
-                </div> 
+                </div>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
@@ -90,7 +86,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
           ></input>
           <button type="submit">SEND</button>
         </form>
-        <Translate handleTranslate={handleTranslate}/>
+        <Translate handleTranslate={handleTranslate} />
       </div>
     </div>
   );

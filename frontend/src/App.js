@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Switch,
+} from "react-router-dom";
 
 import Translate from "./components/Conversation/Translate";
 import ConversationList from "./components/Conversation/ConversationList";
@@ -11,7 +16,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Chat from "./components/Conversation/Chat";
 
 const App = () => {
-
   return (
     <div>
       <Router>

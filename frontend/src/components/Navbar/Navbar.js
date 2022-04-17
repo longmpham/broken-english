@@ -1,17 +1,63 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 
+import { MdChat, MdMenu, MdCancel } from "react-icons/md"
+import "./Navbar.css"
+
 const Navbar = () => {
+
+  const pages = [
+    {
+      "title": "Login",
+      "link": "/login",
+    },
+    {
+      "title": "Register",
+      "link": "/register",
+    },
+    {
+      "title": "Conversations",
+      "link": "/conversations",
+    },
+  ]
+
+  const [menu,setMenu] = React.useState(false)
+
+
+
+  const handleMenu = () => {
+    setMenu(prevMenu => !prevMenu)
+  }
+
   return (
     <div className="navbar-container">
-      <button><Link to="/">HOME/Logo</Link></button>
-      <h1>Broken English</h1>
-      <ul>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/register">Register</Link></li>
-        <li><Link to="/conversations">Conversations</Link></li>
-        <li>Hamburger Icon</li>
-      </ul>
+      <div className="navbar-left">
+        <Link to="/"> <img className="navbar-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmepiraddtMrJWnY_Sz7rKFYqHyCqx4fnqqA&usqp=CAU" /></Link>
+      </div>
+      <div className="navbar-middle">
+        <Link to="/"><h1 className="navbar-title">Broken English</h1></Link>
+      </div>
+      <div className="navbar-right">
+        <ul className="navbar-links">
+          {pages.map(page => {
+            return (
+              <li><Link to={page.link}>{page.title}</Link></li>
+            )
+          })}
+        </ul>
+        <button className="navbar-menu" onClick={handleMenu}>{menu ? <MdCancel /> : <MdMenu /> }</button>
+      </div>
+      {menu && 
+      <div className="navbar-sidebar">
+        <ul className="navbar-sidebar-links" onClick={handleMenu}>
+          {pages.map(page => {
+            return (
+              <li key={page.title}><Link to={page.link}>{page.title}</Link></li>
+            )
+          })}
+        </ul>
+      </div>
+      }
     </div>
   )
 }

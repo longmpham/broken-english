@@ -15,10 +15,12 @@ Due to the API being not really free to translate, the original idea will be stu
 # Development Pictures...
 
 ### Update 1:
+
 My first message translated using RapidAPI - Google Translate. Unforunately this is limited to 500 calls / month... so this may get annoying...
 
 ![my first translated message!](./devImages/firstTranslatedMessage.png)
 
 ### Update 2:
+
 I attempted to use socketio and i finished what I wanted to do. I can translate and send any message desired with GoogleTranslate API. My next action is to figure out user logins properly and tie it in with socketio
 ![Sockets and Translations!](./devImages/socketandtranslate.png)
