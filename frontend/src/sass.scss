@@ -20,3 +20,27 @@ $colors: (
   "black": black,
   "white": white,
 );
+
+@mixin btn() {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+};
+
+@each $color, $val in $colors {
+  .btn-#{$color} {
+    @include btn();
+    background-color: $val;
+    &:hover {
+      background-color: darken($val, 10%);
+    };
+    &:active, &:focus {
+      background-color: lighten($val, 10%)
+    }
+  }
+}

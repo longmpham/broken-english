@@ -11,15 +11,15 @@
   display: inline-block;
 };
 
-@each $key, $val in $colors { 
-  .btn-#{$key} {
+@each $color, $val in $colors {
+  .btn-#{$color} {
     @include btn();
     background-color: $val;
     &:hover {
-      background-color: darken($val, 10%)
-    }
+      background-color: darken($val, 10%);
+    };
     &:active, &:focus {
-      background-color: darken($val, 20%)
+      background-color: lighten($val, 10%)
     }
   }
-};
+}
