@@ -1,65 +1,80 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { MdChat, MdMenu, MdCancel } from "react-icons/md"
-import "./Navbar.css"
+import { MdChat, MdMenu, MdCancel } from "react-icons/md";
+import "./Navbar.css";
 
 const Navbar = () => {
-
   const pages = [
     {
-      "title": "Login",
-      "link": "/login",
+      title: "Home",
+      link: "/",
     },
     {
-      "title": "Register",
-      "link": "/register",
+      title: "Login",
+      link: "/login",
     },
     {
-      "title": "Conversations",
-      "link": "/conversations",
+      title: "Register",
+      link: "/register",
     },
-  ]
+    {
+      title: "Conversations",
+      link: "/conversations",
+    },
+  ];
 
-  const [menu,setMenu] = React.useState(false)
-
-
+  const [menu, setMenu] = React.useState(false);
 
   const handleMenu = () => {
-    setMenu(prevMenu => !prevMenu)
-  }
+    setMenu((prevMenu) => !prevMenu);
+  };
 
   return (
     <div className="navbar-container">
       <div className="navbar-left">
-        <Link to="/"> <img className="navbar-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmepiraddtMrJWnY_Sz7rKFYqHyCqx4fnqqA&usqp=CAU" /></Link>
+        <Link to="/">
+          {" "}
+          <img
+            className="navbar-logo"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmepiraddtMrJWnY_Sz7rKFYqHyCqx4fnqqA&usqp=CAU"
+          />
+        </Link>
       </div>
       <div className="navbar-middle">
-        <Link to="/"><h1 className="navbar-title">Broken English</h1></Link>
+        <Link to="/">
+          <h1 className="navbar-title">Broken English</h1>
+        </Link>
       </div>
       <div className="navbar-right">
         <ul className="navbar-links">
-          {pages.map(page => {
+          {pages.map((page) => {
             return (
-              <li><Link to={page.link}>{page.title}</Link></li>
-            )
+              <li key={page.title} >
+                <Link to={page.link}>{page.title}</Link>
+              </li>
+            );
           })}
         </ul>
-        <button className="navbar-menu" onClick={handleMenu}>{menu ? <MdCancel /> : <MdMenu /> }</button>
+        <button className="navbar-menu" onClick={handleMenu}>
+          {menu ? <MdCancel /> : <MdMenu />}
+        </button>
       </div>
-      {menu && 
-      <div className="navbar-sidebar">
-        <ul className="navbar-sidebar-links" onClick={handleMenu}>
-          {pages.map(page => {
-            return (
-              <li key={page.title}><Link to={page.link}>{page.title}</Link></li>
-            )
-          })}
-        </ul>
-      </div>
-      }
+      {menu && (
+        <div className="navbar-sidebar">
+          <ul className="navbar-sidebar-links" onClick={handleMenu}>
+            {pages.map((page) => {
+              return (
+                <li key={page.title}>
+                  <Link to={page.link}>{page.title}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

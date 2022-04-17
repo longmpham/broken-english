@@ -1,4 +1,4 @@
-@import "../../Styles/styles.scss";
+@import "../../Styles/variables.scss";
 
 .navbar-container {
   width: 100%;
@@ -55,7 +55,6 @@
 .navbar-title {
   margin: 0;
   color: $neutralColor;
-
 }
 
 .navbar-links {
@@ -106,9 +105,9 @@
 }
 
 @media (max-width: 456px){
-  .navbar-middle {
-    // display: none;
-  }
+  // .navbar-middle {
+  //   // display: none;
+  // }
   .navbar-links {
     display: none;
   }

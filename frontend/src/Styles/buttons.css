@@ -1,0 +1,260 @@
+.btn-primary {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: #00735c;
+}
+
+.btn-primary:hover {
+  background-color: #004033;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  background-color: #000d0a;
+}
+
+.btn-secondary {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: #e5a298;
+}
+
+.btn-secondary:hover {
+  background-color: #db7d6f;
+}
+
+.btn-secondary:active, .btn-secondary:focus {
+  background-color: #d05847;
+}
+
+.btn-tertiary {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: #c1d9b7;
+}
+
+.btn-tertiary:hover {
+  background-color: #a4c796;
+}
+
+.btn-tertiary:active, .btn-tertiary:focus {
+  background-color: #88b674;
+}
+
+.btn-error {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: red;
+}
+
+.btn-error:hover {
+  background-color: #cc0000;
+}
+
+.btn-error:active, .btn-error:focus {
+  background-color: #990000;
+}
+
+.btn-info {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: yellow;
+}
+
+.btn-info:hover {
+  background-color: #cccc00;
+}
+
+.btn-info:active, .btn-info:focus {
+  background-color: #999900;
+}
+
+.btn-blue {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: blue;
+}
+
+.btn-blue:hover {
+  background-color: #0000cc;
+}
+
+.btn-blue:active, .btn-blue:focus {
+  background-color: #000099;
+}
+
+.btn-red {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: red;
+}
+
+.btn-red:hover {
+  background-color: #cc0000;
+}
+
+.btn-red:active, .btn-red:focus {
+  background-color: #990000;
+}
+
+.btn-yellow {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: yellow;
+}
+
+.btn-yellow:hover {
+  background-color: #cccc00;
+}
+
+.btn-yellow:active, .btn-yellow:focus {
+  background-color: #999900;
+}
+
+.btn-green {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: green;
+}
+
+.btn-green:hover {
+  background-color: #004d00;
+}
+
+.btn-green:active, .btn-green:focus {
+  background-color: #001a00;
+}
+
+.btn-purple {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: purple;
+}
+
+.btn-purple:hover {
+  background-color: #4d004d;
+}
+
+.btn-purple:active, .btn-purple:focus {
+  background-color: #1a001a;
+}
+
+.btn-grey {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: grey;
+}
+
+.btn-grey:hover {
+  background-color: #676767;
+}
+
+.btn-grey:active, .btn-grey:focus {
+  background-color: #4d4d4d;
+}
+
+.btn-black {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: black;
+}
+
+.btn-black:hover {
+  background-color: black;
+}
+
+.btn-black:active, .btn-black:focus {
+  background-color: black;
+}
+
+.btn-white {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 2em;
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  background-color: white;
+}
+
+.btn-white:hover {
+  background-color: #e6e6e6;
+}
+
+.btn-white:active, .btn-white:focus {
+  background-color: #cccccc;
+}
+/*# sourceMappingURL=buttons.css.map */
