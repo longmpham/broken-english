@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { MdChat, MdMenu, MdCancel } from "react-icons/md";
-import "./Navbar.css";
+import "./Navbar.scss";
 
 const Navbar = () => {
   const pages = [

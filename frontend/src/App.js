@@ -15,8 +15,8 @@ import Navbar from "./components/Navbar/Navbar";
 // import Conversation from "./components/Conversation/Conversation";
 import Chat from "./components/Conversation/Chat";
 
-// import "./Styles/variables.scss"
-import "./sass.scss";
+import "./Styles/variables.scss"
+// import "./sass.scss";
 
 const App = () => {
   return (

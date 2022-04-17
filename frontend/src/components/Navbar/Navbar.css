@@ -15,7 +15,7 @@
 }
 
 .btn-primary:active, .btn-primary:focus {
-  background-color: #000d0a;
+  background-color: #00a685;
 }
 
 .btn-secondary {
@@ -35,7 +35,7 @@
 }
 
 .btn-secondary:active, .btn-secondary:focus {
-  background-color: #d05847;
+  background-color: #efc7c1;
 }
 
 .btn-tertiary {
@@ -55,7 +55,7 @@
 }
 
 .btn-tertiary:active, .btn-tertiary:focus {
-  background-color: #88b674;
+  background-color: #deebd8;
 }
 
 .btn-error {
@@ -75,7 +75,7 @@
 }
 
 .btn-error:active, .btn-error:focus {
-  background-color: #990000;
+  background-color: #ff3333;
 }
 
 .btn-info {
@@ -95,7 +95,7 @@
 }
 
 .btn-info:active, .btn-info:focus {
-  background-color: #999900;
+  background-color: #ffff33;
 }
 
 .btn-blue {
@@ -115,7 +115,7 @@
 }
 
 .btn-blue:active, .btn-blue:focus {
-  background-color: #000099;
+  background-color: #3333ff;
 }
 
 .btn-red {
@@ -135,7 +135,7 @@
 }
 
 .btn-red:active, .btn-red:focus {
-  background-color: #990000;
+  background-color: #ff3333;
 }
 
 .btn-yellow {
@@ -155,7 +155,7 @@
 }
 
 .btn-yellow:active, .btn-yellow:focus {
-  background-color: #999900;
+  background-color: #ffff33;
 }
 
 .btn-green {
@@ -175,7 +175,7 @@
 }
 
 .btn-green:active, .btn-green:focus {
-  background-color: #001a00;
+  background-color: #00b300;
 }
 
 .btn-purple {
@@ -195,7 +195,7 @@
 }
 
 .btn-purple:active, .btn-purple:focus {
-  background-color: #1a001a;
+  background-color: #b300b3;
 }
 
 .btn-grey {
@@ -215,7 +215,7 @@
 }
 
 .btn-grey:active, .btn-grey:focus {
-  background-color: #4d4d4d;
+  background-color: #9a9a9a;
 }
 
 .btn-black {
@@ -235,7 +235,7 @@
 }
 
 .btn-black:active, .btn-black:focus {
-  background-color: black;
+  background-color: #1a1a1a;
 }
 
 .btn-white {
@@ -255,7 +255,7 @@
 }
 
 .btn-white:active, .btn-white:focus {
-  background-color: #cccccc;
+  background-color: white;
 }
 
 .navbar-container {
