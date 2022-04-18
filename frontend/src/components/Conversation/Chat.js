@@ -6,13 +6,9 @@ import Conversation from "./Conversation";
 
 import "./Chat.scss";
 
-// global socket so that react doesnt refresh it (for now? => useEffect?)
-const url = "http://localhost:9000";
-const socket = io.connect(url);
-
 const Chat = () => {
   // socket connection
-
+  let socket;
   const [form, setForm] = React.useState({
     username: "",
     room: "",
@@ -30,13 +26,15 @@ const Chat = () => {
   };
 
   const joinRoom = () => {
-    const options = {
-      state: {
-        socket,
-        form,
-      },
-    };
-    console.log(options);
+    // const options = {
+    //   state: {
+    //     socket,
+    //     form,
+    //   },
+    // };
+    // console.log(options);
+    const url = "http://localhost:9000";
+    socket = io.connect(url);
     socket.emit("join_room", form.room);
     // https://stackoverflow.com/questions/71755580/cant-send-socket-with-usenavigate-hook
     // navigate("/conversation",{state:{id:1,socket:socket,form:form}});
@@ -106,7 +104,7 @@ const Chat = () => {
           </button>
         </form>
       </div>
-      <Conversation socket={socket} form={form} />
+      {socket && <Conversation socket={socket} form={form} />}
     </div>
   );
 };
