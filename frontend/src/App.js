@@ -12,8 +12,8 @@ import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import Navbar from "./components/Navbar/Navbar";
-// import Conversation from "./components/Conversation/Conversation";
 import Chat from "./components/Conversation/Chat";
+import Conversation from "./components/Conversation/Conversation";
 
 import "./Styles/variables.scss"
 // import "./sass.scss";
@@ -30,6 +30,7 @@ const App = () => {
           <Route path="/translate" element={<Translate />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/conversations" element={<ConversationList />} />
+          <Route path="/conversation" element={<Conversation />} />
           {/* <Route path="/conversation/:id" element={<Conversation />} /> */}
           <Route path="*" element={<Home />} />
         </Routes>

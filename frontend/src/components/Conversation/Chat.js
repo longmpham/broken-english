@@ -1,8 +1,10 @@
 import React from "react";
 import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
+
 import Conversation from "./Conversation";
 
-import "./Chat.scss"
+import "./Chat.scss";
 
 // global socket so that react doesnt refresh it (for now? => useEffect?)
 const url = "http://localhost:9000";
@@ -16,10 +18,7 @@ const Chat = () => {
     room: "",
   });
   const [errorMessage, setErrorMessage] = React.useState("");
-
-  const joinRoom = () => {
-    socket.emit("join_room", form.room);
-  };
+  let navigate = useNavigate();
 
   const handleChange = (event) => {
     setForm((prevForm) => {
@@ -30,27 +29,44 @@ const Chat = () => {
     });
   };
 
+  const joinRoom = () => {
+    const options = {
+      state: {
+        socket,
+        form,
+      },
+    };
+    console.log(options);
+    socket.emit("join_room", form.room);
+    // https://stackoverflow.com/questions/71755580/cant-send-socket-with-usenavigate-hook
+    // navigate("/conversation",{state:{id:1,socket:socket,form:form}});
+    // navigate('/conversation',{state:{id:1,name:'sabaoon'}});
+  };
+
   const validateRoom = () => {
-    if (form.username === ""){
+    if (form.username === "") {
       console.log("Username is empty. Not able to join");
-      setErrorMessage(prevErrorMessage => "Username is empty. Not able to join")
+      setErrorMessage(
+        (prevErrorMessage) => "Username is empty. Not able to join"
+      );
       setTimeout(() => {
         // clear the message after 3s
-        setErrorMessage(prevErrorMessage => "")
-      }, 3000)
-      return false
+        setErrorMessage((prevErrorMessage) => "");
+      }, 3000);
+      return false;
     }
-    
-    if (form.room === ""){
+
+    if (form.room === "") {
       console.log("Room is empty. Not able to join");
-      setErrorMessage(prevErrorMessage => "Room is empty. Not able to join")
+      setErrorMessage((prevErrorMessage) => "Room is empty. Not able to join");
       setTimeout(() => {
         // clear the message after 3s
-        setErrorMessage(prevErrorMessage => "")
-      }, 3000)
-      return false
+        setErrorMessage((prevErrorMessage) => "");
+      }, 3000);
+      return false;
     }
-  }
+    return true;
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,7 +75,7 @@ const Chat = () => {
     if (validated) {
       console.log(form);
       console.log("joining chat room");
-  
+
       // join the room
       joinRoom();
     }
@@ -77,15 +93,17 @@ const Chat = () => {
             value={form.username}
             placeholder="username..."
             onChange={handleChange}
-            ></input>
+          ></input>
           <input
             type="text"
             name="room"
             value={form.room}
             placeholder="room id..."
             onChange={handleChange}
-            ></input>
-          <button type="submit" className="btn-send">Join</button>
+          ></input>
+          <button type="submit" className="btn-send">
+            Join
+          </button>
         </form>
       </div>
       <Conversation socket={socket} form={form} />

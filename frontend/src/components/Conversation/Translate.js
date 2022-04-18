@@ -1,4 +1,5 @@
 import React from "react";
+import { MdSend } from "react-icons/md"
 
 const Translate = (props) => {
 
@@ -89,7 +90,6 @@ const Translate = (props) => {
   
   return (
     <div>
-      <h1>Translate Your Message!</h1>
       <form onSubmit={handleSubmit}>
         <input
           value={formData.message}
@@ -97,12 +97,12 @@ const Translate = (props) => {
           onChange={handleChange}
           type="text"
           placeholder="your message here..."
-        />
+          />
         <select
           name="language"
           value={formData.language}
           onChange={handleChange}
-        >
+          >
           {languages &&
             languages.map((language) => {
               return (
@@ -113,8 +113,9 @@ const Translate = (props) => {
             })}
           {/* <option name="language" value={formData.value}>English</option> */}
         </select>
-        <button type="submit">Send</button>
+        <button type="submit"><MdSend /></button>
       </form>
+      <p>Your translated message below...</p>
       <h2>{translatedMessage}</h2>
     </div>
   );

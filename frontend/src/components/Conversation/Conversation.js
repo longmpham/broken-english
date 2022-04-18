@@ -1,7 +1,10 @@
 import React from "react";
-import "./Conversation.css";
+import { MdSend } from "react-icons/md"
+
+import "./Conversation.scss";
 import Translate from "./Translate";
 
+// const Conversation = ({ socket, form: { username, room } }) => {
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
@@ -48,19 +51,16 @@ const Conversation = ({ socket, form: { username, room } }) => {
   };
 
   return (
-    <div>
+    <div className="conversation-container">
       <div className="conversation-header">
         <h1>Live Conversation in Room: {room}</h1>
       </div>
       <div className="conversation-body">
-        <ul>
+        <ul className="conversation-messages">
           {messages.map((msg, index) => {
             return (
-              <li key={index}>
-                <div
-                  className="message-content"
-                  id={username === msg.author ? "me" : "other"}
-                >
+              <li key={index} id={username === msg.author ? "me" : "other"}>
+                <div className="message-content">
                   <p>{msg.message}</p>
                 </div>
                 <div className="message-meta">
@@ -75,16 +75,17 @@ const Conversation = ({ socket, form: { username, room } }) => {
       <div className="conversation-footer">
         {/* input */}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="conversation-send-form">
           <input
+            className="conversation-send"
             type="text"
             name="message"
             value={message}
-            placeholder="say hello!"
+            placeholder={`Say Hello, ${username}`}
             onChange={handleChange}
             autoComplete="off"
           ></input>
-          <button type="submit">SEND</button>
+          <button type="submit"><MdSend /></button>
         </form>
         <Translate handleTranslate={handleTranslate} />
       </div>

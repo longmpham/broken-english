@@ -1,0 +1,100 @@
+@import "../../Styles/variables.scss";
+
+.conversation-container {
+  display: flex;
+  flex-direction: column;
+  // margin: 5% 10%;
+  background-color: $neutralColor;
+  // width: 100%;
+  // height: 600px;
+  // padding: 5% 10%;
+
+  justify-content: space-between;
+  // align-items: center;
+}
+
+.conversation-header {
+  background-color: $primaryColor;
+}
+
+.conversation-body {
+  background-color: white;
+  max-height: 400px;
+  overflow-y: scroll
+}
+
+.conversation-messages {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+@mixin messageBubble() {
+  border: 1px solid black;
+  border-radius: 9px;
+}
+
+.message-content {
+  padding: 10px;
+}
+.message-content p {
+  margin: 0;
+}
+
+.message-meta p {
+  margin-top: 0;
+}
+
+#me {
+  align-self: flex-end;
+  max-width: 300px;
+}
+
+#other {
+  align-self: flex-start;
+  max-width: 300px;
+}
+
+#me .message-content{
+  background-color: $tertiaryColor;
+  text-align: right;
+  border: 1px solid black;
+  border-radius: 9px;
+  
+}
+
+#other .message-content{
+  background-color: $secondaryColor;
+  text-align: left;
+  border: 1px solid black;
+  border-radius: 9px;
+}
+
+#me .message-meta {
+  display: flex;
+  gap: 5px;
+  text-align: right;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+#other .message-meta {
+  display: flex;
+  gap: 5px;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.conversation-footer {
+  background-color: antiquewhite;
+}
+
+.conversation-send-form {
+  display: flex;
+}
+
+.conversation-send {
+  flex: 1;
+}
