@@ -8,10 +8,13 @@ const Home = () => {
     <div className="home-container">
       <div className="home-landing-container">
         <h1>Welcome to Broken-English</h1>
-        <p>Here, you can send a message and translate it to your partner!</p>
+        <p>Ever wanted to send a send a Google Translated message to someone? This is the app to do just that.</p>
         {/* <button className="btn"><Link to="/login">Login</Link></button> */}
-        <Link to="/login"><button className="btn btn-primary">Login</button></Link>
-        <Link to="/register"><button className="btn">Register</button></Link>
+        <div className="home-landing-button-container">
+          <Link to="/login"><button className="btn-primary">Login</button></Link>
+          <Link to="/register"><button className="btn-primary">Register</button></Link>
+          <Link to="/translate"><button className="btn-primary">Translate</button></Link>
+        </div>
       </div>
     </div>
   );

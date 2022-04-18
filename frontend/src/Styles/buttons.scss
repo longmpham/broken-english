@@ -5,7 +5,7 @@
   text-decoration: none;
   padding: 5px 10px;
   border-radius: 3px;
-  font-size: 2em;
+  font-size: 1.5em;
   cursor: pointer;
   border: 0;
   display: inline-block;
@@ -16,10 +16,23 @@
     @include btn();
     background-color: $val;
     &:hover {
-      background-color: darken($val, 10%);
+      background-color: darken($val, 5%);
     };
     &:active, &:focus {
-      background-color: lighten($val, 10%)
+      background-color: lighten($val, 5%)
     }
+  }
+}
+
+.btn-nav {
+  @include btn();
+  background-color: $primaryColor;
+  font-size: 1.5em;
+  padding: 22px;
+  &:hover {
+    background-color: darken($primaryColor, 5%);
+  };
+  &:active, &:focus {
+    background-color: lighten($primaryColor, 5%)
   }
 }

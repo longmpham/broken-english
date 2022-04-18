@@ -19,7 +19,8 @@ const Navbar = () => {
       link: "/register",
     },
     {
-      title: "Conversations",
+      // title: "Conversations",
+      title: "Conv",
       link: "/conversations",
     },
   ];
@@ -43,7 +44,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-middle">
         <Link to="/">
-          <h1 className="navbar-title">Broken English</h1>
+          <h1 className="btn-nav navbar-title">Broken English</h1>
         </Link>
       </div>
       <div className="navbar-right">
@@ -51,7 +52,7 @@ const Navbar = () => {
           {pages.map((page) => {
             return (
               <li key={page.title} >
-                <Link to={page.link}>{page.title}</Link>
+                <Link className="btn-nav" to={page.link}>{page.title}</Link>
               </li>
             );
           })}

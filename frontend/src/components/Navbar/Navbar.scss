@@ -17,7 +17,7 @@
 }
 
 .navbar-container a:hover {
-  background-color: $tertiaryColor;
+  background-color: darken($primaryColor, 5%);
   transition: 0.2s ease;
 }
 
@@ -49,7 +49,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 18px;
+  // padding: 18px;
 }
 
 .navbar-title {
@@ -70,7 +70,7 @@
 .navbar-links li a {
   flex: 1;
   text-decoration: none;
-  padding: 29px;
+  // padding: 29px;
   cursor: pointer;
   color: $neutralColor
 }
@@ -87,7 +87,7 @@
 }
 
 .navbar-menu:hover {
-  background-color: $tertiaryColor;
+  background-color: darken($primaryColor, 5%);
   transition: 0.2s ease;
 }
 
@@ -137,6 +137,7 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
   }
+  
   .navbar-sidebar-links {
     flex: 1;
     font-size: 28px;
@@ -148,7 +149,6 @@
     flex-direction: column;
     padding: 0;
     margin: 0;
-    
   }
 
   .navbar-sidebar-links li {
