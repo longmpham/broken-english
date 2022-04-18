@@ -28,13 +28,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/translate" element={<Translate />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/conversations" element={<ConversationList />} />
           {/* <Route path="/conversation/:id" element={<Conversation />} /> */}
           <Route path="*" element={<Home />} />
         </Routes>
       </Router>
-      {/* <Translate /> */}
-      <Chat />
     </div>
   );
 };

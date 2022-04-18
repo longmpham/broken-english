@@ -2,8 +2,9 @@ $primaryColor: #00735c;
 $secondaryColor: #e5a298;
 $tertiaryColor: #c1d9b7;
 $neutralColor: rgb(240, 240, 240);
-$errorColor: rgb(255, 0, 0);
-$infoColor: rgb(255, 255, 0);
+$successColor: rgb(175, 255, 175);
+$errorColor: rgb(255, 175, 175);
+$infoColor: rgb(255, 255, 175);
 
 $colors: (
   "primary": $primaryColor,
