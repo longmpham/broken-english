@@ -79,43 +79,45 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
   return (
     <div className="conversation-container">
-      <div className="conversation-header">
-        <h1>Live in Room: {room}</h1>
-      </div>
-      <div id="conversation-body" className="conversation-body">
-        <ul className="conversation-messages">
-          {messages.map((msg, index) => {
-            return (
-              <li key={index} id={username === msg.author ? "me" : "other"}>
-                <div className="message-content">
-                  <p>{msg.message}</p>
-                </div>
-                <div className="message-meta">
-                  <p>{msg.author}</p>
-                  <p>{msg.time}</p>
-                </div>
-              </li>
-            );
-          })}
-          <div ref={messagesEndRef} />
-        </ul>
-      </div>
-      <div className="conversation-footer">
-        {/* input */}
-        <form onSubmit={handleSubmit} className="conversation-send-form">
-          <input
-            className="conversation-send"
-            type="text"
-            name="message"
-            value={message}
-            placeholder={`Say Hello, ${username}`}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
-            autoComplete="off"
-          ></input>
-          <button type="submit" className="btn btn-icon"><MdSend /></button>
-        </form>
-        <Translate handleTranslate={handleTranslate} />
+      <div className="conversation-window">
+        <div className="conversation-header">
+          <h1>Live in Room: {room}</h1>
+        </div>
+        <div id="conversation-body" className="conversation-body">
+          <ul className="conversation-messages">
+            {messages.map((msg, index) => {
+              return (
+                <li key={index} id={username === msg.author ? "me" : "other"}>
+                  <div className="message-content">
+                    <p>{msg.message}</p>
+                  </div>
+                  <div className="message-meta">
+                    <p>{msg.author}</p>
+                    <p>{msg.time}</p>
+                  </div>
+                </li>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </ul>
+        </div>
+        <div className="conversation-footer">
+          {/* input */}
+          <form onSubmit={handleSubmit} className="conversation-send-form">
+            <input
+              className="conversation-send"
+              type="text"
+              name="message"
+              value={message}
+              placeholder={`Say Hello, ${username}`}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+              autoComplete="off"
+              ></input>
+            <button type="submit" className="btn btn-icon"><MdSend /></button>
+          </form>
+          <Translate handleTranslate={handleTranslate} />
+        </div>
       </div>
     </div>
   );
