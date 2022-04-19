@@ -14,13 +14,17 @@
 
 .conversation-header {
   background-color: $primaryColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .conversation-body {
   background-color: white;
-  max-height: 400px;
-  overflow-y: scroll;
+  width: 100%;
   height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .conversation-messages {
@@ -39,6 +43,7 @@
 .message-content {
   padding: 10px;
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 .message-content p {
   margin: 0;
@@ -98,4 +103,43 @@
 
 .conversation-send {
   flex: 1;
+  width: 100%;
+}
+
+.translate-send-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-send {
+  flex: 1;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .conversation-header h1 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .conversation-header h1 {
+    font-size: 12px;
+  }
+}
+
+//  SCROLL BAR
+.conversation-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.conversation-body::-webkit-scrollbar-track {
+  background-color: $primaryColor;
+}
+
+.conversation-body::-webkit-scrollbar-thumb {
+  background: $secondaryColor;
+}
+
+.conversation-body::-webkit-scrollbar-thumb:hover {
+  background: $tertiaryColor;
 }

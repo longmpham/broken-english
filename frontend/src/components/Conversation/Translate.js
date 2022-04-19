@@ -90,9 +90,9 @@ const Translate = (props) => {
   
   return (
     <div>
-      <form onSubmit={handleSubmit} className="conversation-send-form">
+      <form onSubmit={handleSubmit} className="translate-send-form">
         <input
-          className="conversation-send"
+          className="translate-send"
           value={formData.message}
           name="message"
           onChange={handleChange}
@@ -114,7 +114,7 @@ const Translate = (props) => {
             })}
           {/* <option name="language" value={formData.value}>English</option> */}
         </select>
-        <button type="submit"><MdSend /></button>
+        <button type="submit" className="btn btn-icon"><MdSend /></button>
       </form>
       <p>Your translated message below...</p>
       <h2>{translatedMessage}</h2>

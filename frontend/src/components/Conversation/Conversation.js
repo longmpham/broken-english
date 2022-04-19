@@ -8,6 +8,7 @@ import Translate from "./Translate";
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
+  const messagesEndRef = React.useRef(null)
 
   const sendMessage = async () => {
     const currentDate =
@@ -57,6 +58,14 @@ const Conversation = ({ socket, form: { username, room } }) => {
     getMessages();
   }, [socket]);
 
+  
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+  React.useEffect(() => {
+    scrollToBottom(); 
+  },[messages]);
+
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
     setMessage(translatedMessage);
@@ -71,9 +80,9 @@ const Conversation = ({ socket, form: { username, room } }) => {
   return (
     <div className="conversation-container">
       <div className="conversation-header">
-        <h1>Live Conversation in Room: {room}</h1>
+        <h1>Live in Room: {room}</h1>
       </div>
-      <div className="conversation-body">
+      <div id="conversation-body" className="conversation-body">
         <ul className="conversation-messages">
           {messages.map((msg, index) => {
             return (
@@ -88,6 +97,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
               </li>
             );
           })}
+          <div ref={messagesEndRef} />
         </ul>
       </div>
       <div className="conversation-footer">
@@ -103,7 +113,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
             onKeyPress={handleKeyPress}
             autoComplete="off"
           ></input>
-          <button type="submit"><MdSend /></button>
+          <button type="submit" className="btn btn-icon"><MdSend /></button>
         </form>
         <Translate handleTranslate={handleTranslate} />
       </div>

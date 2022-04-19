@@ -36,3 +36,22 @@
     background-color: lighten($primaryColor, 5%)
   }
 }
+
+.btn-icon {
+  @include btn();
+  background-color: $primaryColor;
+  font-size: 1em;
+  padding: 0px 5px;
+  &:hover {
+    background-color: darken($primaryColor, 5%);
+  };
+  &:active, &:focus {
+    background-color: lighten($primaryColor, 5%)
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
