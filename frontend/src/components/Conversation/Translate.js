@@ -1,6 +1,6 @@
 import React from "react";
 import { MdSend } from "react-icons/md"
-
+import "./Conversation.scss";
 const Translate = (props) => {
 
 
@@ -90,13 +90,14 @@ const Translate = (props) => {
   
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="conversation-send-form">
         <input
+          className="conversation-send"
           value={formData.message}
           name="message"
           onChange={handleChange}
           type="text"
-          placeholder="your message here..."
+          placeholder="Translate a message here..."
           />
         <select
           name="language"

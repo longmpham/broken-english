@@ -3,12 +3,11 @@
 .conversation-container {
   display: flex;
   flex-direction: column;
-  // margin: 5% 10%;
+  margin: 5% 10%;
   background-color: $neutralColor;
-  // width: 100%;
+  width: 50%;
   // height: 600px;
-  // padding: 5% 10%;
-
+  padding: 5% 10%;
   justify-content: space-between;
   // align-items: center;
 }
@@ -20,7 +19,8 @@
 .conversation-body {
   background-color: white;
   max-height: 400px;
-  overflow-y: scroll
+  overflow-y: scroll;
+  height: 200px;
 }
 
 .conversation-messages {
@@ -38,6 +38,7 @@
 
 .message-content {
   padding: 10px;
+  overflow-wrap: break-word;
 }
 .message-content p {
   margin: 0;

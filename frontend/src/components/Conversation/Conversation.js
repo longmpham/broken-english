@@ -10,8 +10,6 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const [messages, setMessages] = React.useState([]);
 
   const sendMessage = async () => {
-    if (message === "") console.log("fields are empty. not able to join");
-
     const currentDate =
       new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
     const messageData = {
@@ -32,8 +30,22 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    sendMessage();
+
+    let validated = validateMessage()
+    if (validated) {
+      sendMessage();
+      setMessage((prevMessage) => "");
+    }
+
   };
+
+  const validateMessage = () => {
+    if (message === "") {
+      console.log("Nothing was written");
+      return false
+    }
+    return true
+  }
 
   const getMessages = async (data) => {
     socket.on("broadcast_data", (data) => {
@@ -49,6 +61,12 @@ const Conversation = ({ socket, form: { username, room } }) => {
     console.log(`translated message from child: ${translatedMessage}`);
     setMessage(translatedMessage);
   };
+  
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event)
+    }
+  }
 
   return (
     <div className="conversation-container">
@@ -74,7 +92,6 @@ const Conversation = ({ socket, form: { username, room } }) => {
       </div>
       <div className="conversation-footer">
         {/* input */}
-
         <form onSubmit={handleSubmit} className="conversation-send-form">
           <input
             className="conversation-send"
@@ -83,6 +100,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
             value={message}
             placeholder={`Say Hello, ${username}`}
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
             autoComplete="off"
           ></input>
           <button type="submit"><MdSend /></button>
