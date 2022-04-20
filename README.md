@@ -29,3 +29,8 @@ I attempted to use socketio and i finished what I wanted to do. I can translate 
 
 The attempt is complete and I have my chat app. There's a caveat, the login/register isn't really functional yet and I'm figuring out how to do the backend now. I think the frontend is good to start!
 ![CSS Chat and Translation!](./devImages/addedCSSToChat.png)
+
+### Update 4:
+
+So because I'm out of my quota for RapidAPI's 500 API call quota... and I'm a poor learner, I decided to use https://www.npmjs.com/package/@vitalets/google-translate-api which translates my sentences at an unlimited rate! I think its a WIN WIN. I changed my code a bit to make sure I can still call Google Translate's API, so I just have to change a couple of things if I want to switch back. I don't think I'll be going back anytime soon... 500 api calls is a joke, and free is free!
+![Changed API. Nothing changed](./devImages/updatedAPItoUnlimtedUse.png)

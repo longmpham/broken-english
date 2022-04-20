@@ -57,14 +57,11 @@ const Translate = (props) => {
     const res = await fetch(url, requestOptions)
     const data = await res.json()
     console.log(data)
+    // if using Google API directly (via RapidAPI), use below and set the messages accordingly.
     // const translatedMessageFromGoogle = data.data.translations[0].translatedText
     setTranslatedMessage(data)
     props.handleTranslate(data)
   }
-
-  // const mytesthandle = () => {
-  //   props.handleTranslate("this is a test")
-  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
