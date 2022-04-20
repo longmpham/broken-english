@@ -25,7 +25,7 @@ My first message translated using RapidAPI - Google Translate. Unforunately this
 I attempted to use socketio and i finished what I wanted to do. I can translate and send any message desired with GoogleTranslate API. My next action is to figure out user logins properly and tie it in with socketio
 ![Sockets and Translations!](./devImages/socketandtranslate.png)
 
-### Update 2:
+### Update 3:
 
 The attempt is complete and I have my chat app. There's a caveat, the login/register isn't really functional yet and I'm figuring out how to do the backend now. I think the frontend is good to start!
 ![CSS Chat and Translation!](./devImages/addedCSSToChat.png)
