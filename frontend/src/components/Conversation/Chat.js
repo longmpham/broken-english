@@ -6,7 +6,7 @@ import { MdCancel } from "react-icons/md";
 import Conversation from "./Conversation";
 
 import "./Chat.scss";
-import { ValidateMessage } from "../Validation/Validation";
+import ValidateMessage from "../Validation/Validation";
 
 // const url = "http://localhost:9000";
 // const socket = io.connect(url);

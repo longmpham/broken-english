@@ -57,4 +57,4 @@ const ValidateMessage = ({ type, message, handleClose }) => {
 //   );
 // };
 
-export { ValidateMessage };
+export default ValidateMessage;
