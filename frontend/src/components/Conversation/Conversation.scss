@@ -154,3 +154,21 @@
 .conversation-body::-webkit-scrollbar-thumb:hover {
   background: $secondaryColor;
 }
+
+
+// SLIDER
+
+.conversation-slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.conversation-tolerance-slider {
+  margin: 0 10px;
+  flex: 1;
+}
+
+.tolerance-bubble {
+  margin: 0 10px;
+}

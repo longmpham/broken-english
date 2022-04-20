@@ -1,5 +1,5 @@
 import React from "react";
-import { MdSend } from "react-icons/md"
+import { MdSend } from "react-icons/md";
 
 import "./Conversation.scss";
 import Translate from "./Translate";
@@ -8,7 +8,8 @@ import Translate from "./Translate";
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
-  const messagesEndRef = React.useRef(null)
+  const messagesEndRef = React.useRef(null);
+  const [tolerance, setTolerance] = React.useState(0);
 
   const sendMessage = async () => {
     const currentDate =
@@ -32,21 +33,20 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let validated = validateMessage()
+    let validated = validateMessage();
     if (validated) {
       sendMessage();
       setMessage((prevMessage) => "");
     }
-
   };
 
   const validateMessage = () => {
     if (message === "") {
       console.log("Nothing was written");
-      return false
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const getMessages = async (data) => {
     socket.on("broadcast_data", (data) => {
@@ -58,23 +58,26 @@ const Conversation = ({ socket, form: { username, room } }) => {
     getMessages();
   }, [socket]);
 
-  
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   React.useEffect(() => {
-    scrollToBottom(); 
-  },[messages]);
+    scrollToBottom();
+  }, [messages]);
 
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
     setMessage(translatedMessage);
   };
-  
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleSubmit(event)
+      handleSubmit(event);
     }
+  };
+
+  const handleTolerance = (event) => {
+    setTolerance(prevTolerance => event.target.value)
   }
 
   return (
@@ -113,9 +116,22 @@ const Conversation = ({ socket, form: { username, room } }) => {
               onChange={handleChange}
               onKeyPress={handleKeyPress}
               autoComplete="off"
-              ></input>
-            <button type="submit" className="btn btn-icon"><MdSend /></button>
+            ></input>
+            <button type="submit" className="btn btn-icon">
+              <MdSend />
+            </button>
           </form>
+          <div className="conversation-slider-container">
+            <input
+              className="conversation-tolerance-slider"
+              type="range"
+              min="0"
+              max={message.split(" ").length}
+              value={tolerance}
+              onChange={handleTolerance}
+            ></input>
+            <div className="tolerance-bubble">{tolerance}</div>
+          </div>
           <Translate handleTranslate={handleTranslate} />
         </div>
       </div>
