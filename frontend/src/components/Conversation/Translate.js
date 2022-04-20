@@ -21,13 +21,14 @@ const Translate = (props) => {
       const url = "http://localhost:9000/api/translate"
       const res = await fetch(url)
       const data = await res.json();
-      // console.log(data.data.languages)
+      // console.log(data)
+      console.log(data.data.languages)
       console.log(data.data.languages[26]) // returns "fr"
       setLanguages(data.data.languages)
       setFormData((prevFormData) => {
         return {
           ...prevFormData,
-          language: data.data.languages[0].language,
+          language: data.data.languages[26].language,
         }
       })
     }
@@ -55,10 +56,10 @@ const Translate = (props) => {
 
     const res = await fetch(url, requestOptions)
     const data = await res.json()
-    let translatedMessageFromGoogle = data.data.translations[0].translatedText
-    setTranslatedMessage(translatedMessageFromGoogle)
-    props.handleTranslate(translatedMessageFromGoogle)
-    console.log(translatedMessageFromGoogle)
+    console.log(data)
+    // const translatedMessageFromGoogle = data.data.translations[0].translatedText
+    setTranslatedMessage(data)
+    props.handleTranslate(data)
   }
 
   // const mytesthandle = () => {
