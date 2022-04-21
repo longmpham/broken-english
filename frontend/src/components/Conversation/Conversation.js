@@ -126,13 +126,14 @@ const Conversation = ({ socket, form: { username, room } }) => {
               className="conversation-tolerance-slider"
               type="range"
               min="0"
-              max={message.split(" ").length}
+              // max={message.split(" ").length}
+              max="10"
               value={tolerance}
               onChange={handleTolerance}
             ></input>
             <div className="tolerance-bubble">{tolerance}</div>
           </div>
-          <Translate handleTranslate={handleTranslate} />
+          <Translate handleTranslate={handleTranslate} tolerance={tolerance}/>
         </div>
       </div>
     </div>
