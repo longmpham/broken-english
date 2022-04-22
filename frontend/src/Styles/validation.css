@@ -1,0 +1,66 @@
+.error {
+  color: black;
+  text-decoration: none;
+  padding: 0.1em 1em;
+  margin: 0;
+  width: 95%;
+  font-size: 0.5rem;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #ffafaf;
+}
+
+.success {
+  color: black;
+  text-decoration: none;
+  padding: 0.1em 1em;
+  margin: 0;
+  width: 95%;
+  font-size: 0.5rem;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #afffaf;
+}
+
+.info {
+  color: black;
+  text-decoration: none;
+  padding: 0.1em 1em;
+  margin: 0;
+  width: 95%;
+  font-size: 0.5rem;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #ffffaf;
+}
+/*# sourceMappingURL=validation.css.map */

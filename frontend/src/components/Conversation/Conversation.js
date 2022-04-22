@@ -58,16 +58,28 @@ const Conversation = ({ socket, form: { username, room } }) => {
     target,
     tolerance
   ) => {
+    if (tolerance === 0) return toBeTranslated;
 
-    if (tolerance === 0) return toBeTranslated
-    
     const splitStr = toBeTranslated.split(" ");
     const numberOfWords = splitStr.length;
-    console.log(tolerance, numberOfWords)
-    if (tolerance > numberOfWords) return toBeTranslated
+    console.log(tolerance, numberOfWords);
+
+    // check tolerance if number or percentage
+    let tol;
+    if (tolerance === "25%") {
+      // tol = (parseInt(tolarance.split("%")[0]))/100.0 // = 0.25
+      tol = numberOfWords / 4;
+    } else if (tolerance === "50%") {
+      tol = numberOfWords / 2;
+    } else if (tolerance === "100%") {
+      // translate it all.
+      const data = await translate(toBeTranslated, source, target);
+      return data;
+    }
+    if (tolerance > numberOfWords) return toBeTranslated;
 
     // parseTranslation
-    let tol = tolerance;
+
     let randomIndexArr = [];
     let randomToBeTranslated = [];
 
@@ -169,8 +181,19 @@ const Conversation = ({ socket, form: { username, room } }) => {
   };
 
   const handleTolerance = (event) => {
-    setTolerance((prevTolerance) => event.target.value);
+    let tol;
+    if (event.target.value === "25%") {
+      tol = 10 / 4.0; // (max/4)
+    } else if (event.target.value === "50%") {
+      tol = 10 / 2.0;
+    } else if (event.target.value === "100%") {
+      tol = 10;
+    } else {
+      tol = event.target.value;
+    }
+    setTolerance((prevTolerance) => tol);
     toleranceRef.current = event.target.value;
+    console.log(event.target.value);
   };
 
   return (
@@ -226,11 +249,32 @@ const Conversation = ({ socket, form: { username, room } }) => {
             ></input>
             <div className="tolerance-bubble">{tolerance}</div>
           </div>
-          <div className="tolerance-button-group">
-              <button className="btn btn-tertiary">25%</button>
-              <button className="btn btn-tertiary">50%</button>
-              <button className="btn btn-tertiary">100%</button>
-            </div>
+          <div className="btn-group">
+            <button
+              type="text"
+              value="25%"
+              onClick={handleTolerance}
+              className="btn btn-tertiary"
+            >
+              25%
+            </button>
+            <button
+              type="text"
+              value="50%"
+              onClick={handleTolerance}
+              className="btn btn-tertiary"
+            >
+              50%
+            </button>
+            <button
+              type="text"
+              value="100%"
+              onClick={handleTolerance}
+              className="btn btn-tertiary"
+            >
+              100%
+            </button>
+          </div>
           <Translate handleTranslate={handleTranslate} />
         </div>
       </div>
