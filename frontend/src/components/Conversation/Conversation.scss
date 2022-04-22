@@ -172,3 +172,33 @@
 .tolerance-bubble {
   margin: 0 10px;
 }
+
+// TOLERANCE BUTTON GROUP
+
+.tolerance-button-group {
+  display: flex;
+  // margin: 0 4em;
+}
+
+.tolerance-button-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.tolerance-button-group button {
+  flex: 1;
+  border: 1px solid darken($tertiaryColor,90%);
+  font-size: 12px;
+  border-radius: 0;
+}
+
+.tolerance-button-group button:hover {
+  background-color: darken($tertiaryColor, 20%);
+}
+
+.tolerance-button-group button:active {
+  background-color: $primaryColor;
+}
+
+.tolerance-button-group button:focus {
+  background-color: $primaryColor;
+}

@@ -8,7 +8,7 @@ import Translate from "./Translate";
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
-  const messagesEndRef = React.useRef(null);
+  const endOfMessagesRef = React.useRef(null);
 
   // have to use ref because useEffect doesn't render the new state of tolerance. Some kind of closure thing. google it.
   const [tolerance, setTolerance] = React.useState(2);
@@ -58,16 +58,18 @@ const Conversation = ({ socket, form: { username, room } }) => {
     target,
     tolerance
   ) => {
-    if (tolerance === 0) {
-    }
 
-    // parseTranslation
+    if (tolerance === 0) return toBeTranslated
+    
     const splitStr = toBeTranslated.split(" ");
     const numberOfWords = splitStr.length;
+    console.log(tolerance, numberOfWords)
+    if (tolerance > numberOfWords) return toBeTranslated
+
+    // parseTranslation
     let tol = tolerance;
     let randomIndexArr = [];
     let randomToBeTranslated = [];
-    console.log(tol);
 
     // add t unique numbers to an array that we can use later.
     while (randomIndexArr.length < tol) {
@@ -148,7 +150,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
   }, [socket]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
   };
   React.useEffect(() => {
     scrollToBottom();
@@ -192,7 +194,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
                 </li>
               );
             })}
-            <div ref={messagesEndRef} />
+            <div ref={endOfMessagesRef} />
           </ul>
         </div>
         <div className="conversation-footer">
@@ -224,6 +226,11 @@ const Conversation = ({ socket, form: { username, room } }) => {
             ></input>
             <div className="tolerance-bubble">{tolerance}</div>
           </div>
+          <div className="tolerance-button-group">
+              <button className="btn btn-tertiary">25%</button>
+              <button className="btn btn-tertiary">50%</button>
+              <button className="btn btn-tertiary">100%</button>
+            </div>
           <Translate handleTranslate={handleTranslate} />
         </div>
       </div>
