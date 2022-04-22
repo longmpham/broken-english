@@ -42,35 +42,32 @@ const Translate = (props) => {
     const splitStr = formData.message.split(' ')
     const numberOfWords = splitStr.length
     let tol = props.tolerance
-    
-    let newArr = []
+    let randomIndexArr = []
+    let randomToBeTranslated = []
 
-    // this adds a unique random number to array.
-    while(newArr.length < tol) {
+    // add t unique numbers to an array that we can use later.
+    while(randomIndexArr.length < tol) {
       let randomIndex = Math.floor(Math.random() * numberOfWords);
-      if(newArr.indexOf(randomIndex) === -1) newArr.push(randomIndex)
+      if(randomIndexArr.indexOf(randomIndex) === -1) randomIndexArr.push(randomIndex)
+    }
+    randomIndexArr.sort((a,b) => a-b)
+    console.log(randomIndexArr)
+
+    // push random words to a new array to be translated
+    for (let i = 0; i < tol; i++) {
+      randomToBeTranslated.push(splitStr[randomIndexArr[i]])
     }
 
-    let randItems = []
-    for (let i = 0; i < newArr.length; i++) {
-      randItems.push({index: newArr[i], word: splitStr[i]})
-    }
-    // for (let i = 0; i < tol; i++) {
-      // built a new array of words randomly selected from splitStr
+    console.log(randomToBeTranslated)
 
-      // todo: create a randomizer but only grab the random number once.
-    //   let randomIndex = Math.floor(Math.random() * numberOfWords);
-    //   newArr.push({index: randomIndex, word: splitStr[randomIndex]})
-    // }
-    randItems.sort((a,b) => {
-      return (a.index - b.index)
-    })
-    console.log(randItems)
-    let newStringToTranslate = ""
-    randItems.forEach(element => {
-      newStringToTranslate += `=${element.word}`
-    });
-    const newTranslation = newStringToTranslate
+    
+    
+    // let newStringToTranslate = ""
+    // randomToBeTranslated.forEach(element => {
+    //   newStringToTranslate += `=${element.word}`
+    // });
+    const randomToBeTranslatedStr = randomToBeTranslated.join('=')
+    console.log(randomToBeTranslatedStr)
 
 
 
@@ -88,14 +85,14 @@ const Translate = (props) => {
       body: JSON.stringify(
         {
           // q: formData.message,
-          q: newTranslation,
+          q: randomToBeTranslatedStr,
           target: formData.language,
           source: "en" // set english text as default
         }
       ),
     }
 
-    console.log(formData)
+    // console.log(formData)
 
     const res = await fetch(url, requestOptions)
     const data = await res.json()
@@ -110,35 +107,39 @@ const Translate = (props) => {
 
 
 
-    const splitData = data.split('= ')
-    splitData.shift() // always returns a blank first index, so lets remove it.
-    console.log(splitData) 
+    // const splitData = data.split('=')
     
-    const replacedStr = splitStr.map((str, i) => {
-
-      if(randItems.length === 0) {
-        return str
-      }
-
-      if (i === randItems[0].index) {
-        randItems.shift()
-        console.log('swapping', splitData[0].trim())
-        const temp = splitData.shift()
-        return temp.trim()
-      }
-      else {
-        console.log('adding', str)
-        return str
-      }
-
+    const splitData = data.split('=').map((item) => {
+      return item.trim();
     })
+    console.log(splitData)
+    
+    for (let i = 0; i < tol; i++) {
+      splitStr[randomIndexArr[i]] = splitData[i]
+    }
+
+
+    // const replacedStr = splitStr.map((str, i) => {
+    //   if(randomToBeTranslated.length === 0) {
+    //     return str
+    //   }
+    //   if (i === randomToBeTranslated[0].index) {
+    //     randomToBeTranslated.shift()
+    //     console.log('swapping', splitData[0].trim())
+    //     const temp = splitData.shift()
+    //     return temp.trim()
+    //   }
+    //   else {
+    //     console.log('adding', str)
+    //     return str
+    //   }
+    // })
 
     
-    console.log(replacedStr)
-    replacedStr.join(' ')
-    console.log(replacedStr.join(' '))
-    setTranslatedMessage(replacedStr.join(' '))
-    props.handleTranslate(replacedStr.join(' '))
+    console.log(splitStr)
+    console.log(splitStr.join(' '))
+    setTranslatedMessage(splitStr.join(' '))
+    props.handleTranslate(splitStr.join(' '))
 
 
 
