@@ -3,13 +3,14 @@ import { MdSend } from "react-icons/md";
 
 import "./Conversation.scss";
 import Translate from "./Translate";
-
+let counter = 0
 // const Conversation = ({ socket, form: { username, room } }) => {
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
   const messagesEndRef = React.useRef(null);
-  const [tolerance, setTolerance] = React.useState(0);
+  const [tolerance, setTolerance] = React.useState(2);
+  const toleranceRef = React.useRef(2);
 
   const sendMessage = async () => {
     const currentDate =
@@ -56,7 +57,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
     // parseTranslation
     const splitStr = toBeTranslated.split(' ')
     const numberOfWords = splitStr.length
-    let tol = 3 //tolerance
+    let tol = tolerance
     let randomIndexArr = []
     let randomToBeTranslated = []
     console.log(tol)
@@ -123,36 +124,15 @@ const Conversation = ({ socket, form: { username, room } }) => {
     socket.on("broadcast_data", async (data) => {
       // data comes here when it gets texted to receiver.
       console.log(data)
-      const newData = await getTranslation(data.message, "en", "fr", tolerance)
+      const newData = await getTranslation(data.message, "en", "fr", toleranceRef.current)
       // console.log(newData)
       data.message = newData
       setMessages((prevMessages) => [...prevMessages, data]);
     });
   };
 
-
-  // this works with .then()
-  // const getMessages = async (data) => {
-  //   socket.on("broadcast_data", (data) => {
-  //     // data comes here when it gets texted to receiver.
-  //     console.log(data)
-  //     const newData = getTranslation(data.message, "en", "fr", tolerance).then((d)=>{
-  //       console.log(d)
-  //       data.message = d
-  //       setTimeout(() => {
-  //         setMessages((prevMessages) => [...prevMessages, data]);
-  //       },3000)
-  //       setTimeout(() => {
-  //         console.log(messages)
-  //       },6000)
-  //     })
-  //     // console.log(newData)
-  //     // const newNewData = () => [{...data, message: newData}]
-  //     // setMessages((prevMessages) => [...prevMessages, newNewData]);
-  //   });
-  // };
-
   React.useEffect( () => {
+    console.log(`this has been called ${counter++} times`)
     getMessages();
   }, [socket]);
 
@@ -176,6 +156,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
   const handleTolerance = (event) => {
     setTolerance(prevTolerance => event.target.value)
+    toleranceRef.current = event.target.value
   }
 
   return (
