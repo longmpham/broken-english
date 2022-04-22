@@ -87,8 +87,6 @@ const Translate = (props) => {
     }
 
     console.log(randomToBeTranslated)
-
-    
     
     // let newStringToTranslate = ""
     // randomToBeTranslated.forEach(element => {
@@ -96,12 +94,6 @@ const Translate = (props) => {
     // });
     const randomToBeTranslatedStr = randomToBeTranslated.join('=')
     console.log(randomToBeTranslatedStr)
-
-
-
-
-
-
 
     const data = await translate(randomToBeTranslatedStr, formData.source, formData.language)
 
@@ -132,7 +124,7 @@ const Translate = (props) => {
     // props.handleTranslate(data)
 
     
-    const splitData = await data.split('=').map((item) => {
+    const splitData = data.split('=').map((item) => {
       return item.trim();
     })
     // console.log(splitData)
@@ -145,9 +137,6 @@ const Translate = (props) => {
     // console.log(splitStr.join(' '))
     setTranslatedMessage(splitStr.join(' '))
     props.handleTranslate(splitStr.join(' '))
-
-
-
 
   }
 
