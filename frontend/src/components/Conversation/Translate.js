@@ -11,6 +11,9 @@ const Translate = (props) => {
       message: "",
     },
     {
+      source: "en" // english default
+    },
+    {
       language: "fr" // french default
     }
   );
@@ -35,6 +38,31 @@ const Translate = (props) => {
     getLanguages();
 
   },[])
+
+  const translate = async (toTranslate, source = "en", target) => {
+    const url = "http://localhost:9000/api/translate"
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+          // q: formData.message,
+          q: toTranslate,
+          source: source, // set english text as default
+          target: target,
+        }
+      ),
+    }
+
+    // console.log(formData)
+
+    const res = await fetch(url, requestOptions)
+    const data = await res.json()
+    console.log(data)
+    return data
+  }
 
   const getTranslation = async () => {
 
@@ -75,69 +103,46 @@ const Translate = (props) => {
 
 
 
+    const data = await translate(randomToBeTranslatedStr, formData.source, formData.language)
 
-    const url = "http://localhost:9000/api/translate"
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        {
-          // q: formData.message,
-          q: randomToBeTranslatedStr,
-          target: formData.language,
-          source: "en" // set english text as default
-        }
-      ),
-    }
+    // const url = "http://localhost:9000/api/translate"
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(
+    //     {
+    //       // q: formData.message,
+    //       q: randomToBeTranslatedStr,
+    //       target: formData.language,
+    //       source: "en" // set english text as default
+    //     }
+    //   ),
+    // }
 
     // console.log(formData)
 
-    const res = await fetch(url, requestOptions)
-    const data = await res.json()
-    console.log(data)
+    // const res = await fetch(url, requestOptions)
+    // const data = await res.json()
+    // console.log(data)
     // if using Google API directly (via RapidAPI), use below and set the messages accordingly.
     // const translatedMessageFromGoogle = data.data.translations[0].translatedText
-    setTranslatedMessage(data)
-    props.handleTranslate(data)
+    // setTranslatedMessage(data)
+    // props.handleTranslate(data)
 
-
-
-
-
-
-    // const splitData = data.split('=')
     
-    const splitData = data.split('=').map((item) => {
+    const splitData = await data.split('=').map((item) => {
       return item.trim();
     })
-    console.log(splitData)
+    // console.log(splitData)
     
     for (let i = 0; i < tol; i++) {
       splitStr[randomIndexArr[i]] = splitData[i]
     }
-
-
-    // const replacedStr = splitStr.map((str, i) => {
-    //   if(randomToBeTranslated.length === 0) {
-    //     return str
-    //   }
-    //   if (i === randomToBeTranslated[0].index) {
-    //     randomToBeTranslated.shift()
-    //     console.log('swapping', splitData[0].trim())
-    //     const temp = splitData.shift()
-    //     return temp.trim()
-    //   }
-    //   else {
-    //     console.log('adding', str)
-    //     return str
-    //   }
-    // })
-
     
-    console.log(splitStr)
-    console.log(splitStr.join(' '))
+    // console.log(splitStr)
+    // console.log(splitStr.join(' '))
     setTranslatedMessage(splitStr.join(' '))
     props.handleTranslate(splitStr.join(' '))
 
