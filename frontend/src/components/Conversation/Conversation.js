@@ -3,12 +3,14 @@ import { MdSend } from "react-icons/md";
 
 import "./Conversation.scss";
 import Translate from "./Translate";
-let counter = 0
+
 // const Conversation = ({ socket, form: { username, room } }) => {
 const Conversation = ({ socket, form: { username, room } }) => {
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
   const messagesEndRef = React.useRef(null);
+
+  // have to use ref because useEffect doesn't render the new state of tolerance. Some kind of closure thing. google it.
   const [tolerance, setTolerance] = React.useState(2);
   const toleranceRef = React.useRef(2);
 
@@ -28,75 +30,80 @@ const Conversation = ({ socket, form: { username, room } }) => {
   };
 
   const translate = async (toTranslate, source = "en", target) => {
-    const url = "http://localhost:9000/api/translate"
+    const url = "http://localhost:9000/api/translate";
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        {
-          // q: toBeTranslated,
-          q: toTranslate,
-          source: source, // set english text as default
-          target: target,
-        }
-      ),
-    }
+      body: JSON.stringify({
+        // q: toBeTranslated,
+        q: toTranslate,
+        source: source, // set english text as default
+        target: target,
+      }),
+    };
 
     // console.log(formData)
 
-    const res = await fetch(url, requestOptions)
-    const data = await res.json()
-    console.log(data)
-    return data
-  }
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  };
 
-  const getTranslation = async (toBeTranslated, source = "en", target, tolerance) => {
+  const getTranslation = async (
+    toBeTranslated,
+    source = "en",
+    target,
+    tolerance
+  ) => {
+    if (tolerance === 0) {
+    }
 
     // parseTranslation
-    const splitStr = toBeTranslated.split(' ')
-    const numberOfWords = splitStr.length
-    let tol = tolerance
-    let randomIndexArr = []
-    let randomToBeTranslated = []
-    console.log(tol)
+    const splitStr = toBeTranslated.split(" ");
+    const numberOfWords = splitStr.length;
+    let tol = tolerance;
+    let randomIndexArr = [];
+    let randomToBeTranslated = [];
+    console.log(tol);
 
     // add t unique numbers to an array that we can use later.
-    while(randomIndexArr.length < tol) {
+    while (randomIndexArr.length < tol) {
       let randomIndex = Math.floor(Math.random() * numberOfWords);
-      if(randomIndexArr.indexOf(randomIndex) === -1) randomIndexArr.push(randomIndex)
+      if (randomIndexArr.indexOf(randomIndex) === -1)
+        randomIndexArr.push(randomIndex);
     }
-    randomIndexArr.sort((a,b) => a-b)
-    console.log(randomIndexArr)
+    randomIndexArr.sort((a, b) => a - b);
+    console.log(randomIndexArr);
 
     // push random words to a new array to be translated
     for (let i = 0; i < tol; i++) {
-      randomToBeTranslated.push(splitStr[randomIndexArr[i]])
+      randomToBeTranslated.push(splitStr[randomIndexArr[i]]);
     }
 
-    console.log(randomToBeTranslated)
+    console.log(randomToBeTranslated);
 
-    const randomToBeTranslatedStr = randomToBeTranslated.join('=')
-    console.log(randomToBeTranslatedStr)
+    const randomToBeTranslatedStr = randomToBeTranslated.join("=");
+    console.log(randomToBeTranslatedStr);
 
-    const data = await translate(randomToBeTranslatedStr, source, target)
+    const data = await translate(randomToBeTranslatedStr, source, target);
 
-    const splitData = data.split('=').map((item) => {
+    const splitData = data.split("=").map((item) => {
       return item.trim();
-    })
+    });
     // console.log(splitData)
-    
+
     for (let i = 0; i < tol; i++) {
-      splitStr[randomIndexArr[i]] = splitData[i]
+      splitStr[randomIndexArr[i]] = splitData[i];
     }
-    
+
     // console.log(splitStr)
     // console.log(splitStr.join(' '))
     // handleTranslate(splitStr.join(' '))
-    return splitStr.join(' ')
-
-  }
+    return splitStr.join(" ");
+  };
 
   const handleChange = (event) => {
     setMessage((prevMessage) => event.target.value);
@@ -123,16 +130,20 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const getMessages = async (data) => {
     socket.on("broadcast_data", async (data) => {
       // data comes here when it gets texted to receiver.
-      console.log(data)
-      const newData = await getTranslation(data.message, "en", "fr", toleranceRef.current)
+      console.log(data);
+      const newData = await getTranslation(
+        data.message,
+        "en",
+        "fr",
+        toleranceRef.current
+      );
       // console.log(newData)
-      data.message = newData
+      data.message = newData;
       setMessages((prevMessages) => [...prevMessages, data]);
     });
   };
 
-  React.useEffect( () => {
-    console.log(`this has been called ${counter++} times`)
+  React.useEffect(() => {
     getMessages();
   }, [socket]);
 
@@ -146,6 +157,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
     setMessage(translatedMessage);
+    sendMessage();
   };
 
   const handleKeyPress = (event) => {
@@ -155,9 +167,9 @@ const Conversation = ({ socket, form: { username, room } }) => {
   };
 
   const handleTolerance = (event) => {
-    setTolerance(prevTolerance => event.target.value)
-    toleranceRef.current = event.target.value
-  }
+    setTolerance((prevTolerance) => event.target.value);
+    toleranceRef.current = event.target.value;
+  };
 
   return (
     <div className="conversation-container">
@@ -212,7 +224,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
             ></input>
             <div className="tolerance-bubble">{tolerance}</div>
           </div>
-          {/* <Translate handleTranslate={handleTranslate} tolerance={tolerance}/> */}
+          <Translate handleTranslate={handleTranslate} />
         </div>
       </div>
     </div>
