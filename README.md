@@ -34,3 +34,8 @@ The attempt is complete and I have my chat app. There's a caveat, the login/regi
 
 So because I'm out of my quota for RapidAPI's 500 API call quota... and I'm a poor learner, I decided to use https://www.npmjs.com/package/@vitalets/google-translate-api which translates my sentences at an unlimited rate! I think its a WIN WIN. I changed my code a bit to make sure I can still call Google Translate's API, so I just have to change a couple of things if I want to switch back. I don't think I'll be going back anytime soon... 500 api calls is a joke, and free is free!
 ![Changed API. Nothing changed](./devImages/updatedAPItoUnlimtedUse.png)
+
+### Update 5:
+
+I've officially let the sender send a message either translated or in english. I've also let the receiver have a tolerance from 0 to 10 words OR 25%, 50%, 100% translation. I've brought back my initial idea since I'm using this new API for Google Translate. Thank goodness it's unlimited and free. There are times when the translation isn't perfect but I have not found a way to translate with Grammar which is a big issue. This is also tested using French.... Other languages like the Asian languages may not be so hot.
+![Tolerance!!!](./devImages/updateTolerance.png)
