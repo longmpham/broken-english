@@ -39,6 +39,7 @@ const Navbar = () => {
           <img
             className="navbar-logo"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmepiraddtMrJWnY_Sz7rKFYqHyCqx4fnqqA&usqp=CAU"
+            alt="navbar-logo"
           />
         </Link>
       </div>

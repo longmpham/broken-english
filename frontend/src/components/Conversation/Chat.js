@@ -1,7 +1,7 @@
 import React from "react";
 import { io } from "socket.io-client";
-import { useNavigate } from "react-router-dom";
-import { MdCancel } from "react-icons/md";
+// import { useNavigate } from "react-router-dom";
+// import { MdCancel } from "react-icons/md";
 
 import Conversation from "./Conversation";
 
@@ -26,7 +26,7 @@ const Chat = () => {
   ]);
   const [socket, setSocket] = React.useState();
   const [showChat, setShowChat] = React.useState(false);
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   React.useEffect( () => {
     const socket = io.connect(url)
