@@ -30,6 +30,10 @@ const ValidateMessage = ({ type, message, handleClose }) => {
   );
 };
 
+const validate = ({username, password, email, message}) => {
+
+}
+
 // const Error = ({ message, handleClose }) => {
 //   return (
 //     <div className="error" onClick={handleClose}>
