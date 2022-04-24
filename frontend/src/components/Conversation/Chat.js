@@ -6,13 +6,12 @@ import { io } from "socket.io-client";
 import Conversation from "./Conversation";
 
 import "./Chat.scss";
-import ValidateMessage from "../Validation/Validation";
+import { ValidateMessage } from "../Validation/Validation";
 
 // const url = "http://localhost:9000";
 // const socket = io.connect(url);
 
 const Chat = () => {
-
   const url = "http://localhost:9000";
   const [form, setForm] = React.useState({
     username: "",
@@ -28,15 +27,14 @@ const Chat = () => {
   const [showChat, setShowChat] = React.useState(false);
   // let navigate = useNavigate();
 
-  React.useEffect( () => {
-    const socket = io.connect(url)
+  React.useEffect(() => {
+    const socket = io.connect(url);
     setSocket((prevSocket) => socket);
 
-    return (() => {
+    return () => {
       socket.close();
-    })
-
-  }, [setSocket])
+    };
+  }, [setSocket]);
 
   const joinRoom = () => {
     // todo: figure out how to send socket -> useContext?
@@ -54,7 +52,6 @@ const Chat = () => {
     // navigate("/conversation",{state:{id:1,socket:socket,form:form}});
     // navigate('/conversation',{state:{id:1,name:'sabaoon'}});
 
-
     socket.emit("join_room", form.room);
     setValidateMessage((prevValidateMessage) => {
       return {
@@ -71,8 +68,7 @@ const Chat = () => {
         };
       });
     }, 5000);
-    setShowChat(prevShowChat => !prevShowChat)
-
+    setShowChat((prevShowChat) => !prevShowChat);
   };
 
   const validateRoom = () => {
@@ -140,8 +136,13 @@ const Chat = () => {
     }
   };
 
-  const handleMessage = () => {
-    setValidateMessage((prevValidateMessage) => "");
+  const handleClose = () => {
+    setValidateMessage((prevValidateMessage) => {
+      return {
+        type: "",
+        message: "",
+      };
+    });
   };
 
   const handleKeyPress = (event) => {
@@ -179,7 +180,7 @@ const Chat = () => {
           <ValidateMessage
             type={validateMessage.type}
             message={validateMessage.message}
-            handleClose={handleMessage}
+            handleClose={handleClose}
           />
         )}
       </div>
