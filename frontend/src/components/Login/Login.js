@@ -11,7 +11,7 @@ const Login = () => {
     type: "",
     message: "",
   });
-  const [formData, setFormData] = React.useState({
+  const [form, setForm] = React.useState({
     email: "",
     password: "",
   });
@@ -24,16 +24,16 @@ const Login = () => {
 
     if(isValidated) {
       console.log("Success");
-      console.log(formData);
+      console.log(form);
     } else {
       console.log('Did not login.')
     }
   };
 
   const handleChange = (event) => {
-    setFormData((prevFormData) => {
+    setForm((prevForm) => {
       return {
-        ...prevFormData,
+        ...prevForm,
         [event.target.name]: event.target.value,
       };
     });
@@ -50,9 +50,9 @@ const Login = () => {
   }
 
   const handleValidate = () => {
-    let isValidated = validate(formData);
+    const validation = validate(form);
     setValidateMessage((prevValidateMessage) => {
-      return isValidated
+      return validation
     });
     setTimeout(() => {
       // clear the message after 3s
@@ -63,7 +63,7 @@ const Login = () => {
         };
       });
     }, 5000);
-    if (isValidated.type === "success") {
+    if (validation.type === "success") {
       return true
     }
     return false
@@ -84,14 +84,14 @@ const Login = () => {
           <input
             type="text"
             name="email"
-            value={formData.email}
+            value={form.email}
             placeholder="email"
             onChange={handleChange}
           ></input>
           <input
             type="password"
             name="password"
-            value={formData.password}
+            value={form.password}
             placeholder="password"
             onChange={handleChange}
           ></input>

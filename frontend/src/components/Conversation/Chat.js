@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import Conversation from "./Conversation";
 
 import "./Chat.scss";
-import { ValidateMessage } from "../Validation/Validation";
+import { ValidateMessage, validate } from "../Validation/Validation";
 
 // const url = "http://localhost:9000";
 // const socket = io.connect(url);
@@ -71,47 +71,64 @@ const Chat = () => {
     setShowChat((prevShowChat) => !prevShowChat);
   };
 
-  const validateRoom = () => {
-    if (form.username === "") {
-      console.log("Username is empty. Not able to join");
-      setValidateMessage((prevValidateMessage) => {
-        return {
-          type: "error",
-          message: "Username is empty. Not able to join",
-        };
-      });
-      setTimeout(() => {
-        // clear the message after 3s
-        setValidateMessage((prevValidateMessage) => {
-          return {
-            type: "",
-            message: "",
-          };
-        });
-      }, 5000);
-      return false;
-    }
+  const handleValidate = () => {
+    // if (form.username === "") {
+    //   console.log("Username is empty. Not able to join");
+    //   setValidateMessage((prevValidateMessage) => {
+    //     return {
+    //       type: "error",
+    //       message: "Username is empty. Not able to join",
+    //     };
+    //   });
+    //   setTimeout(() => {
+    //     // clear the message after 3s
+    //     setValidateMessage((prevValidateMessage) => {
+    //       return {
+    //         type: "",
+    //         message: "",
+    //       };
+    //     });
+    //   }, 5000);
+    //   return false;
+    // }
 
-    if (form.room === "") {
-      console.log("Room is empty. Not able to join");
+    // if (form.room === "") {
+    //   console.log("Room is empty. Not able to join");
+    //   setValidateMessage((prevValidateMessage) => {
+    //     return {
+    //       type: "error",
+    //       message: "Room is empty. Not able to join",
+    //     };
+    //   });
+    //   setTimeout(() => {
+    //     // clear the message after 3s
+    //     setValidateMessage((prevValidateMessage) => {
+    //       return {
+    //         type: "",
+    //         message: "",
+    //       };
+    //     });
+    //   }, 5000);
+    //   return false;
+    // }
+    // return true;
+
+    const validation = validate(form);
+    setValidateMessage((prevValidateMessage => {
+      return validation
+    }))
+    setTimeout(() => {
       setValidateMessage((prevValidateMessage) => {
         return {
-          type: "error",
-          message: "Room is empty. Not able to join",
+          type: "",
+          message: "",
         };
       });
-      setTimeout(() => {
-        // clear the message after 3s
-        setValidateMessage((prevValidateMessage) => {
-          return {
-            type: "",
-            message: "",
-          };
-        });
-      }, 5000);
-      return false;
+    }, 5000)
+    if (validation.type === "success") {
+      return true
     }
-    return true;
+    return false
   };
 
   const handleChange = (event) => {
@@ -125,7 +142,7 @@ const Chat = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let validated = validateRoom();
+    const validated = handleValidate();
 
     if (validated) {
       console.log(form);
