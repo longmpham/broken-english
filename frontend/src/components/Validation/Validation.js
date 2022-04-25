@@ -4,32 +4,11 @@ import React from "react";
 // todo: add transition for closing
 
 // todo: add a validatorFunction
+const validate = ({ username, email, password, message, room }) => {
+  // todo: add extra validation towards regex like email must take on @email.com format
+  // usernames must include xyz
+  // passwords must contain lower, upper, number, symbol
 
-const ValidateMessage = ({ type, message, handleClose }) => {
-  return (
-    <>
-      {type === "info" ? (
-        <div className="info" onClick={handleClose}>
-          <p>{message}</p>
-          <button className="btn-info">&times;</button>
-        </div>
-      ) : type === "success" ? (
-        <div className="success" onClick={handleClose}>
-          <p>{message}</p>
-          <button className="btn-success">&times;</button>
-        </div>
-      ) : (
-        // error (regardless of what happens (typos, etc.)!
-        <div className="error" onClick={handleClose}>
-          <p>{message}</p>
-          <button className="btn-error">&times;</button>
-        </div>
-      )}
-    </>
-  );
-};
-
-const validate = ({ username, password, email, message, room }) => {
   if (username === "") {
     return {
       type: "error",
@@ -62,9 +41,44 @@ const validate = ({ username, password, email, message, room }) => {
   }
   return {
     type: "success",
-    message: "Success!"
-  }
+    message: "Success!",
+  };
 };
+
+const handleValidate = async (form) => {
+  const validation = await validate(form);
+  if (validation.type === "success") {
+    return validation;
+  }
+  return validation;
+};
+
+const ValidateMessage = ({ type, message, handleClose }) => {
+  return (
+    <>
+      {type === "info" ? (
+        <div className="info" onClick={handleClose}>
+          <p>{message}</p>
+          <button className="btn-info">&times;</button>
+        </div>
+      ) : type === "success" ? (
+        <div className="success" onClick={handleClose}>
+          <p>{message}</p>
+          <button className="btn-success">&times;</button>
+        </div>
+      ) : (
+        // error (regardless of what happens (typos, etc.)!
+        <div className="error" onClick={handleClose}>
+          <p>{message}</p>
+          <button className="btn-error">&times;</button>
+        </div>
+      )}
+    </>
+  );
+};
+
+export { ValidateMessage, handleValidate, validate };
+// export default ValidateMessage;
 
 // const Error = ({ message, handleClose }) => {
 //   return (
@@ -92,6 +106,3 @@ const validate = ({ username, password, email, message, room }) => {
 //     </div>
 //   );
 // };
-
-export { ValidateMessage, validate };
-// export default ValidateMessage;

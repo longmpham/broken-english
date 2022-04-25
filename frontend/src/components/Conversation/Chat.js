@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import Conversation from "./Conversation";
 
 import "./Chat.scss";
-import { ValidateMessage, validate } from "../Validation/Validation";
+import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 // const url = "http://localhost:9000";
 // const socket = io.connect(url);
@@ -36,6 +36,17 @@ const Chat = () => {
     };
   }, [setSocket]);
 
+  const clearValidationMessage = (timer = 5000) => {
+    setTimeout(() => {
+      setValidateMessage((prevValidateMessage) => {
+        return {
+          type: "",
+          message: "",
+        };
+      });
+    }, timer);
+  }
+
   const joinRoom = () => {
     // todo: figure out how to send socket -> useContext?
     // const options = {
@@ -59,76 +70,8 @@ const Chat = () => {
         message: `Hey ${form.username}! You've successfully joined room ${form.room}`,
       };
     });
-    setTimeout(() => {
-      // clear the message after 5s
-      setValidateMessage((prevValidateMessage) => {
-        return {
-          type: "",
-          message: "",
-        };
-      });
-    }, 5000);
+    clearValidationMessage()
     setShowChat((prevShowChat) => !prevShowChat);
-  };
-
-  const handleValidate = () => {
-    // if (form.username === "") {
-    //   console.log("Username is empty. Not able to join");
-    //   setValidateMessage((prevValidateMessage) => {
-    //     return {
-    //       type: "error",
-    //       message: "Username is empty. Not able to join",
-    //     };
-    //   });
-    //   setTimeout(() => {
-    //     // clear the message after 3s
-    //     setValidateMessage((prevValidateMessage) => {
-    //       return {
-    //         type: "",
-    //         message: "",
-    //       };
-    //     });
-    //   }, 5000);
-    //   return false;
-    // }
-
-    // if (form.room === "") {
-    //   console.log("Room is empty. Not able to join");
-    //   setValidateMessage((prevValidateMessage) => {
-    //     return {
-    //       type: "error",
-    //       message: "Room is empty. Not able to join",
-    //     };
-    //   });
-    //   setTimeout(() => {
-    //     // clear the message after 3s
-    //     setValidateMessage((prevValidateMessage) => {
-    //       return {
-    //         type: "",
-    //         message: "",
-    //       };
-    //     });
-    //   }, 5000);
-    //   return false;
-    // }
-    // return true;
-
-    const validation = validate(form);
-    setValidateMessage((prevValidateMessage => {
-      return validation
-    }))
-    setTimeout(() => {
-      setValidateMessage((prevValidateMessage) => {
-        return {
-          type: "",
-          message: "",
-        };
-      });
-    }, 5000)
-    if (validation.type === "success") {
-      return true
-    }
-    return false
   };
 
   const handleChange = (event) => {
@@ -140,26 +83,25 @@ const Chat = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const validated = handleValidate();
 
-    if (validated) {
+    let isValidated = await handleValidate(form);
+
+    setValidateMessage((prevValidateMessage) => isValidated);
+    clearValidationMessage()
+
+    if (isValidated.type !== "success") {
+      console.log("Did not login.");
+    } else {
+      console.log("Success");
       console.log(form);
-      console.log("joining chat room");
-
-      // join the room
       joinRoom();
     }
   };
 
   const handleClose = () => {
-    setValidateMessage((prevValidateMessage) => {
-      return {
-        type: "",
-        message: "",
-      };
-    });
+    clearValidationMessage(0)
   };
 
   const handleKeyPress = (event) => {

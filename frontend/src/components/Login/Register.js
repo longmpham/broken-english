@@ -1,8 +1,5 @@
 import React from "react";
-// import ValidateMessage from "../Validation/Validation";
-// import translate from "../Validation/Validation";
-import { ValidateMessage, validate } from "../Validation/Validation";
-// import { ValidateMessage, validate } from "../Validation/Validation"
+import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
 
@@ -17,17 +14,30 @@ const Register = () => {
     password: "",
   });
 
-  const handleSubmit = (event) => {
+  const clearValidationMessage = (timer = 5000) => {
+    setTimeout(() => {
+      setValidateMessage((prevValidateMessage) => {
+        return {
+          type: "",
+          message: "",
+        };
+      });
+    }, timer);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // validate function
-    const isValidated = handleValidate()
+    let validation = await handleValidate(form);
 
-    if(isValidated) {
+    setValidateMessage((prevValidateMessage) => validation);
+    clearValidationMessage();
+
+    if (validation.type !== "success") {
+      console.log("Did not login.");
+    } else {
       console.log("Success");
       console.log(form);
-    } else {
-      console.log('Did not login.')
     }
   };
 
@@ -41,39 +51,13 @@ const Register = () => {
   };
 
   const handleClose = () => {
-    console.log('closing')
-    setValidateMessage((prevValidateMessage) => {
-      return {
-        type: "",
-        message: "",
-      };
-    });  
-  }
-
-  const handleValidate = () => {
-    const validation = validate(form);
-    setValidateMessage((prevValidateMessage) => {
-      return validation
-    });
-    setTimeout(() => {
-      // clear the message after 3s
-      setValidateMessage((prevValidateMessage) => {
-        return {
-          type: "",
-          message: "",
-        };
-      });
-    }, 5000);
-    if (validation.type === "success") {
-      return true
-    }
-    return false
+    clearValidationMessage(0);
   };
 
   return (
     <div className="login-container">
       <div className="login-form-container">
-        <h1>Login</h1>
+        <h1>Register</h1>
         {validateMessage.type && (
           <ValidateMessage
             type={validateMessage.type}
