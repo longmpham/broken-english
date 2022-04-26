@@ -4,7 +4,6 @@
   width: 100%;
   height: 80px;
   background-color: $primaryColor;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,6 +22,7 @@
 
 .navbar-left {
   display: flex;
+  // padding-left: 10px;
 }
 .navbar-middle {
   display: flex;
@@ -30,6 +30,7 @@
 }
 .navbar-right {
   display: flex;
+  padding-right: 10px;
 }
 
 .navbar-left a{
@@ -43,6 +44,10 @@
 .navbar-logo {
   height: 50px;
   width: 50px;
+}
+
+.navbar-middle .navbar-title {
+  color: white;
 }
 
 .navbar-middle a {
@@ -105,12 +110,11 @@
 }
 
 @media (max-width: 456px){
-  // .navbar-middle {
-  //   // display: none;
-  // }
   .navbar-links {
     display: none;
   }
+
+
 }
 
 @media (max-width: 768px){

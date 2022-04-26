@@ -2,26 +2,43 @@
 
 .home-container {
   display: flex;
-  // margin: 5% 10%;
-  background-color: $neutralColor;
-  width: 100%;
-  height: 75vh;
-
-  justify-content: flex-start;
-  align-items: center;
-  padding: 5% 10%
-}
-
-.home-landing-container {
-  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   flex-direction: column;
+  // margin:  10%;
+  padding: 4rem;
+  background-image: url("../../images/landing_matrix.gif");
+  // width: 100%;
+  height: 75vh;
+  color: white;
 }
 
-.home-landing-button-container {
+.home-button-container {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.home-landing-container h1 {
+.home-button-container button {
+  // flex: 1;
+}
+
+.home-container h1 {
   font-size: 48px;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1rem;
+  }
+  .home-container h1 {
+    font-size: 24px;
+  }
+  .home-container p {
+    font-size: 12px;
+  }
+  .home-container button {
+    font-size: 16px;
+  }
 }

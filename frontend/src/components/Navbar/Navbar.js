@@ -20,8 +20,8 @@ const Navbar = () => {
     },
     {
       // title: "Conversations",
-      title: "Conv",
-      link: "/conversations",
+      title: <MdChat />,
+      link: "/chat",
     },
   ];
 
@@ -52,8 +52,10 @@ const Navbar = () => {
         <ul className="navbar-links">
           {pages.map((page) => {
             return (
-              <li key={page.title} >
-                <Link className="btn-nav" to={page.link}>{page.title}</Link>
+              <li key={page.title}>
+                <Link className="btn btn-nav" to={page.link}>
+                  {page.title}
+                </Link>
               </li>
             );
           })}
