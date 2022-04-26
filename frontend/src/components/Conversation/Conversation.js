@@ -171,7 +171,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
-    setMessage(translatedMessage);
+    setMessage(prevMessage => translatedMessage);
     sendMessage();
   };
 

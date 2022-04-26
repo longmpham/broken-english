@@ -54,16 +54,16 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <>
       <div className="login-form-container">
         <h1>Login</h1>
         {validateMessage.type && (
           <ValidateMessage
-            type={validateMessage.type}
-            message={validateMessage.message}
-            handleClose={handleClose}
+          type={validateMessage.type}
+          message={validateMessage.message}
+          handleClose={handleClose}
           />
-        )}
+          )}
         <form onSubmit={handleSubmit} className="login-form">
           <input
             type="text"
@@ -71,20 +71,20 @@ const Login = () => {
             value={form.email}
             placeholder="email"
             onChange={handleChange}
-          ></input>
+            ></input>
           <input
             type="password"
             name="password"
             value={form.password}
             placeholder="password"
             onChange={handleChange}
-          ></input>
+            ></input>
           <button type="submit" className="btn btn-primary">
             Login
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -55,7 +55,7 @@ const Register = () => {
   };
 
   return (
-    <div className="login-container">
+    <>
       <div className="login-form-container">
         <h1>Register</h1>
         {validateMessage.type && (
@@ -92,7 +92,7 @@ const Register = () => {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
