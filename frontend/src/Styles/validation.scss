@@ -5,7 +5,8 @@
   text-decoration: none;
   padding: 0.1em 1em;
   margin: 0;
-  width: 95%;
+  width: 90%;
+  // width: inherit;
   font-size: 0.5rem;
   border: 1px solid black;
   border-radius: 3px;
@@ -16,6 +17,7 @@
   // background-color: #f44336; /* Red */
   // color: white;
   // margin-bottom: 15px;
+  // margin: auto;
   transition: 0.3s;
 };
 

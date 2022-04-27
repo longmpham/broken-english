@@ -19,8 +19,8 @@ const Navbar = () => {
       link: "/register",
     },
     {
-      // title: "Conversations",
-      title: <MdChat />,
+      title: "Chat",
+      // title: <MdChat />,
       link: "/chat",
     },
   ];

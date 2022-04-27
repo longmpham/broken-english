@@ -29,7 +29,7 @@
   @include btn();
   background-color: $primaryColor;
   font-size: 1.5em;
-  padding: 22px;
+  padding: 1em;
   &:hover {
     background-color: darken($primaryColor, 5%);
   }
