@@ -422,55 +422,7 @@
   background-color: #ffffaf;
 }
 
-.navbar-container {
-  width: 100%;
-  height: 80px;
-  background-color: #00735c;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.navbar-container a {
-  text-decoration: none;
-  color: black;
-}
-
-.navbar-container a:hover {
-  background-color: #005a48;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-
-.navbar-left {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.navbar-middle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-
-.navbar-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding-right: 10px;
-}
-
-.navbar-left a {
+.login-form-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -480,36 +432,17 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 14px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #c1d9b7;
+  padding: 80px;
+  -webkit-transition: padding 0.3s;
+  transition: padding 0.3s;
 }
 
-.navbar-logo {
-  height: 50px;
-  width: 50px;
-}
-
-.navbar-middle .navbar-title {
-  color: white;
-}
-
-.navbar-middle a {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.navbar-title {
-  margin: 0;
-  color: #f0f0f0;
-}
-
-.navbar-links {
+.login-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -519,130 +452,73 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #c1d9b7;
+  gap: 0.5rem;
+  width: 50%;
 }
 
-.navbar-links li a {
+.login-form-container h1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+  border-bottom: 1px dotted black;
+  border-top: 1px dotted black;
+  margin: 10px;
+}
+
+.login-form input {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  text-decoration: none;
-  cursor: pointer;
-  color: #f0f0f0;
+  width: 100%;
+  -webkit-box-shadow: 0px 0px 3px 1px #c1d9b7;
+          box-shadow: 0px 0px 3px 1px #c1d9b7;
+  border-radius: 3px;
+  padding: 10px 0;
 }
 
-.navbar-menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 21px;
-  background-color: inherit;
-  border: none;
-  font-size: 36px;
-  z-index: 99999;
-  cursor: pointer;
-  display: none;
+.login-form input:hover {
+  -webkit-box-shadow: 0px 0px 3px 1px #c1d9b7;
+          box-shadow: 0px 0px 3px 1px #c1d9b7;
+  border: 2px solid #c1d9b7;
 }
 
-.navbar-menu:hover {
-  background-color: #005a48;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
+.login-form input:focus {
+  -webkit-box-shadow: 0px 0px 3px 1px #00735c;
+          box-shadow: 0px 0px 3px 1px #00735c;
+  border: 2px solid #00735c;
+  outline: none;
 }
 
-.navbar-sidebar {
-  display: none;
-}
-
-@media (max-width: 366px) {
-  .navbar-middle {
-    display: none;
-  }
-}
-
-@media (max-width: 456px) {
-  .navbar-links {
-    display: none;
-  }
+.login-form button {
+  width: 100%;
 }
 
 @media (max-width: 768px) {
-  .navbar-menu {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    color: white;
-  }
-  .navbar-title h1 {
-    font-size: 24px;
-  }
-  .navbar-links {
-    display: none;
-  }
-  .navbar-sidebar {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    margin: 0;
-    padding: 0;
-    inset: 0 0 0 30%;
-    background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    z-index: 9999;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-  }
-  .navbar-sidebar-links {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    font-size: 28px;
-    list-style: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    padding: 0;
-    margin: 0;
-  }
-  .navbar-sidebar-links li {
+  .login-form {
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    text-align: center;
   }
-  .navbar-sidebar-links li a {
-    color: #f0f0f0;
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    padding: 20px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  .navbar-sidebar-links li a:hover {
-    background-color: #e5a298;
-  }
-  .navbar-sidebar-links li:last-child a {
-    border: none;
+  .login-form-container h1 {
+    width: 100%;
   }
 }
-/*# sourceMappingURL=Navbar.css.map */
+
+@media (max-width: 540px) {
+  .login-form-container {
+    padding: 40px;
+    -webkit-transition: padding 0.3s;
+    transition: padding 0.3s;
+  }
+}
+/*# sourceMappingURL=Login.css.map */

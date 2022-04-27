@@ -131,7 +131,7 @@ const Chat = () => {
             onChange={handleChange}
             // onKeyPress={handleKeyPress}
           ></input>
-          <button type="submit" className="btn-send">
+          <button type="submit" className="btn btn-icon btn-send">
             Join
           </button>
         </form>

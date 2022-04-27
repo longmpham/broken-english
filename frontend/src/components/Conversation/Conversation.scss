@@ -3,7 +3,7 @@
 .conversation-container {
   display: flex;
   justify-content: space-between;
-  // align-items: center;
+  align-items: center;
   flex-direction: column;
   margin: 5% 10%;
   background-color: $neutralColor;
@@ -20,7 +20,8 @@
   // border: 1px solid black;
   // padding: 50px;
   box-shadow: 1px 1px 10px 1px black;
-  margin: 50px;
+  // margin: 50px;
+  width: 60%;
 }
 
 .conversation-header {
@@ -105,7 +106,7 @@
 }
 
 .conversation-footer {
-  background-color: antiquewhite;
+  background-color: $secondaryColor;
 }
 
 .conversation-send-form {
@@ -136,6 +137,10 @@
   .conversation-header h1 {
     font-size: 12px;
   }
+  .btn-group button {
+    font-size: 6px;
+  }
+
 }
 
 //  SCROLL BAR For Messages
@@ -165,39 +170,40 @@
 }
 
 .conversation-tolerance-slider {
-  margin: 0 10px;
+  margin: 0 5px;
   flex: 1;
+  width: 50%;
 }
 
 .tolerance-bubble {
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 // TOLERANCE BUTTON GROUP
 
-.tolerance-button-group {
-  display: flex;
-}
+// .tolerance-button-group {
+//   display: flex;
+// }
 
-.tolerance-button-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
+// .tolerance-button-group button:not(:last-child) {
+//   border-right: none; /* Prevent double borders */
+// }
 
-.tolerance-button-group button {
-  flex: 1;
-  border: 1px solid darken($tertiaryColor,90%);
-  font-size: 12px;
-  border-radius: 0;
-}
+// .tolerance-button-group button {
+//   flex: 1;
+//   border: 1px solid darken($tertiaryColor,90%);
+//   font-size: 12px;
+//   // border-radius: 3px;
+// }
 
-.tolerance-button-group button:hover {
-  background-color: darken($tertiaryColor, 20%);
-}
+// .tolerance-button-group button:hover {
+//   background-color: darken($tertiaryColor, 20%);
+// }
 
-.tolerance-button-group button:active {
-  background-color: $primaryColor;
-}
+// .tolerance-button-group button:active {
+//   background-color: $primaryColor;
+// }
 
-.tolerance-button-group button:focus {
-  background-color: $primaryColor;
-}
+// .tolerance-button-group button:focus {
+//   background-color: $primaryColor;
+// }

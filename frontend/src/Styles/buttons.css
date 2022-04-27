@@ -322,7 +322,7 @@
   background-color: #008d70;
 }
 
-.btn {
+.btn, .btn-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -334,24 +334,13 @@
           align-items: center;
 }
 
-.btn-group {
-  color: black;
-  text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  font-size: 1.5em;
-  cursor: pointer;
-  border: 0;
-  display: inline-block;
-}
-
 .btn-group button {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   border: 1px solid black;
   font-size: 12px;
-  border-radius: 0;
+  border-radius: 3px;
 }
 
 .btn-group button:hover {
@@ -365,5 +354,14 @@
 .btn-group button:not(:last-child) {
   border-right: none;
   /* Prevent double borders */
+}
+
+@media (max-width: 360px) {
+  .btn-group button {
+    font-size: 6px;
+  }
+  .btn-icon {
+    font-size: 10px;
+  }
 }
 /*# sourceMappingURL=buttons.css.map */

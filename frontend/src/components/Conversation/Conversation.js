@@ -15,8 +15,17 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const toleranceRef = React.useRef(2);
 
   const sendMessage = async () => {
-    const currentDate =
-      new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
+    const formatTime = () => {
+      let current = new Date();
+      let hours = current.getHours();
+      let minutes = current.getMinutes();
+      let ampm = hours >= 12 ? "pm" : "am";
+      hours %= 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      return `${hours}:${minutes} ${ampm}`;
+    };
+    const currentDate = await formatTime();
     const messageData = {
       room: room,
       author: username,
@@ -59,11 +68,11 @@ const Conversation = ({ socket, form: { username, room } }) => {
     tolerance
   ) => {
     if (parseInt(tolerance) === 0) return toBeTranslated;
-    
+
     const splitStr = toBeTranslated.split(" ");
     const numberOfWords = splitStr.length;
     console.log(tolerance, numberOfWords);
-    
+
     // check tolerance if number or percentage
     let tol = tolerance;
     if (tol === "25%") {
@@ -76,8 +85,10 @@ const Conversation = ({ socket, form: { username, room } }) => {
       const data = await translate(toBeTranslated, source, target);
       return data;
     }
+    
     console.log(tol);
-    if (tolerance > numberOfWords) return toBeTranslated;
+    // if (tol > numberOfWords) return toBeTranslated;
+    if (tol >= numberOfWords) tol = numberOfWords;
 
     console.log("this is working");
     // parseTranslation
@@ -171,7 +182,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
-    setMessage(prevMessage => translatedMessage);
+    setMessage((prevMessage) => translatedMessage);
     sendMessage();
   };
 
