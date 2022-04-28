@@ -4,8 +4,12 @@ import { MdSend } from "react-icons/md";
 import "./Conversation.scss";
 import Translate from "./Translate";
 
-// const Conversation = ({ socket, form: { username, room } }) => {
 const Conversation = ({ socket, form: { username, room } }) => {
+  const [languages, setLanguages] = React.useState([])
+  const [source, setSource] = React.useState("en")
+  const [target, setTarget] = React.useState("fr")
+  const sourceRef = React.useRef("en")
+  const targetRef = React.useRef("fr")
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
   const endOfMessagesRef = React.useRef(null);
@@ -54,6 +58,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
     };
 
     // console.log(formData)
+    // console.log(source, target)
 
     const res = await fetch(url, requestOptions);
     const data = await res.json();
@@ -157,10 +162,11 @@ const Conversation = ({ socket, form: { username, room } }) => {
     socket.on("broadcast_data", async (data) => {
       // data comes here when it gets texted to receiver.
       console.log(data);
+      console.log(`source: ${source}, target: ${target}`)
       const newData = await getTranslation(
         data.message,
-        "en",
-        "fr",
+        sourceRef.current,
+        targetRef.current,
         toleranceRef.current
       );
       console.log(newData);
@@ -211,6 +217,22 @@ const Conversation = ({ socket, form: { username, room } }) => {
     console.log(toleranceRef.current);
   };
 
+  const handleSource = (event) => {
+    sourceRef.current = event.target.value
+    setSource(prevSource => event.target.value)
+    console.log(event.target.value)
+  }
+  const handleTarget = (event) => {
+    targetRef.current = event.target.value
+    setTarget(prevTarget => event.target.value)
+    console.log(event.target.value)
+  }
+
+  const handleLanguages = async (languageList) => {
+    const langlist = await languageList
+    setLanguages(prevLanguages => langlist)
+  }
+
   return (
     <div className="conversation-container">
       <div className="conversation-window">
@@ -252,6 +274,40 @@ const Conversation = ({ socket, form: { username, room } }) => {
               <MdSend />
             </button>
           </form>
+          <label>Source: </label>
+          <select
+            name="source"
+            value={source}
+            onChange={handleSource}
+          >
+            {languages && 
+              languages.map((language) => {
+                return (
+                  <option key={language.language} value={language.language}>
+                    {language.name}, {language.language.toUpperCase()}
+                  </option>
+                );
+              })
+            }
+            {/* <option name="language" value={formData.value}>English</option> */}
+          </select>
+          <label>Target: </label>
+          <select
+            name="target"
+            value={target}
+            onChange={handleTarget}
+          >
+            {languages && 
+              languages.map((language) => {
+                return (
+                  <option key={language.language} value={language.language}>
+                    {language.name}, {language.language.toUpperCase()}
+                  </option>
+                );
+              })
+            }
+            {/* <option name="language" value={formData.value}>English</option> */}
+          </select>
           <div className="conversation-slider-container">
             <input
               className="conversation-tolerance-slider"
@@ -290,7 +346,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
               100%
             </button>
           </div>
-          <Translate handleTranslate={handleTranslate} />
+          <Translate handleLanguages={handleLanguages} handleTranslate={handleTranslate} />
         </div>
       </div>
     </div>

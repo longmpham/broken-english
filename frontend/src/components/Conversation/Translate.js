@@ -3,7 +3,7 @@ import { MdSend } from "react-icons/md";
 import "./Conversation.scss";
 const Translate = (props) => {
   const [translatedMessage, setTranslatedMessage] = React.useState("");
-  const [languages, setLanguages] = React.useState();
+  const [languages, setLanguages] = React.useState([]);
   const [formData, setFormData] = React.useState(
     {
       message: "",
@@ -32,8 +32,11 @@ const Translate = (props) => {
           language: data.data.languages[26].language,
         };
       });
+      return data.data.languages
     };
-    getLanguages();
+    const languageList = getLanguages();
+    // todo: get the languages and send to parent too
+    props.handleLanguages(languageList)
   }, []);
 
   const translate = async (toTranslate, source = "en", target) => {
@@ -143,7 +146,8 @@ const Translate = (props) => {
                   {language.name}, {language.language.toUpperCase()}
                 </option>
               );
-            })}
+            })
+          }
           {/* <option name="language" value={formData.value}>English</option> */}
         </select>
         <button type="submit" className="btn btn-icon">

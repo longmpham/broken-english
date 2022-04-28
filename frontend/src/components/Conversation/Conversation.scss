@@ -169,6 +169,18 @@
   align-items: center;
 }
 
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+// .conversation-slider-container input[type="range"]::-webkit-slider-runnable-track {
+  // background: $tertiaryColor;
+  // border-radius: 9px;
+// }
+
+/******** Firefox ********/
+// .conversation-slider-container input[type="range"]::-moz-range-track {
+//   background: $tertiaryColor;
+// }
+
+
 .conversation-tolerance-slider {
   margin: 0 5px;
   flex: 1;

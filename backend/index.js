@@ -5,6 +5,7 @@ const { config } = require("dotenv");
 const dotenv = require("dotenv").config();
 const http = require("http")
 const { Server } = require("socket.io")
+// const { joinRoom, sendChat, disconnectUser } = require("./listeners/socketAPI")
 
 
 const port = process.env.PORT || 9001;
@@ -39,6 +40,14 @@ const io = new Server(server, {
   },
 })
 
+// const onConnection = (socket) => {
+//   socket.on("join_room", joinRoom)
+//   socket.on("send_chat", sendChat)
+//   socket.on("disconnect", disconnectUser)
+// }
+
+// io.on("connection", onConnection);
+
 io.on("connection", (socket) => {
 
   socket.on("join_room", (data) => {
@@ -60,6 +69,6 @@ io.on("connection", (socket) => {
   })
 })
 
-  server.listen(port, () => {
-    console.log("CHAT SERVER RUNNING")
-  })
+server.listen(port, () => {
+  console.log("CHAT SERVER RUNNING")
+})
