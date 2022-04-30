@@ -87,6 +87,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
       tol = numberOfWords / 2;
     } else if (tol === "100%") {
       // translate it all.
+      console.log(`source: ${source}, target: ${target}`)
       const data = await translate(toBeTranslated, source, target);
       return data;
     }
@@ -189,7 +190,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const handleTranslate = (translatedMessage) => {
     console.log(`translated message from child: ${translatedMessage}`);
     setMessage((prevMessage) => translatedMessage);
-    sendMessage();
+    // sendMessage(); // if user wants to send immediately, use this!
   };
 
   const handleKeyPress = (event) => {
@@ -229,8 +230,8 @@ const Conversation = ({ socket, form: { username, room } }) => {
   }
 
   const handleLanguages = async (languageList) => {
-    const langlist = await languageList
-    setLanguages(prevLanguages => langlist)
+    // const langlist = languageList
+    setLanguages(prevLanguages => languageList)
   }
 
   return (
@@ -274,11 +275,13 @@ const Conversation = ({ socket, form: { username, room } }) => {
               <MdSend />
             </button>
           </form>
+          <div><label>Incoming:</label></div>
           <label>Source: </label>
           <select
             name="source"
             value={source}
             onChange={handleSource}
+            disabled
           >
             {languages && 
               languages.map((language) => {
