@@ -4,7 +4,7 @@ import "./Conversation.scss";
 const Translate = (props) => {
   const [translatedMessage, setTranslatedMessage] = React.useState("");
   const [languages, setLanguages] = React.useState([]);
-  const [formData, setFormData] = React.useState(
+  const [form, setFormData] = React.useState(
     {
       message: "",
     },
@@ -13,7 +13,7 @@ const Translate = (props) => {
     },
     {
       target: "fr", // french default
-    }
+    },
   );
 
   // call the languages google can translate
@@ -25,18 +25,24 @@ const Translate = (props) => {
       // console.log(data)
       // console.log(data.data.languages)
       // console.log(data.data.languages[26]) // returns "fr"
-      setLanguages(data.data.languages);
+      setLanguages(prevLanguages => {
+        let languageList = data.data.languages
+        props.handleLanguages(languageList)
+        return languageList
+      });
       setFormData((prevFormData) => {
         return {
           ...prevFormData,
-          language: data.data.languages[26].language,
+          target: data.data.languages[26].language, // "fr"
         };
       });
-      return data.data.languages
+      // return data.data.languages
     };
-    const languageList = getLanguages();
+    getLanguages();
     // todo: get the languages and send to parent too
-    props.handleLanguages(languageList)
+    // props.handleLanguages(languageList)
+    // console.log(languageList)
+    
   }, []);
 
   const translate = async (toTranslate, source = "en", target) => {
@@ -47,14 +53,14 @@ const Translate = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // q: formData.message,
+        // q: form.message,
         q: toTranslate,
         source: source, // set english text as default
         target: target,
       }),
     };
 
-    // console.log(formData)
+    console.log(form)
 
     const res = await fetch(url, requestOptions);
     const data = await res.json();
@@ -63,10 +69,11 @@ const Translate = (props) => {
   };
 
   const getTranslation = async () => {
+
     const data = await translate(
-      formData.message,
-      formData.source,
-      formData.target
+      form.message,
+      form.source,
+      form.target
     );
 
     // const url = "http://localhost:9000/api/translate"
@@ -77,15 +84,15 @@ const Translate = (props) => {
     //   },
     //   body: JSON.stringify(
     //     {
-    //       // q: formData.message,
+    //       // q: form.message,
     //       q: randomToBeTranslatedStr,
-    //       target: formData.target,
+    //       target: form.target,
     //       source: "en" // set english text as default
     //     }
     //   ),
     // }
 
-    // console.log(formData)
+    // console.log(form)
 
     // const res = await fetch(url, requestOptions)
     // const data = await res.json()
@@ -102,15 +109,12 @@ const Translate = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.message === "") {
+    if (form.message === "") {
       alert("message is empty");
       return;
     }
-    // console.log(formData)
+    // console.log(form)
     console.log("success! Form submitted");
-
-    // call fetch here
-    // mytesthandle()
     getTranslation();
   };
 
@@ -128,15 +132,15 @@ const Translate = (props) => {
       <form onSubmit={handleSubmit} className="translate-send-form">
         <input
           className="translate-send"
-          value={formData.message}
+          value={form.message}
           name="message"
           onChange={handleChange}
           type="text"
           placeholder="Translate a message here..."
         />
         <select
-          name="language"
-          value={formData.language}
+          name="target"
+          value={form.target}
           onChange={handleChange}
         >
           {languages &&
