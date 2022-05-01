@@ -1,5 +1,6 @@
 import React from "react";
 import { MdSend } from "react-icons/md";
+import ButtonGroup from "../Components/ButtonGroup";
 
 import "./Conversation.scss";
 import Translate from "./Translate";
@@ -323,32 +324,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
             ></input>
             <div className="tolerance-bubble">{tolerance}</div>
           </div>
-          <div className="btn-group">
-            <button
-              type="text"
-              value="25%"
-              onClick={handleTolerance}
-              className="btn btn-tertiary"
-            >
-              25%
-            </button>
-            <button
-              type="text"
-              value="50%"
-              onClick={handleTolerance}
-              className="btn btn-tertiary"
-            >
-              50%
-            </button>
-            <button
-              type="text"
-              value="100%"
-              onClick={handleTolerance}
-              className="btn btn-tertiary"
-            >
-              100%
-            </button>
-          </div>
+          <ButtonGroup buttons={["25%", "50%", "100%"]} handleTolerance={handleTolerance} />
           <Translate handleLanguages={handleLanguages} handleTranslate={handleTranslate} />
         </div>
       </div>

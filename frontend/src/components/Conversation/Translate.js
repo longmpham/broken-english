@@ -1,6 +1,7 @@
 import React from "react";
 import { MdSend } from "react-icons/md";
 import "./Conversation.scss";
+
 const Translate = (props) => {
   const [translatedMessage, setTranslatedMessage] = React.useState("");
   const [languages, setLanguages] = React.useState([]);
@@ -13,7 +14,7 @@ const Translate = (props) => {
     },
     {
       target: "fr", // french default
-    },
+    }
   );
 
   // call the languages google can translate
@@ -25,11 +26,9 @@ const Translate = (props) => {
       // console.log(data)
       // console.log(data.data.languages)
       // console.log(data.data.languages[26]) // returns "fr"
-      setLanguages(prevLanguages => {
-        let languageList = data.data.languages
-        props.handleLanguages(languageList)
-        return languageList
-      });
+      let languageList = data.data.languages;
+      props.handleLanguages(languageList);
+      setLanguages((prevLanguages) => languageList);
       setFormData((prevFormData) => {
         return {
           ...prevFormData,
@@ -39,10 +38,6 @@ const Translate = (props) => {
       // return data.data.languages
     };
     getLanguages();
-    // todo: get the languages and send to parent too
-    // props.handleLanguages(languageList)
-    // console.log(languageList)
-    
   }, []);
 
   const translate = async (toTranslate, source = "en", target) => {
@@ -60,7 +55,7 @@ const Translate = (props) => {
       }),
     };
 
-    console.log(form)
+    console.log(form);
 
     const res = await fetch(url, requestOptions);
     const data = await res.json();
@@ -69,12 +64,7 @@ const Translate = (props) => {
   };
 
   const getTranslation = async () => {
-
-    const data = await translate(
-      form.message,
-      form.source,
-      form.target
-    );
+    const data = await translate(form.message, form.source, form.target);
 
     // const url = "http://localhost:9000/api/translate"
     // const requestOptions = {
@@ -138,11 +128,7 @@ const Translate = (props) => {
           type="text"
           placeholder="Translate a message here..."
         />
-        <select
-          name="target"
-          value={form.target}
-          onChange={handleChange}
-        >
+        <select name="target" value={form.target} onChange={handleChange}>
           {languages &&
             languages.map((language) => {
               return (
@@ -150,8 +136,7 @@ const Translate = (props) => {
                   {language.name}, {language.language.toUpperCase()}
                 </option>
               );
-            })
-          }
+            })}
           {/* <option name="language" value={formData.value}>English</option> */}
         </select>
         <button type="submit" className="btn btn-icon">
