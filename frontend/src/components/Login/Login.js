@@ -66,28 +66,30 @@ const Login = () => {
           />
           )}
         <Form form={form} handleChange={handleChange} handleSubmit={handleSubmit}/>
-        {/* <form onSubmit={handleSubmit} className="login-form">
-          <input
-            type="text"
-            name="email"
-            value={form.email}
-            placeholder="email"
-            onChange={handleChange}
-            ></input>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            placeholder="password"
-            onChange={handleChange}
-            ></input>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-        </form> */}
       </div>
     </>
   );
 };
 
 export default Login;
+
+// CODE SNIPPET FOR FORM
+{/* <form onSubmit={handleSubmit} className="login-form">
+  <input
+    type="text"
+    name="email"
+    value={form.email}
+    placeholder="email"
+    onChange={handleChange}
+    ></input>
+  <input
+    type="password"
+    name="password"
+    value={form.password}
+    placeholder="password"
+    onChange={handleChange}
+    ></input>
+  <button type="submit" className="btn btn-primary">
+    Login
+  </button>
+</form> */}
