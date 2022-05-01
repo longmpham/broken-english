@@ -63,7 +63,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
     const res = await fetch(url, requestOptions);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   };
 
@@ -77,7 +77,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
 
     const splitStr = toBeTranslated.split(" ");
     const numberOfWords = splitStr.length;
-    console.log(tolerance, numberOfWords);
+    // console.log(tolerance, numberOfWords);
 
     // check tolerance if number or percentage
     let tol = tolerance;
@@ -88,16 +88,15 @@ const Conversation = ({ socket, form: { username, room } }) => {
       tol = numberOfWords / 2;
     } else if (tol === "100%") {
       // translate it all.
-      console.log(`source: ${source}, target: ${target}`)
+      // console.log(`source: ${source}, target: ${target}`)
       const data = await translate(toBeTranslated, source, target);
       return data;
     }
     
-    console.log(tol);
+    // console.log(tol);
     // if (tol > numberOfWords) return toBeTranslated;
     if (tol >= numberOfWords) tol = numberOfWords;
 
-    console.log("this is working");
     // parseTranslation
     let randomIndexArr = [];
     let randomToBeTranslated = [];
@@ -109,17 +108,17 @@ const Conversation = ({ socket, form: { username, room } }) => {
         randomIndexArr.push(randomIndex);
     }
     randomIndexArr.sort((a, b) => a - b);
-    console.log(randomIndexArr);
+    // console.log(randomIndexArr);
 
     // push random words to a new array to be translated
     for (let i = 0; i < tol; i++) {
       randomToBeTranslated.push(splitStr[randomIndexArr[i]]);
     }
 
-    console.log(randomToBeTranslated);
+    // console.log(randomToBeTranslated);
 
     const randomToBeTranslatedStr = randomToBeTranslated.join("=");
-    console.log(randomToBeTranslatedStr);
+    // console.log(randomToBeTranslatedStr);
 
     const data = await translate(randomToBeTranslatedStr, source, target);
 
@@ -163,8 +162,8 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const getMessages = async (data) => {
     socket.on("broadcast_data", async (data) => {
       // data comes here when it gets texted to receiver.
-      console.log(data);
-      console.log(`source: ${source}, target: ${target}`)
+      // console.log(data);
+      // console.log(`source: ${source}, target: ${target}`)
       const newData = await getTranslation(
         data.message,
         sourceRef.current,
@@ -189,7 +188,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
   }, [messages]);
 
   const handleTranslate = (translatedMessage) => {
-    console.log(`translated message from child: ${translatedMessage}`);
+    // console.log(`translated message from child: ${translatedMessage}`);
     setMessage((prevMessage) => translatedMessage);
     // sendMessage(); // if user wants to send immediately, use this!
   };
@@ -213,21 +212,21 @@ const Conversation = ({ socket, form: { username, room } }) => {
     } else {
       tol = event.target.value;
     }
-    console.log(tol);
+    // console.log(tol);
     setTolerance((prevTolerance) => tol);
     toleranceRef.current = tol;
-    console.log(toleranceRef.current);
+    // console.log(toleranceRef.current);
   };
 
   const handleSource = (event) => {
     sourceRef.current = event.target.value
     setSource(prevSource => event.target.value)
-    console.log(event.target.value)
+    // console.log(event.target.value)
   }
   const handleTarget = (event) => {
     targetRef.current = event.target.value
     setTarget(prevTarget => event.target.value)
-    console.log(event.target.value)
+    // console.log(event.target.value)
   }
 
   const handleLanguages = async (languageList) => {

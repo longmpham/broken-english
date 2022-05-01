@@ -92,7 +92,7 @@ const Translate = (props) => {
     // setTranslatedMessage(data)
     // props.handleTranslate(data)
 
-    console.log(data);
+    // console.log(data);
     setTranslatedMessage(data);
     props.handleTranslate(data);
   };

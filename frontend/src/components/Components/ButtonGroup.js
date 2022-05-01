@@ -3,12 +3,12 @@ import React from "react";
 import "../../Styles/variables.scss";
 
 const ButtonGroup = ({ buttons, handleTolerance }) => {
-  console.log(buttons);
   return (
     <div className="btn-group">
       {buttons.map((button) => {
         return (
           <button
+            key={button}
             type="text"
             value={button}
             onClick={handleTolerance}
