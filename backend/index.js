@@ -3,8 +3,10 @@ const cors = require("cors");
 const connectDB = require("./config/db.js");
 const { config } = require("dotenv");
 const dotenv = require("dotenv").config();
-const http = require("http")
-const { Server } = require("socket.io")
+const http = require("http");
+const setupSocketIOAPI = require("./listeners/socketAPI.js");
+
+// const { Server } = require("socket.io")
 // const { joinRoom, sendChat, disconnectUser } = require("./listeners/socketAPI")
 
 
@@ -33,12 +35,17 @@ app.use("/api/users", require("./routes/userRoute"));
   // })
   
 const server = http.createServer(app)
-  
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-  },
+
+setupSocketIOAPI(server)
+
+server.listen(port, () => {
+  console.log("CHAT SERVER RUNNING")
 })
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//   },
+// })
 
 // const onConnection = (socket) => {
 //   socket.on("join_room", joinRoom)
@@ -48,27 +55,24 @@ const io = new Server(server, {
 
 // io.on("connection", onConnection);
 
-io.on("connection", (socket) => {
+// io.on("connection", (socket) => {
 
-  socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User with socket ID: ${socket.id} joined room with ID: ${data}`)
+//   socket.on("join_room", (data) => {
+//     socket.join(data);
+//     console.log(`User with socket ID: ${socket.id} joined room with ID: ${data}`)
 
-    // todo: when user joins, grab history of room?
+//     // todo: when user joins, grab history of room?
     
-  })
+//   })
 
-  socket.on("send_chat", (data) => {
-    console.log(data)
-    socket.to(data.room).emit("broadcast_data", data)
-  })
+//   socket.on("send_chat", (data) => {
+//     console.log(data)
+//     socket.to(data.room).emit("broadcast_data", data)
+//   })
 
-  // listen for disconnection
-  socket.on("disconnect", () => {
-    console.log(`User disconnected from ${socket.id}`)
-  })
-})
+//   // listen for disconnection
+//   socket.on("disconnect", () => {
+//     console.log(`User disconnected from ${socket.id}`)
+//   })
+// })
 
-server.listen(port, () => {
-  console.log("CHAT SERVER RUNNING")
-})

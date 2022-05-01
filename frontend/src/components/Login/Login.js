@@ -74,7 +74,7 @@ const Login = () => {
 export default Login;
 
 // CODE SNIPPET FOR FORM
-{/* <form onSubmit={handleSubmit} className="login-form">
+/* <form onSubmit={handleSubmit} className="login-form">
   <input
     type="text"
     name="email"
@@ -92,4 +92,4 @@ export default Login;
   <button type="submit" className="btn btn-primary">
     Login
   </button>
-</form> */}
+</form> */

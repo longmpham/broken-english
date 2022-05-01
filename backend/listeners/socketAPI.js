@@ -1,22 +1,32 @@
-//joinRoom, sendChat
+const { Server } = require("socket.io");
 
-// const joinRoom = (data) => {
-//   const socket = this
-//   console.log(socket)
-//   socket.join(data);
-//   console.log(`User with socket ID: ${socket.id} joined room with ID: ${data}`)
+const setupSocketIOAPI = (server) => {
+  const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:3000",
+    },
+  });
+  io.on("connection", (socket) => {
+    socket.on("join_room", (data) => {
+      socket.join(data);
+      console.log(
+        `User with socket ID: ${socket.id} joined room with ID: ${data}`
+      );
 
-//   // todo: when user joins, grab history of room?
-// }
-// const sendChat = (data) => {
-//   const socket = this
-//   console.log(data)
-//   socket.to(data.room).emit("broadcast_data", data)
-// }
+      // todo: when user joins, grab history of room?
+    });
 
-// const disconnectUser = (io) => {
-//   console.log(data)
-//   socket.to(data.room).emit("broadcast_data", data)
-// }
+    socket.on("send_chat", (data) => {
+      console.log(data);
+      socket.to(data.room).emit("broadcast_data", data);
+    });
 
-// module.exports = { joinRoom, sendChat, disconnectUser }
+    // listen for disconnection
+    socket.on("disconnect", () => {
+      console.log(`User disconnected from ${socket.id}`);
+    });
+  });
+};
+
+
+module.exports = setupSocketIOAPI
