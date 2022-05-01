@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "../Components/Form";
 import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
@@ -64,7 +65,8 @@ const Login = () => {
           handleClose={handleClose}
           />
           )}
-        <form onSubmit={handleSubmit} className="login-form">
+        <Form form={form} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        {/* <form onSubmit={handleSubmit} className="login-form">
           <input
             type="text"
             name="email"
@@ -82,7 +84,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             Login
           </button>
-        </form>
+        </form> */}
       </div>
     </>
   );

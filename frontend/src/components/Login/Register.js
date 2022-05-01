@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "../Components/Form";
 import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
@@ -65,32 +66,7 @@ const Register = () => {
             handleClose={handleClose}
           />
         )}
-        <form onSubmit={handleSubmit} className="login-form">
-          <input
-            type="text"
-            name="username"
-            value={form.username}
-            placeholder="username"
-            onChange={handleChange}
-          ></input>
-          <input
-            type="text"
-            name="email"
-            value={form.email}
-            placeholder="email"
-            onChange={handleChange}
-          ></input>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            placeholder="password"
-            onChange={handleChange}
-          ></input>
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-        </form>
+        <Form form={form} handleChange={handleChange} handleSubmit={handleSubmit}/>
       </div>
     </>
   );
