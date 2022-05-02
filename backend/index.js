@@ -5,6 +5,13 @@ const { config } = require("dotenv");
 const dotenv = require("dotenv").config();
 const http = require("http");
 const setupSocketIOAPI = require("./listeners/socketAPI.js");
+const session = require("express-session")
+const passport = require("passport");
+const MongoStore = require("connect-mongo")
+
+let userProfile;
+
+
 
 // const { Server } = require("socket.io")
 // const { joinRoom, sendChat, disconnectUser } = require("./listeners/socketAPI")
@@ -19,6 +26,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("*", cors())
 
+// mongo cookie / session   
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.DB_URI,
+    collectionName: "sessions",
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
+}))
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // app.get('/', (req,res) => {
 //   res.send('Hello World!');
@@ -28,51 +54,14 @@ app.use("*", cors())
 app.use("/api/translate", require("./routes/translateRoute"))
 app.use("/api/users", require("./routes/userRoute"));
 
+// socket IO stuff
+const server = http.createServer(app)
+setupSocketIOAPI(server)
 
 
 // app.listen(port, () => {
   //   console.log(`Server running on port ${port}`)
   // })
-  
-const server = http.createServer(app)
-
-setupSocketIOAPI(server)
-
 server.listen(port, () => {
   console.log("CHAT SERVER RUNNING")
 })
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//   },
-// })
-
-// const onConnection = (socket) => {
-//   socket.on("join_room", joinRoom)
-//   socket.on("send_chat", sendChat)
-//   socket.on("disconnect", disconnectUser)
-// }
-
-// io.on("connection", onConnection);
-
-// io.on("connection", (socket) => {
-
-//   socket.on("join_room", (data) => {
-//     socket.join(data);
-//     console.log(`User with socket ID: ${socket.id} joined room with ID: ${data}`)
-
-//     // todo: when user joins, grab history of room?
-    
-//   })
-
-//   socket.on("send_chat", (data) => {
-//     console.log(data)
-//     socket.to(data.room).emit("broadcast_data", data)
-//   })
-
-//   // listen for disconnection
-//   socket.on("disconnect", () => {
-//     console.log(`User disconnected from ${socket.id}`)
-//   })
-// })
-
