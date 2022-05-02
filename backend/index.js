@@ -29,7 +29,7 @@ app.use("*", cors())
 // mongo cookie / session   
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({

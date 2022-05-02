@@ -12,7 +12,7 @@ router.get("/me", getMe);
 router.post("/", registerUser);
 
 // GET REQUEST -> login
-router.get("/login", loginUser);
+router.get("/login", passport.authenticate("local", { }), loginUser);
 
 // PUT REQUEST -> update login
 router.get("/update", updateUser);
