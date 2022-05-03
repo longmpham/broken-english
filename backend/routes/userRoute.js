@@ -9,10 +9,11 @@ const { getMe, registerUser, loginUser, updateUser } = require("../controllers/u
 router.get("/me", getMe);
 
 // POST REQUEST -> register
-router.post("/", registerUser);
+router.post("/register", registerUser);
 
 // GET REQUEST -> login
-router.get("/login", passport.authenticate("local", { }), loginUser);
+// router.post("/login", passport.authenticate("local", { }), loginUser);
+router.post("/login", loginUser);
 
 // PUT REQUEST -> update login
 router.get("/update", updateUser);

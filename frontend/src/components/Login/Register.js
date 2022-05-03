@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import Form from "../Components/Form";
 import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
@@ -39,6 +40,27 @@ const Register = () => {
     } else {
       console.log("Success");
       console.log(form);
+
+      const url = "http://localhost:9000/api/users/register";
+      // call axios
+      const response = await axios({
+        method: "post",
+        data: {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        },
+        withCredentials: true,
+        url: url,
+      });
+      console.log(response);
+      if(response.status === 200) {
+        // redirect to home page
+        console.log("redirecting to home page")
+      }
+      else {
+        console.log("Something went wrong with the server. Did not login.");
+      }
     }
   };
 
@@ -66,7 +88,11 @@ const Register = () => {
             handleClose={handleClose}
           />
         )}
-        <Form form={form} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <Form
+          form={form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </>
   );

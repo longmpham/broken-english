@@ -20,7 +20,7 @@ const Form = ({ form, handleChange, handleSubmit }) => {
         );
       })}
       <button type="submit" className="btn btn-primary">
-        Login
+        Enter
       </button>
     </form>
   );

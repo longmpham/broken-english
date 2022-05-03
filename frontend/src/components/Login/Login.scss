@@ -21,6 +21,7 @@
   background-color: $tertiaryColor;
   gap: 0.5rem;
   width: 50%;
+  transition: width 0.3s;
 }
 
 .login-form-container h1 {
@@ -30,7 +31,8 @@
   width: 50%;
   border-bottom: 1px dotted black;
   border-top: 1px dotted black;
-  margin: 10px
+  margin: 10px;
+  transition: width 0.3s;
 }
 
 .login-form input {
@@ -61,6 +63,8 @@
 @media (max-width: 768px) {
   .login-form {
     width: 100%;
+    transition: width 0.3s;
+
   }
 
   .login-form-container h1 {
@@ -72,6 +76,9 @@
   .login-form-container {
     padding: 40px;
     transition: padding 0.3s;
+  }
+    .login-form {
+    width: 100%;
   }
   
 }

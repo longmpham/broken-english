@@ -24,7 +24,15 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("*", cors())
+
+// cors
+// app.use(cors())
+// app.use("*", cors())
+// app.options("*", cors())
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}))
 
 // mongo cookie / session   
 app.set('trust proxy', 1) // trust first proxy
@@ -63,5 +71,5 @@ setupSocketIOAPI(server)
   //   console.log(`Server running on port ${port}`)
   // })
 server.listen(port, () => {
-  console.log("CHAT SERVER RUNNING")
+  console.log(`Chat Server running on port: ${port}`)
 })
