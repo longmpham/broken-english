@@ -39,24 +39,35 @@ const Login = () => {
     } else {
       console.log("Success");
       console.log(form);
-      const url = "http://localhost:9000/api/users/login";
-      // call axios
-      const response = await axios({
-        method: "post",
-        data: {
-          email: form.email,
-          password: form.password,
-        },
-        withCredentials: true,
-        url: url,
-      });
-      console.log(response);
-      if(response.status === 200) {
-        // redirect to home page
-        console.log("redirecting to home page")
-      }
-      else {
-        console.log("Something went wrong with the server. Did not login.");
+
+      try {
+        const url = "http://localhost:9000/api/users/login";
+        // call axios
+        const options = {
+          method: "post",
+          url: url,
+          data: {
+            email: form.email,
+            password: form.password,
+          },
+          withCredentials: true,
+        }
+        const response = await axios(options)
+        console.log(response);
+        if(response.status === 201) {
+          // redirect to home page
+          console.log("redirecting to home page")
+        }
+      } catch (error) {
+        console.log(error.response.data)
+        // console.log("Something went wrong with the server. Did not login.");
+        setValidateMessage((prevValidateMessage) => {
+          return ({
+            type: "error", 
+            message: error.response.data
+          })
+        });
+        clearValidationMessage();
       }
     }
   };
