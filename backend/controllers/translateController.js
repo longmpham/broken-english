@@ -2,6 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 const axios = require("axios");
 const data = require("../models/languages");
 const translate = require("@vitalets/google-translate-api");
+const e = require("express");
 
 // todo: might need a proxy 
 // https://www.npmjs.com/package/@vitalets/google-translate-api
@@ -16,8 +17,15 @@ const translateMessage = expressAsyncHandler(async (req, res) => {
     
     // todo: add the auto correct from 
     // https://www.npmjs.com/package/@vitalets/google-translate-api
-    // console.log(translation);
+    console.log(translation);
     console.log(translation.text);
+    // if(translation.from.language.didYouMean) {
+    //   res.status(200).json(translation.text);
+
+    // } else {
+    //   res.status(200).json(translation.text);
+    // }
+
 
     res.status(200).json(translation.text);
   } catch (error) {

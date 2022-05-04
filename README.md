@@ -39,3 +39,8 @@ So because I'm out of my quota for RapidAPI's 500 API call quota... and I'm a po
 
 I've officially let the sender send a message either translated or in english. I've also let the receiver have a tolerance from 0 to 10 words OR 25%, 50%, 100% translation. I've brought back my initial idea since I'm using this new API for Google Translate. Thank goodness it's unlimited and free. There are times when the translation isn't perfect but I have not found a way to translate with Grammar which is a big issue. This is also tested using French.... Other languages like the Asian languages may not be so hot.
 ![Tolerance!!!](./devImages/updateTolerance.png)
+
+### Update 6:
+
+I can now talk to my mom! WOO!!! I can set my own languages, while my mom can set hers. She'll see it in Vietnamese (you can choose your own language) and she can text in Vietnamese but I'll read it in English!!!
+![WE CAN TEXT FINALL!!!](./devImages/userCanSetTheirOwnLanguages.png)

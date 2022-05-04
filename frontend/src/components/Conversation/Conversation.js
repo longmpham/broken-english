@@ -89,7 +89,10 @@ const Conversation = ({ socket, form: { username, room } }) => {
     } else if (tol === "100%") {
       // translate it all.
       // console.log(`source: ${source}, target: ${target}`)
+      console.log(`source: ${source}, target: ${target}, tolerance: ${tol}`)
+
       const data = await translate(toBeTranslated, source, target);
+      console.log(data)
       return data;
     }
     
@@ -162,8 +165,8 @@ const Conversation = ({ socket, form: { username, room } }) => {
   const getMessages = async (data) => {
     socket.on("broadcast_data", async (data) => {
       // data comes here when it gets texted to receiver.
-      // console.log(data);
-      // console.log(`source: ${source}, target: ${target}`)
+      console.log(data);
+      console.log(`source: ${sourceRef.current}, target: ${targetRef.current}, tolerance: ${toleranceRef.current}`)
       const newData = await getTranslation(
         data.message,
         sourceRef.current,
@@ -281,7 +284,7 @@ const Conversation = ({ socket, form: { username, room } }) => {
             name="source"
             value={source}
             onChange={handleSource}
-            disabled
+            // disabled
           >
             {languages && 
               languages.map((language) => {
