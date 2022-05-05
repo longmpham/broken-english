@@ -20,7 +20,9 @@ let userProfile;
 const port = process.env.PORT || 9001;
 connectDB();
 
-// middleware
+/*********************************
+*         MIDDLE WARE            *
+*********************************/
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,16 +50,22 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
 }))
-
+const LocalStrategy = require("passport-local").Strategy;
+// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const UserModel = require("./models/user");
 // passport
 app.use(passport.initialize());
 app.use(passport.session());
+require("./config/passport")
+
+/*********************************
+*       END OF MIDDLE WARE       *
+*********************************/
 
 
-// app.get('/', (req,res) => {
-//   res.send('Hello World!');
-// })
-
+/*********************************
+*             ROUTES             *
+*********************************/
 // routes -> translate and users
 app.use("/api/translate", require("./routes/translateRoute"))
 app.use("/api/users", require("./routes/userRoute"));

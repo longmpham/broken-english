@@ -59,6 +59,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const passwordMatches = await bcrypt.compare(password, foundUser.password)
     if (foundUser && passwordMatches) {
+      // req.session.username = username;
+      console.log(req.session)
       res.status(200).send({foundUser});
     } else {
       res.status(400).send("Something went wrong finding the user");
@@ -70,6 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const getMe = asyncHandler(async (req, res) => {
   res.send("hello getme");
+  console.log('get me')
 });
 
 const updateUser = asyncHandler(async (req, res) => {
