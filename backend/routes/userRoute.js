@@ -12,15 +12,6 @@ const isAuthenticated = {
   failureRedirect: CLIENT_URL_FAILED,
 }
 
-function authenticationMiddleware () {
-  return function (req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
-    }
-    res.redirect('/')
-  }
-}
-
 // GET REQUEST -> get user profile
 router.get("/me", getMe);
 
@@ -34,28 +25,13 @@ router.get("/login/failed", (req, res) => {
 router.post("/register", registerUser);
 
 // POST REQUEST -> login
-
-// router.post("/login", passport.authenticate('local', isAuthenticated));
 router.post("/login", passport.authenticate("local", isAuthenticated), getMe);
-// router.post('/login', 
-//   passport.authenticate('local', { failureRedirect: 'login/failed' }),
-//   function(req, res) {
-//     res.redirect('/me');
-//   });
 // router.post("/login", loginUser);
 
 router.get("/logout", (req, res) => {
   req.logout()
   res.redirect('/')
 })
-
-// router.post('/login', passport.authenticate('local', { failureRedirect: '/login/failed', failureFlash: true }), function(req, res) {
-//   res.redirect('me');
-// });
-
-// router.get('/', function(req, res) {
-//   res.render('index', {user: req.user});
-// });
 
 // PUT REQUEST -> update login
 router.get("/update", updateUser);

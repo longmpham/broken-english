@@ -57,8 +57,8 @@ const loginUser = asyncHandler(async (req, res) => {
       return res.status(400).send("No email found. Create an account instead!")
     }
 
-    const passwordMatches = await bcrypt.compare(password, foundUser.password)
-    if (foundUser && passwordMatches) {
+    const isMatch = await bcrypt.compare(password, foundUser.password)
+    if (foundUser && isMatch) {
       // req.session.username = username;
       console.log(req.session)
       res.status(200).send({foundUser});
@@ -71,8 +71,9 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getMe = asyncHandler(async (req, res) => {
-  res.send("hello getme");
-  console.log('get me')
+  res.send(req.user);
+  console.log(req.session)
+  console.log(req.user)
 });
 
 const updateUser = asyncHandler(async (req, res) => {
