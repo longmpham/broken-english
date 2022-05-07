@@ -36,4 +36,16 @@ router.get("/logout", (req, res) => {
 // PUT REQUEST -> update login
 router.get("/update", updateUser);
 
+// GOOGLE STRATEGY EXAMPLE
+router.get('/auth/google',
+  passport.authenticate('google'));
+
+router.get('/auth/google/callback',
+  passport.authenticate('oauth2', { scope: 'profile', failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+
 module.exports = router;

@@ -50,13 +50,11 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
 }))
-const LocalStrategy = require("passport-local").Strategy;
-// const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const UserModel = require("./models/user");
+
 // passport
 app.use(passport.initialize());
 app.use(passport.session());
-require("./config/passport")
+require("./config/passport") // call this file to continue the passport use cases
 
 /*********************************
 *       END OF MIDDLE WARE       *

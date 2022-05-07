@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const OAuth2Strategy = require("passport-oauth2").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const UserModel = require("../models/user");
 
 passport.serializeUser((user, done) => {
@@ -13,17 +14,43 @@ passport.deserializeUser((id, done) => {
     done(err, user);
   });
 });
+
+// GOOGLE STRATEGY
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);
+
 // passport.use(
 //   new GoogleStrategy(
 //     {
-//       clientID: GOOGLE_CLIENT_ID,
-//       clientSecret: GOOGLE_CLIENT_SECRET,
-//       callbackURL: "http://www.example.com/auth/google/callback",
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL: "/auth/google/callback",
 //     },
-//     function (accessToken, refreshToken, profile, cb) {
-//       UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-//         return cb(err, user);
-//       });
+//     async (accessToken, refreshToken, profile, cb) => {
+//       try {
+//         const user = await UserModel.findOrCreate({ googleId: profile.id });
+//         if (!user) {
+//           return cb(error);
+//         }
+//         console.log(user)
+//         return cb(user);
+//       } catch (error) {
+//         return cb(error);
+//       }
 //     }
 //   )
 // );
@@ -97,6 +124,30 @@ passport.use(
       } catch (error) {
         return done(error, false);
       }
+    }
+  )
+);
+
+
+
+// OAUTH2 STRATEGY
+const EXAMPLE_CLIENT_ID = "EXAMPLE_CLIENT_ID";
+const EXAMPLE_CLIENT_SECRET = "EXAMPLE_CLIENT_SECRET";
+passport.use(
+  new OAuth2Strategy(
+    {
+      authorizationURL: "https://www.example.com/oauth2/authorize",
+      tokenURL: "https://www.example.com/oauth2/token",
+      clientID: EXAMPLE_CLIENT_ID,
+      clientSecret: EXAMPLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/example/callback",
+    },
+    async (accessToken, refreshToken, profile, cb) => {
+      const user = await UserModel.findOrCreate({ exampleId: profile.id });
+      if (!user) {
+        return "unable to find or create user using oauth2"
+      }
+      return user;
     }
   )
 );
