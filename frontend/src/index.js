@@ -4,13 +4,16 @@ import { createRoot } from 'react-dom/client' // react 18
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Context from "./Context"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
 
 root.render(
   // <React.StrictMode>
+  <Context>
     <App />
+  </Context>
   // </React.StrictMode>
 );
 

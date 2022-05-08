@@ -15,10 +15,12 @@ import Navbar from "./components/Navbar/Navbar";
 import Chat from "./components/Conversation/Chat";
 import Conversation from "./components/Conversation/Conversation";
 
-import "./Styles/variables.scss"
+import "./Styles/variables.scss";
 // import "./sass.scss";
+import { myContext } from "./Context";
 
 const App = () => {
+  const userObject = React.useContext(myContext);
   return (
     <div>
       <Router>

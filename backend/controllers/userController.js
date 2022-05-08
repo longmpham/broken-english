@@ -70,13 +70,16 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-const getMe = asyncHandler(async (req, res) => {
-  if (!req.user) {
+const getProfile = asyncHandler(async (req, res) => {
+  if (!req.user || req.session.user) {
     res.status(400).send({
       success: false,
       message: "Something went terribly wrong. User did not get authenticated",
     })
   } else {
+    // res.redirect('/' + req.user._id || req.session.user._id)
+    // res.redirect('http://localhost:3000')
+
     res.status(201).send({
       success: true,
       message: "user has successfully authenticated",
@@ -91,7 +94,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getMe,
+  getProfile,
   registerUser,
   loginUser,
   updateUser,

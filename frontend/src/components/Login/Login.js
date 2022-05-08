@@ -4,6 +4,7 @@ import Form from "../Components/Form";
 import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
+import SocialLogin from "./SocialLogins";
 
 const Login = () => {
   const [validateMessage, setValidateMessage] = React.useState({
@@ -89,6 +90,7 @@ const Login = () => {
     <>
       <div className="login-form-container">
         <h1>Login</h1>
+        <SocialLogin />
         {validateMessage.type && (
           <ValidateMessage
             type={validateMessage.type}

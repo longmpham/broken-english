@@ -9,6 +9,7 @@
   padding: 80px;
   transition: padding 0.3s;
   // width: 100%;
+  gap: 10px;
 }
 
 .login-form {
@@ -59,15 +60,69 @@
   width: 100%;
 }
 
+// SOCIALS BUTTONS
+// todo make sass for it.
+
+.login-form-socials-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $tertiaryColor;
+  transition: 0.3s;
+  gap: 1px;
+  width: 50%;
+}
+
+.login-form-socials-container div {
+  width: 100%;
+  transition: 0.3;
+}
+
+.login-social-google-container p {
+  color: white;
+}
+
+.login-social-github-container p{
+  // color: #6e5494;
+  color: white;
+}
+
+.login-social-facebook-container p {
+  // color: #4267b2;
+  color: white;
+}
+
+.login-social-google-container svg {
+  color: white;
+}
+
+.login-social-github-container svg {
+  // color: #6e5494;
+  color: white;
+}
+
+.login-social-facebook-container svg {
+  // color: #4267b2;
+  color: white;
+}
+
+// RESPONSIVE STUFF
 
 @media (max-width: 768px) {
   .login-form {
     width: 100%;
     transition: width 0.3s;
-
   }
 
   .login-form-container h1 {
+    width: 100%;
+  }
+
+  .login-form-socials-container {
+    width: 100%;
+  }
+  .login-form-socials-container div {
     width: 100%;
   }
 }
@@ -77,8 +132,10 @@
     padding: 40px;
     transition: padding 0.3s;
   }
-    .login-form {
+  .login-form {
     width: 100%;
   }
-  
+  .login-form-socials-container div p {
+    font-size: 10px;
+  }
 }
