@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+var findOrCreate = require('mongoose-findorcreate')
+
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -20,5 +22,6 @@ const UserSchema = mongoose.Schema({
 });
 
 
+UserSchema.plugin(findOrCreate) // add findorcreate from the package mongoose-findorcreate
 const UserModel = mongoose.model("User", UserSchema)
 module.exports = UserModel

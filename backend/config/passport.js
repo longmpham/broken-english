@@ -18,20 +18,33 @@ passport.deserializeUser((id, done) => {
 // GOOGLE STRATEGY
 // const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 // const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//       callbackURL: "http://localhost/auth/google/callback",
-//     },
-//     function (accessToken, refreshToken, profile, cb) {
-//       UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-//         return cb(err, user);
-//       });
-//     }
-//   )
-// );
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/api/users/auth/google/callback",
+    },
+    // async (accessToken, refreshToken, profile, cb) => {
+    //   try {
+    //     const user = await UserModel.findOrCreate({ googleId: profile.id });
+    //     console.log(user)
+    //     return cb(user)
+    //   } catch (error) {
+    //     console.log(error)
+    //     return cb(error)
+    //   } 
+    // }
+
+    function (accessToken, refreshToken, profile, cb) {
+      UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+        console.log("i found a user: ")
+        console.log(user)
+        return cb(err, user);
+      });
+    }
+  )
+);
 
 // passport.use(
 //   new GoogleStrategy(

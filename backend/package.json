@@ -22,6 +22,7 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.10",
+    "mongoose-findorcreate": "^3.0.0",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-google-oauth": "^2.0.0",
