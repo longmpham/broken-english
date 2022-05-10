@@ -21,7 +21,7 @@ import { myContext } from "./Context";
 import Profile from "./components/Profile/Profile";
 
 const App = () => {
-  const userObject = React.useContext(myContext);
+  // const userObject = React.useContext(myContext);
   return (
     <div>
       <Router>

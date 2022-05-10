@@ -44,3 +44,8 @@ I've officially let the sender send a message either translated or in english. I
 
 I can now talk to my mom! WOO!!! I can set my own languages, while my mom can set hers. She'll see it in Vietnamese (you can choose your own language) and she can text in Vietnamese but I'll read it in English!!!
 ![WE CAN TEXT FINALL!!!](./devImages/userCanSetTheirOwnLanguages.png)
+
+### Update 7:
+
+Login and Logout features are now working to some smooth degree of uncertainty, but there's useContext and passport using oauth2 methods... I've also conditionally rendered the menu items. Next step is to add a fancy home page now with some user details. Maybe after that we'll get back to the chat features and create a chat app like facebook messenger or discord (chat rooms...)
+![Login features](./devImages/loginandoutwithpassportjs.png)

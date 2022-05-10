@@ -65,7 +65,6 @@ const Login = () => {
           // window.location.reload()
           getUser()
           navigate("/profile")
-          // setUserObject(prevUserContext => response.data)
         }
       } catch (error) {
         console.log(error.response.data);
