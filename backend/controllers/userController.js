@@ -73,7 +73,8 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getProfile = asyncHandler(async (req, res) => {
-  // console.log(req.user)
+  console.log('get profile')
+  console.log(req.user)
   // res.send(req.user)
   if (!req.user || req.session.user) {
     res.status(400).send({

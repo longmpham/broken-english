@@ -5,8 +5,13 @@ import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
 import SocialLogin from "./SocialLogins";
+// import { myContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+  // const {userObject, setUserObject} = React.useContext(myContext)
+  const navigate = useNavigate();
   const [validateMessage, setValidateMessage] = React.useState({
     type: "",
     message: "",
@@ -16,7 +21,7 @@ const Login = () => {
     password: "",
   });
 
-  const clearValidationMessage = (timer = 59000) => {
+  const clearValidationMessage = (timer = 5000) => {
     setTimeout(() => {
       setValidateMessage((prevValidateMessage) => {
         return {
@@ -54,10 +59,14 @@ const Login = () => {
           withCredentials: true,
         }
         const response = await axios(options)
-        console.log(response);
+        console.log(response.data);
         if(response.status === 201) {
           // redirect to home page
           console.log("redirecting to home page")
+          window.location.reload()
+          // navigate("/profile")
+          // setUserObject(prevUserContext => response.data)
+
         }
       } catch (error) {
         console.log(error.response.data)

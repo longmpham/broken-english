@@ -12,7 +12,7 @@ const {
 const CLIENT_URL = "profile";
 const CLIENT_URL_FAILED = "login/failed";
 const redirectTo = {
-  successRedirect: CLIENT_URL,
+  // successRedirect: CLIENT_URL,
   failureRedirect: CLIENT_URL_FAILED,
 };
 
@@ -31,6 +31,9 @@ router.post("/register", registerUser);
 // POST REQUEST -> login
 // router.post("/login", passport.authenticate("local", redirectTo), getProfile);
 router.post("/login", passport.authenticate("local", redirectTo), getProfile);
+// router.post("/login", passport.authenticate("local", redirectTo), (req, res) => {
+//   res.redirect("http://localhost:3000/profile");
+// });
 // router.post("/login", loginUser);
 
 router.get("/logout", (req, res) => {

@@ -13,13 +13,12 @@ const Context = (props) => {
           "http://localhost:9000/api/users/profile",
           { withCredentials: true }
         );
-        console.log(response);
+        console.log(response.data);
         if (response.data) {
           setUserObject((prevUserObject) => response.data);
         }
-        
       } catch (error) {
-        console.log('Unable to fetch profile. Please login or register')
+        console.log("Unable to fetch profile. Please login or register");
       }
     };
     getUser();

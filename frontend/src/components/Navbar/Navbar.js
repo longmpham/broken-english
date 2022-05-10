@@ -8,6 +8,7 @@ import { myContext } from "../../Context";
 
 const Navbar = () => {
   const userObject = React.useContext(myContext);
+
   const notLoggedInPages = [
     {
       title: "Login",
@@ -21,7 +22,7 @@ const Navbar = () => {
   const loggedInPages = [
     {
       title: "Home",
-      link: "/",
+      link: "/profile",
     },
     {
       title: "Chat",
@@ -90,7 +91,7 @@ const Navbar = () => {
           {/* user is logged in */}
           {userObject && loggedInPages.map((page) => {
             return (
-              <li key={page.title} onClick={userObject && handleLogout}>
+              <li key={page.title} onClick={userObject && page.isLogout && handleLogout}>
                 <Link className="btn btn-nav" to={page.link}>
                   {page.title}
                 </Link>
@@ -121,7 +122,7 @@ const Navbar = () => {
           {/* user is logged in */}
           {userObject && loggedInPages.map((page) => {
             return (
-              <li key={page.title} onClick={userObject && handleLogout}>
+              <li key={page.title} onClick={userObject && page.isLogout && handleLogout}>
                 <Link className="btn btn-nav" to={page.link}>
                   {page.title}
                 </Link>

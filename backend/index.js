@@ -9,10 +9,6 @@ const session = require("express-session")
 const passport = require("passport");
 const MongoStore = require("connect-mongo")
 
-let userProfile;
-
-
-
 // const { Server } = require("socket.io")
 // const { joinRoom, sendChat, disconnectUser } = require("./listeners/socketAPI")
 
@@ -35,6 +31,13 @@ app.use(cors({
   origin: "http://localhost:3000",
   credentials: true,
 }))
+const corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token', "Access-Control-Allow-Credentials"]
+};
+app.use(cors(corsOption));
 
 // mongo cookie / session   
 app.set('trust proxy', 1) // trust first proxy
