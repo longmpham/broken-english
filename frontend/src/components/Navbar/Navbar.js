@@ -7,7 +7,7 @@ import "./Navbar.scss";
 import { myContext } from "../../Context";
 
 const Navbar = () => {
-  const userObject = React.useContext(myContext);
+  const {userObject} = React.useContext(myContext);
 
   const notLoggedInPages = [
     {

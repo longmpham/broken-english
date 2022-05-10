@@ -5,12 +5,11 @@ import { ValidateMessage, handleValidate } from "../Validation/Validation";
 
 import "./Login.scss";
 import SocialLogin from "./SocialLogins";
-// import { myContext } from "../../Context";
+import { myContext } from "../../Context";
 import { useNavigate } from "react-router-dom";
 
-
 const Login = () => {
-  // const {userObject, setUserObject} = React.useContext(myContext)
+  const { getUser } = React.useContext(myContext);
   const navigate = useNavigate();
   const [validateMessage, setValidateMessage] = React.useState({
     type: "",
@@ -57,25 +56,25 @@ const Login = () => {
             password: form.password,
           },
           withCredentials: true,
-        }
-        const response = await axios(options)
+        };
+        const response = await axios(options);
         console.log(response.data);
-        if(response.status === 201) {
+        if (response.status === 201) {
           // redirect to home page
-          console.log("redirecting to home page")
-          window.location.reload()
-          // navigate("/profile")
+          console.log("redirecting to home page");
+          // window.location.reload()
+          getUser()
+          navigate("/profile")
           // setUserObject(prevUserContext => response.data)
-
         }
       } catch (error) {
-        console.log(error.response.data)
+        console.log(error.response.data);
         // console.log("Something went wrong with the server. Did not login.");
         setValidateMessage((prevValidateMessage) => {
-          return ({
-            type: "error", 
-            message: error.response.data
-          })
+          return {
+            type: "error",
+            message: error.response.data,
+          };
         });
         clearValidationMessage();
       }

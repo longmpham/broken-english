@@ -3,7 +3,7 @@ import React from 'react'
 import { myContext } from "../../Context";
 
 const Profile = (props) => {
-  const userObject = React.useContext(myContext);
+  const {userObject} = React.useContext(myContext);
   console.log(userObject)
   return (
     <>
