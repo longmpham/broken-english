@@ -4,13 +4,11 @@ import axios from "axios";
 
 import { MdChat, MdMenu, MdCancel } from "react-icons/md";
 import "./Navbar.scss";
+import { myContext } from "../../Context";
 
 const Navbar = () => {
-  const pages = [
-    {
-      title: "Home",
-      link: "/",
-    },
+  const userObject = React.useContext(myContext);
+  const notLoggedInPages = [
     {
       title: "Login",
       link: "/login",
@@ -19,16 +17,23 @@ const Navbar = () => {
       title: "Register",
       link: "/register",
     },
+  ];
+  const loggedInPages = [
+    {
+      title: "Home",
+      link: "/",
+    },
     {
       title: "Chat",
       // title: <MdChat />,
       link: "/chat",
-      handleLogout: true,
+      
     },
     {
       title: "Logout",
       // title: <MdChat />,
       link: "/",
+      isLogout: true,
     },
   ];
 
@@ -70,9 +75,22 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <ul className="navbar-links">
-          {pages.map((page) => {
+          {/* user not logged in */}
+          {!userObject && notLoggedInPages.map(page => {
             return (
               <li key={page.title}>
+                <Link className="btn btn-nav" to={page.link}>
+                  {page.title}
+                </Link>
+              </li>
+            )
+          })
+          }
+
+          {/* user is logged in */}
+          {userObject && loggedInPages.map((page) => {
+            return (
+              <li key={page.title} onClick={userObject && handleLogout}>
                 <Link className="btn btn-nav" to={page.link}>
                   {page.title}
                 </Link>
@@ -87,13 +105,29 @@ const Navbar = () => {
       {menu && (
         <div className="navbar-sidebar">
           <ul className="navbar-sidebar-links" onClick={handleMenu}>
-            {pages.map((page) => {
-              return (
-                <li key={page.title} onClick={page.isLogout && handleLogout}>
-                  <Link to={page.link}>{page.title}</Link>
-                </li>
-              );
-            })}
+          {/* user not logged in */}
+          {!userObject && notLoggedInPages.map(page => {
+            return (
+              <li key={page.title}>
+                <Link className="btn btn-nav" to={page.link}>
+                  {page.title}
+                </Link>
+              </li>
+            )
+          })
+          }
+
+
+          {/* user is logged in */}
+          {userObject && loggedInPages.map((page) => {
+            return (
+              <li key={page.title} onClick={userObject && handleLogout}>
+                <Link className="btn btn-nav" to={page.link}>
+                  {page.title}
+                </Link>
+              </li>
+            );
+          })}
           </ul>
         </div>
       )}
