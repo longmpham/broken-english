@@ -18,6 +18,7 @@ import Conversation from "./components/Conversation/Conversation";
 import "./Styles/variables.scss";
 // import "./sass.scss";
 import { myContext } from "./Context";
+import Profile from "./components/Profile/Profile";
 
 const App = () => {
   const userObject = React.useContext(myContext);
@@ -31,8 +32,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/translate" element={<Translate />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/conversations" element={<ConversationList />} />
+          {/* <Route path="/conversations" element={<ConversationList />} /> */}
           <Route path="/conversation" element={<Conversation />} />
+          <Route path="/profile" element={<Profile />} />
           {/* <Route path="/conversation/:id" element={<Conversation />} /> */}
           <Route path="*" element={<Home />} />
         </Routes>

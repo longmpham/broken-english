@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { MdChat, MdMenu, MdCancel } from "react-icons/md";
 import "./Navbar.scss";
@@ -22,6 +23,12 @@ const Navbar = () => {
       title: "Chat",
       // title: <MdChat />,
       link: "/chat",
+      handleLogout: true,
+    },
+    {
+      title: "Logout",
+      // title: <MdChat />,
+      link: "/",
     },
   ];
 
@@ -29,6 +36,19 @@ const Navbar = () => {
 
   const handleMenu = () => {
     setMenu((prevMenu) => !prevMenu);
+  };
+
+  const handleLogout = async () => {
+    const response = await axios.get(
+      "http://localhost:9000/api/users/logout", 
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+    if (response.data) {
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -69,7 +89,7 @@ const Navbar = () => {
           <ul className="navbar-sidebar-links" onClick={handleMenu}>
             {pages.map((page) => {
               return (
-                <li key={page.title}>
+                <li key={page.title} onClick={page.isLogout && handleLogout}>
                   <Link to={page.link}>{page.title}</Link>
                 </li>
               );

@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebook } from "react-icons/fa";
@@ -26,9 +25,6 @@ const socialsButtons = [
 
 const SocialLogin = () => {
 
-  const googleLogin = () => {
-    
-  }
 
   const handleClick = (prop) => {
     console.log(prop); // gives back Social names, so now we can handle all socials in one go.
@@ -42,6 +38,7 @@ const SocialLogin = () => {
         {socialsButtons.map((social) => {
           return (
             <div
+              key={social.name}
               className={`btn btn-primary login-social-${social.name.toLowerCase()}-container`}
               onClick={() => handleClick(social.name)}
             >

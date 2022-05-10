@@ -34,8 +34,13 @@ router.post("/login", passport.authenticate("local", redirectTo), getProfile);
 // router.post("/login", loginUser);
 
 router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
+  console.log(req.user)
+  if(req.user) {
+    console.log('logging out')
+    req.logout();
+    res.send("logged out successful")
+  }
+  // res.redirect("/");
 });
 
 // PUT REQUEST -> update login
@@ -44,20 +49,24 @@ router.get("/update", updateUser);
 // GOOGLE STRATEGY EXAMPLE
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "login/failed" }),
   function (req, res) {
+    // console.log(req)
+    // res.status(201).send({
+    //   success: true,
+    //   message: "user has successfully authenticated",
+    //   cookies: req.session,
+    //   user: req.user,
+    // });
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:3000");
+    res.redirect("http://localhost:3000/profile");
   }
 );
 
-router.get('/', (req, res) => {
-  res.send("hello world from users")
-})
 
 module.exports = router;

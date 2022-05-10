@@ -8,13 +8,18 @@ const Context = (props) => {
 
   React.useEffect(() => {
     const getUser = async () => {
-      const response = await axios.get(
-        "http://localhost:9000/api/users/profile",
-        { withCredentials: true }
-      );
-      console.log(response);
-      if (response.data) {
-        setUserObject((prevUserObject) => response.data);
+      try {
+        const response = await axios.get(
+          "http://localhost:9000/api/users/profile",
+          { withCredentials: true }
+        );
+        console.log(response);
+        if (response.data) {
+          setUserObject((prevUserObject) => response.data);
+        }
+        
+      } catch (error) {
+        console.log('Unable to fetch profile. Please login or register')
       }
     };
     getUser();

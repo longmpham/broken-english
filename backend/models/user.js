@@ -1,27 +1,65 @@
 const mongoose = require("mongoose");
-var findOrCreate = require('mongoose-findorcreate')
 
-
-const UserSchema = mongoose.Schema({
-  username: {
+const UserSocialSchema = mongoose.Schema({
+  googleId: {
     type: String,
-    required: true,
+    required: false,
   },
-  email: {
+  twitterId: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
   },
-  password: {
+  githubId: {
     type: String,
-    required: true,
+    required: false,
+  },
+  facebookId: {
+    type: String,
+    required: false,
   },
 },
 {
   timestamps: true,
-});
+}
+);
+const UserSocialModel = mongoose.model("UserSocial", UserSocialSchema);
 
+const UserSchema = mongoose.Schema(
+  {
+    googleId: {
+      type: String,
+      required: false,
+    },
+    twitterId: {
+      type: String,
+      required: false,
+    },
+    githubId: {
+      type: String,
+      required: false,
+    },
+    facebookId: {
+      type: String,
+      required: false,
+    },
+    username: {
+      type: String,
+      // required: true,
+    },
+    email: {
+      type: String,
+      // required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      // required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+const UserModel = mongoose.model("User", UserSchema);
 
-UserSchema.plugin(findOrCreate) // add findorcreate from the package mongoose-findorcreate
-const UserModel = mongoose.model("User", UserSchema)
-module.exports = UserModel
+module.exports = { UserModel, UserSocialModel };

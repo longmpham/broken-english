@@ -3,21 +3,75 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const OAuth2Strategy = require("passport-oauth2").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const UserModel = require("../models/user");
+// const UserModel = require("../models/user");
+// const UserSocialModel = require("../models/user");
+const { UserModel, UserSocialModel } = require("../models/user");
+
+// passport.serializeUser((user, done) => {
+//   // done(null, user.id);
+//   done(null, user);
+// });
+
+// // passport.deserializeUser((id, done) => {
+// //   UserModel.findById({ id: id }, (err, user) => {
+// //   // UserSocialModel.findById(id, (err, user) => {
+// //     done(err, user);
+// //   });
+// // });
+// passport.deserializeUser((user, done) => {
+//   done(null, user)
+// });
 
 passport.serializeUser((user, done) => {
+  // console.log(user)
   done(null, user._id);
 });
 
-passport.deserializeUser((id, done) => {
-  UserModel.findById({ _id: id }, (err, user) => {
-    done(err, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  // learn tip: saves to req.user essentially.
+  // console.log(id)
+
+  const currentUser = await UserModel.findOne({ _id: id });
+  console.log(currentUser)
+  done(null, currentUser);
+  // if (currentUser) {
+  //   console.log("google user")
+  //   console.log(currentUser)
+  //   done(null, currentUser);
+  // } else {
+
+  //   const otherUser = await UserModel.findOne({ _id: id })
+  //   if (otherUser) {
+  //     console.log("otherUser")
+  //     console.log(otherUser)
+  //     done(null, otherUser)
+  //   }
+
+  // }
 });
 
 // GOOGLE STRATEGY
 // const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 // const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL: "/api/users/auth/google/callback",
+//     },
+//     function (accessToken, refreshToken, profile, cb) {
+//       console.log(profile)
+//       // UserSocialModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       UserSocialModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+//         console.log("i found a user: ")
+//         console.log(user)
+//         return cb(err, user);
+//       });
+//     }
+//   )
+// );
+
 passport.use(
   new GoogleStrategy(
     {
@@ -25,48 +79,56 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/api/users/auth/google/callback",
     },
-    // async (accessToken, refreshToken, profile, cb) => {
-    //   try {
-    //     const user = await UserModel.findOrCreate({ googleId: profile.id });
-    //     console.log(user)
-    //     return cb(user)
-    //   } catch (error) {
-    //     console.log(error)
-    //     return cb(error)
-    //   } 
+    // (accessToken, refreshToken, profile, cb) => {
+    //   console.log(profile)
+    //   UserSocialModel.findOne({ googleId: profile.id }, async (err, user) => {
+    //     if (err) {
+    //       return cb(err, null);
+    //     }
+    //     if (!user) {
+    //       const newUser = await UserSocialModel({
+    //         googleId: profile.id,
+    //         username: profile.name.givenName,
+    //         email: profile.emails[0].value,
+    //       });
+    //       await newUser.save();
+    //       console.log('newUser saved:')
+    //       console.log(newUser)
+    //     }
+    //   });
+    //   console.log('profile:')
+    //   console.log(profile)
+    //   cb(null, profile);
     // }
 
-    function (accessToken, refreshToken, profile, cb) {
-      UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-        console.log("i found a user: ")
-        console.log(user)
-        return cb(err, user);
-      });
+    // updated with async await
+    async (accessToken, refreshToken, profile, cb) => {
+      // console.log(profile);
+      try {
+        const user = await UserModel.findOne({ googleId: profile.id });
+        if (!user) {
+          const newUser = await UserModel({
+            googleId: profile.id,
+            // todo: find items to save from profile (IF NECESSARY?)
+            // username: profile.name.givenName,
+            // email: profile.emails[0].value,
+          });
+          const result = await newUser.save();
+          console.log("newUser saved:");
+          // console.log(result);
+          cb(null, newUser);
+        } else {
+          console.log("we found a google profile:");
+          // console.log(user);
+        }
+        cb(null, user);
+      } catch (error) {
+        console.log(error);
+        cb(error, null);
+      }
     }
   )
 );
-
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//       callbackURL: "/auth/google/callback",
-//     },
-//     async (accessToken, refreshToken, profile, cb) => {
-//       try {
-//         const user = await UserModel.findOrCreate({ googleId: profile.id });
-//         if (!user) {
-//           return cb(error);
-//         }
-//         console.log(user)
-//         return cb(user);
-//       } catch (error) {
-//         return cb(error);
-//       }
-//     }
-//   )
-// );
 
 // passport.use(
 //   new LocalStrategy(function (username, password, done) {
@@ -120,19 +182,19 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        console.log(email, password);
+        // console.log(email, password);
         const user = await UserModel.findOne({ email });
-        console.log(user);
+        // console.log(user);
         if (!user) {
           return done(null, false);
         }
         const isMatch = await bcrypt.compare(password, user.password);
-        console.log(isMatch);
+        // console.log(isMatch);
         // If not, handle it
         if (!isMatch) {
           return done(null, false);
         }
-        console.log(user);
+        // console.log(user);
         return done(null, user);
       } catch (error) {
         return done(error, false);
@@ -140,8 +202,6 @@ passport.use(
     }
   )
 );
-
-
 
 // OAUTH2 STRATEGY
 // const EXAMPLE_CLIENT_ID = "EXAMPLE_CLIENT_ID";
