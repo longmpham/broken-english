@@ -8,9 +8,9 @@ The sender will have the choice to send the message via a translation or in engl
 
 Due to the API being not really free to translate, the original idea will be stunted until I can afford it.
 
-~~The sender will send it (most likely in English for now), and the receiver will have the option of receiving the input in their language of choice (whatever Google can offer/translate successfully).~~
+The sender will send it (most likely in English for now), and the receiver will have the option of receiving the input in their language of choice (whatever Google can offer/translate successfully).
 
-~~The receiver will have a "tolerance" bar to set the level of translated messages (beginner, intermediate, advanced, fluent). My hopes is that when the messages goes through to the receiver, the function will randomly select (at first) words in the sent message and translate them based on the tolernace set, hence, Broken English.~~
+The receiver will have a "tolerance" bar to set the level of translated messages (beginner, intermediate, advanced, fluent). My hopes is that when the messages goes through to the receiver, the function will randomly select (at first) words in the sent message and translate them based on the tolernace set, hence, Broken English.
 
 # Development Pictures...
 
@@ -48,4 +48,7 @@ I can now talk to my mom! WOO!!! I can set my own languages, while my mom can se
 ### Update 7:
 
 Login and Logout features are now working to some smooth degree of uncertainty, but there's useContext and passport using oauth2 methods... I've also conditionally rendered the menu items. Next step is to add a fancy home page now with some user details. Maybe after that we'll get back to the chat features and create a chat app like facebook messenger or discord (chat rooms...)
+
+Helpful links: https://www.youtube.com/watch?v=cD17CYA1dck&t
 ![Login features](./devImages/loginandoutwithpassportjs.png)
+

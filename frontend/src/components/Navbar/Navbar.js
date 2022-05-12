@@ -7,7 +7,7 @@ import "./Navbar.scss";
 import { myContext } from "../../Context";
 
 const Navbar = () => {
-  const {userObject} = React.useContext(myContext);
+  const { userObject } = React.useContext(myContext);
 
   const notLoggedInPages = [
     {
@@ -28,7 +28,6 @@ const Navbar = () => {
       title: "Chat",
       // title: <MdChat />,
       link: "/chat",
-      
     },
     {
       title: "Logout",
@@ -45,12 +44,9 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    const response = await axios.get(
-      "http://localhost:9000/api/users/logout", 
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get("http://localhost:9000/api/users/logout", {
+      withCredentials: true,
+    });
     console.log(response);
     if (response.data) {
       window.location.href = "/";
@@ -76,28 +72,28 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <ul className="navbar-links">
-          {/* user not logged in */}
-          {!userObject && notLoggedInPages.map(page => {
-            return (
-              <li key={page.title}>
-                <Link className="btn btn-nav" to={page.link}>
-                  {page.title}
-                </Link>
-              </li>
-            )
-          })
-          }
-
-          {/* user is logged in */}
-          {userObject && loggedInPages.map((page) => {
-            return (
-              <li key={page.title} onClick={userObject && page.isLogout && handleLogout}>
-                <Link className="btn btn-nav" to={page.link}>
-                  {page.title}
-                </Link>
-              </li>
-            );
-          })}
+          {!userObject
+            ? notLoggedInPages.map((page) => {
+                return (
+                  <li key={page.title}>
+                    <Link className="btn btn-nav" to={page.link}>
+                      {page.title}
+                    </Link>
+                  </li>
+                );
+              })
+            : loggedInPages.map((page) => {
+                return (
+                  <li
+                    key={page.title}
+                    onClick={userObject && page.isLogout && handleLogout}
+                  >
+                    <Link className="btn btn-nav" to={page.link}>
+                      {page.title}
+                    </Link>
+                  </li>
+                );
+              })}
         </ul>
         <button className="navbar-menu" onClick={handleMenu}>
           {menu ? <MdCancel /> : <MdMenu />}
@@ -106,29 +102,28 @@ const Navbar = () => {
       {menu && (
         <div className="navbar-sidebar">
           <ul className="navbar-sidebar-links" onClick={handleMenu}>
-          {/* user not logged in */}
-          {!userObject && notLoggedInPages.map(page => {
-            return (
-              <li key={page.title}>
-                <Link className="btn btn-nav" to={page.link}>
-                  {page.title}
-                </Link>
-              </li>
-            )
-          })
-          }
-
-
-          {/* user is logged in */}
-          {userObject && loggedInPages.map((page) => {
-            return (
-              <li key={page.title} onClick={userObject && page.isLogout && handleLogout}>
-                <Link className="btn btn-nav" to={page.link}>
-                  {page.title}
-                </Link>
-              </li>
-            );
-          })}
+            {!userObject
+              ? notLoggedInPages.map((page) => {
+                  return (
+                    <li key={page.title}>
+                      <Link className="btn btn-nav" to={page.link}>
+                        {page.title}
+                      </Link>
+                    </li>
+                  );
+                })
+              : loggedInPages.map((page) => {
+                  return (
+                    <li
+                      key={page.title}
+                      onClick={userObject && page.isLogout && handleLogout}
+                    >
+                      <Link className="btn btn-nav" to={page.link}>
+                        {page.title}
+                      </Link>
+                    </li>
+                  );
+                })}
           </ul>
         </div>
       )}

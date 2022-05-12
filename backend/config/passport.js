@@ -28,26 +28,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  // learn tip: saves to req.user essentially.
+  // learn tip: saves to req.user essentially because of passport.session() middleware.
   // console.log(id)
 
   const currentUser = await UserModel.findOne({ _id: id });
-  console.log(currentUser)
+  // console.log(currentUser)
   done(null, currentUser);
-  // if (currentUser) {
-  //   console.log("google user")
-  //   console.log(currentUser)
-  //   done(null, currentUser);
-  // } else {
-
-  //   const otherUser = await UserModel.findOne({ _id: id })
-  //   if (otherUser) {
-  //     console.log("otherUser")
-  //     console.log(otherUser)
-  //     done(null, otherUser)
-  //   }
-
-  // }
 });
 
 // GOOGLE STRATEGY
@@ -103,15 +89,16 @@ passport.use(
 
     // updated with async await
     async (accessToken, refreshToken, profile, cb) => {
-      // console.log(profile);
+      console.log(profile);
       try {
         const user = await UserModel.findOne({ googleId: profile.id });
         if (!user) {
           const newUser = await UserModel({
             googleId: profile.id,
             // todo: find items to save from profile (IF NECESSARY?)
-            // username: profile.name.givenName,
-            // email: profile.emails[0].value,
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            photo: profile.photos[0].value,
           });
           const result = await newUser.save();
           console.log("newUser saved:");
@@ -119,7 +106,17 @@ passport.use(
           cb(null, newUser);
         } else {
           console.log("we found a google profile:");
-          // console.log(user);
+          // todo: update user info if needed
+          const result = await user.update({
+            googleId: profile.id,
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            // todo: if no photo, use generic (value ? photo : stockphoto)
+            photo: profile.photos[0].value,
+          })
+          console.log("updated user: " + result.acknowledged)
+          console.log(result);
+          
         }
         cb(null, user);
       } catch (error) {

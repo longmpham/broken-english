@@ -9,8 +9,11 @@ const Profile = (props) => {
     <>
       <p>PROFILE PAGE</p>
       {userObject && (
-        <p>{userObject.user._id}</p>
-
+        <>
+          <p>{userObject.user._id}</p>
+          <p>{userObject.user.email}</p>
+          <img src={userObject.user.photo} />
+        </>
       )}
     </>
   )
