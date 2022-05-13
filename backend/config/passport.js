@@ -1,8 +1,10 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const OAuth2Strategy = require("passport-oauth2").Strategy;
+// const OAuth2Strategy = require("passport-oauth2").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-google-oauth20").Strategy;
+const GitHubStrategy = require("passport-google-oauth20").Strategy;
 // const UserModel = require("../models/user");
 // const UserSocialModel = require("../models/user");
 const { UserModel, UserSocialModel } = require("../models/user");
@@ -36,7 +38,9 @@ passport.deserializeUser(async (id, done) => {
   done(null, currentUser);
 });
 
-// GOOGLE STRATEGY
+/*********************************************
+                 GOOGLE STRATEGY
+**********************************************/
 // const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 // const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 // passport.use(
@@ -65,28 +69,6 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/api/users/auth/google/callback",
     },
-    // (accessToken, refreshToken, profile, cb) => {
-    //   console.log(profile)
-    //   UserSocialModel.findOne({ googleId: profile.id }, async (err, user) => {
-    //     if (err) {
-    //       return cb(err, null);
-    //     }
-    //     if (!user) {
-    //       const newUser = await UserSocialModel({
-    //         googleId: profile.id,
-    //         username: profile.name.givenName,
-    //         email: profile.emails[0].value,
-    //       });
-    //       await newUser.save();
-    //       console.log('newUser saved:')
-    //       console.log(newUser)
-    //     }
-    //   });
-    //   console.log('profile:')
-    //   console.log(profile)
-    //   cb(null, profile);
-    // }
-
     // updated with async await
     async (accessToken, refreshToken, profile, cb) => {
       console.log(profile);
@@ -124,9 +106,137 @@ passport.use(
         cb(error, null);
       }
     }
+    // (accessToken, refreshToken, profile, cb) => {
+    //   console.log(profile)
+    //   UserSocialModel.findOne({ googleId: profile.id }, async (err, user) => {
+    //     if (err) {
+    //       return cb(err, null);
+    //     }
+    //     if (!user) {
+    //       const newUser = await UserSocialModel({
+    //         googleId: profile.id,
+    //         username: profile.name.givenName,
+    //         email: profile.emails[0].value,
+    //       });
+    //       await newUser.save();
+    //       console.log('newUser saved:')
+    //       console.log(newUser)
+    //     }
+    //   });
+    //   console.log('profile:')
+    //   console.log(profile)
+    //   cb(null, profile);
+    // }
   )
 );
 
+
+/*********************************************
+                 GITHUB STRATEGY
+**********************************************/
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "/api/users/auth/github/callback",
+    },
+    // updated with async await
+    async (accessToken, refreshToken, profile, cb) => {
+      console.log(profile);
+      try {
+        const user = await UserModel.findOne({ githubId: profile.id });
+        if (!user) {
+          const newUser = await UserModel({
+            googleId: profile.id,
+            // todo: find items to save from profile (IF NECESSARY?)
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            photo: profile.photos[0].value,
+          });
+          const result = await newUser.save();
+          console.log("newUser saved:");
+          // console.log(result);
+          cb(null, newUser);
+        } else {
+          console.log("we found a google profile:");
+          // todo: update user info if needed
+          const result = await user.update({
+            googleId: profile.id,
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            // todo: if no photo, use generic (value ? photo : stockphoto)
+            photo: profile.photos[0].value,
+          })
+          console.log("updated user: " + result.acknowledged)
+          console.log(result);
+          
+        }
+        cb(null, user);
+      } catch (error) {
+        console.log(error);
+        cb(error, null);
+      }
+    }
+  )
+);
+
+/*********************************************
+                 FACEBOOK STRATEGY
+**********************************************/
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      callbackURL: "/api/users/auth/facebook/callback",
+    },
+    // updated with async await
+    async (accessToken, refreshToken, profile, cb) => {
+      console.log(profile);
+      try {
+        const user = await UserModel.findOne({ githubId: profile.id });
+        if (!user) {
+          const newUser = await UserModel({
+            googleId: profile.id,
+            // todo: find items to save from profile (IF NECESSARY?)
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            photo: profile.photos[0].value,
+          });
+          const result = await newUser.save();
+          console.log("newUser saved:");
+          // console.log(result);
+          cb(null, newUser);
+        } else {
+          console.log("we found a google profile:");
+          // todo: update user info if needed
+          const result = await user.update({
+            googleId: profile.id,
+            username: profile.name.givenName + " " + profile.name.familyName,
+            email: profile.emails[0].value,
+            // todo: if no photo, use generic (value ? photo : stockphoto)
+            photo: profile.photos[0].value,
+          })
+          console.log("updated user: " + result.acknowledged)
+          console.log(result);
+          
+        }
+        cb(null, user);
+      } catch (error) {
+        console.log(error);
+        cb(error, null);
+      }
+    }
+  )
+);
+
+
+
+/*********************************************
+                 LOCAL STRATEGY
+**********************************************/
+// 
 // passport.use(
 //   new LocalStrategy(function (username, password, done) {
 //     User.findOne({ username: username }, function (err, user) {
@@ -170,8 +280,6 @@ passport.use(
 //     }
 //   )
 // );
-
-// LOCAL STRATEGY
 passport.use(
   new LocalStrategy(
     {

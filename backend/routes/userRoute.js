@@ -49,7 +49,10 @@ router.get("/logout", (req, res) => {
 // PUT REQUEST -> update login
 router.get("/update", updateUser);
 
-// GOOGLE STRATEGY EXAMPLE
+
+/*********************************************
+                 GOOGLE STRATEGY
+**********************************************/
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -71,5 +74,52 @@ router.get(
   }
 );
 
+/*********************************************
+                 GITHUB STRATEGY
+**********************************************/
+router.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "login/failed" }),
+  function (req, res) {
+    // console.log(req)
+    // res.status(201).send({
+    //   success: true,
+    //   message: "user has successfully authenticated",
+    //   cookies: req.session,
+    //   user: req.user,
+    // });
+    // Successful authentication, redirect home.
+    res.redirect("http://localhost:3000/profile");
+  }
+);
+
+/*********************************************
+                 FACEBOOK STRATEGY
+**********************************************/
+router.get(
+  "/auth/facebook",
+  passport.authenticate("facebook", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "login/failed" }),
+  function (req, res) {
+    // console.log(req)
+    // res.status(201).send({
+    //   success: true,
+    //   message: "user has successfully authenticated",
+    //   cookies: req.session,
+    //   user: req.user,
+    // });
+    // Successful authentication, redirect home.
+    res.redirect("http://localhost:3000/profile");
+  }
+);
 
 module.exports = router;
