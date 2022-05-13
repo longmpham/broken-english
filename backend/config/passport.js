@@ -3,11 +3,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 // const OAuth2Strategy = require("passport-oauth2").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const FacebookStrategy = require("passport-google-oauth20").Strategy;
-const GitHubStrategy = require("passport-google-oauth20").Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 // const UserModel = require("../models/user");
-// const UserSocialModel = require("../models/user");
-const { UserModel, UserSocialModel } = require("../models/user");
+// const UserModel = require("../models/user");
+const UserModel = require("../models/user");
 
 // passport.serializeUser((user, done) => {
 //   // done(null, user.id);
@@ -16,7 +16,7 @@ const { UserModel, UserSocialModel } = require("../models/user");
 
 // // passport.deserializeUser((id, done) => {
 // //   UserModel.findById({ id: id }, (err, user) => {
-// //   // UserSocialModel.findById(id, (err, user) => {
+// //   // UserModel.findById(id, (err, user) => {
 // //     done(err, user);
 // //   });
 // // });
@@ -52,8 +52,8 @@ passport.deserializeUser(async (id, done) => {
 //     },
 //     function (accessToken, refreshToken, profile, cb) {
 //       console.log(profile)
-//       // UserSocialModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       UserSocialModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       // UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
 //         console.log("i found a user: ")
 //         console.log(user)
 //         return cb(err, user);
@@ -108,12 +108,12 @@ passport.use(
     }
     // (accessToken, refreshToken, profile, cb) => {
     //   console.log(profile)
-    //   UserSocialModel.findOne({ googleId: profile.id }, async (err, user) => {
+    //   UserModel.findOne({ googleId: profile.id }, async (err, user) => {
     //     if (err) {
     //       return cb(err, null);
     //     }
     //     if (!user) {
-    //       const newUser = await UserSocialModel({
+    //       const newUser = await UserModel({
     //         googleId: profile.id,
     //         username: profile.name.givenName,
     //         email: profile.emails[0].value,
