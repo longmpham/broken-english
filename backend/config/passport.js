@@ -65,8 +65,8 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: `${process.env.GOOGLE_CLIENT_ID}`,
+      clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
       callbackURL: "/api/users/auth/google/callback",
     },
     // updated with async await
@@ -137,8 +137,8 @@ passport.use(
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientID: `${process.env.GITHUB_CLIENT_ID}`,
+      clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`,
       callbackURL: "/api/users/auth/github/callback",
     },
     // updated with async await
@@ -148,10 +148,11 @@ passport.use(
         const user = await UserModel.findOne({ githubId: profile.id });
         if (!user) {
           const newUser = await UserModel({
-            googleId: profile.id,
+            githubId: profile.id,
             // todo: find items to save from profile (IF NECESSARY?)
-            username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
+            username: profile.username,
+            // email: profile.emails[0].value,
+            email: profile.emails ? profile.emails[0].value : null,
             photo: profile.photos[0].value,
           });
           const result = await newUser.save();
@@ -162,9 +163,9 @@ passport.use(
           console.log("we found a google profile:");
           // todo: update user info if needed
           const result = await user.update({
-            googleId: profile.id,
-            username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
+            githubId: profile.id,
+            username: profile.username,
+            email: profile.emails ? profile.emails[0].value : null,
             // todo: if no photo, use generic (value ? photo : stockphoto)
             photo: profile.photos[0].value,
           })
@@ -187,8 +188,8 @@ passport.use(
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
+      clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
       callbackURL: "/api/users/auth/facebook/callback",
     },
     // updated with async await
@@ -198,10 +199,10 @@ passport.use(
         const user = await UserModel.findOne({ githubId: profile.id });
         if (!user) {
           const newUser = await UserModel({
-            googleId: profile.id,
+            facebookId: profile.id,
             // todo: find items to save from profile (IF NECESSARY?)
             username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
+            email: profile.emails ? profile.emails[0].value : null,
             photo: profile.photos[0].value,
           });
           const result = await newUser.save();
@@ -212,9 +213,9 @@ passport.use(
           console.log("we found a google profile:");
           // todo: update user info if needed
           const result = await user.update({
-            googleId: profile.id,
+            facebookId: profile.id,
             username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
+            email: profile.emails ? profile.emails[0].value : null,
             // todo: if no photo, use generic (value ? photo : stockphoto)
             photo: profile.photos[0].value,
           })
