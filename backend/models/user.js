@@ -1,29 +1,5 @@
 const mongoose = require("mongoose");
 
-// const UserSocialSchema = mongoose.Schema({
-//   googleId: {
-//     type: String,
-//     required: false,
-//   },
-//   twitterId: {
-//     type: String,
-//     required: false,
-//   },
-//   githubId: {
-//     type: String,
-//     required: false,
-//   },
-//   facebookId: {
-//     type: String,
-//     required: false,
-//   },
-// },
-// {
-//   timestamps: true,
-// }
-// );
-// const UserSocialModel = mongoose.model("UserSocial", UserSocialSchema);
-
 const UserSchema = mongoose.Schema(
   {
     googleId: {
@@ -65,6 +41,4 @@ const UserSchema = mongoose.Schema(
   }
 );
 const UserModel = mongoose.model("User", UserSchema);
-
-// module.exports = { UserModel, UserSocialModel };
 module.exports = UserModel;

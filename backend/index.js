@@ -61,7 +61,7 @@ app.use(session({
 // passport
 app.use(passport.initialize());
 app.use(passport.session());
-require("./config/passport") // call this file to continue the passport use cases
+require("./config/passport/passport") // call this file to continue the passport use cases
 
 /*********************************
 *       END OF MIDDLE WARE       *
