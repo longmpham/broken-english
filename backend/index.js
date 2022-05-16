@@ -74,6 +74,7 @@ require("./config/passport/passport") // call this file to continue the passport
 // routes -> translate and users
 app.use("/api/translate", require("./routes/translateRoute"))
 app.use("/api/users", require("./routes/userRoute"));
+app.use("/", require("./routes/authRoute"));
 
 // socket IO stuff
 const server = http.createServer(app)

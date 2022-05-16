@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: `${process.env.GITHUB_CLIENT_ID}`,
       clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`,
-      callbackURL: "/api/users/auth/github/callback",
+      callbackURL: "/auth/github/callback",
     },
     // updated with async await
     async (accessToken, refreshToken, profile, cb) => {

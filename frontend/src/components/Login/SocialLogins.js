@@ -28,7 +28,7 @@ const SocialLogin = () => {
 
   const handleClick = (prop) => {
     console.log(prop); // gives back Social names, so now we can handle all socials in one go.
-    window.open(`http://localhost:9000/api/users/auth/${prop.toLowerCase()}`, "_self")
+    window.open(`http://localhost:9000/auth/${prop.toLowerCase()}`, "_self")
   };
 
   return (
