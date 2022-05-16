@@ -8,14 +8,6 @@ const {
   updateUser,
 } = require("../controllers/userController");
 
-// const CLIENT_URL = "http://localhost:3000/chat"
-const CLIENT_URL = "profile";
-const CLIENT_URL_FAILED = "login/failed";
-const redirectTo = {
-  // successRedirect: CLIENT_URL,
-  failureRedirect: CLIENT_URL_FAILED,
-};
-
 // GET REQUEST -> get user profile
 router.get("/profile", getProfile);
 
@@ -33,23 +25,24 @@ router.post("/register", registerUser);
 
 // POST REQUEST -> login
 // router.post("/login", passport.authenticate("local", redirectTo), getProfile);
-router.post("/login", passport.authenticate("local", redirectTo), getProfile);
+router.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "login/failed" }),
+  getProfile
+);
 // router.post("/login", passport.authenticate("local", redirectTo), (req, res) => {
 //   res.redirect("http://localhost:3000/profile");
 // });
 // router.post("/login", loginUser);
 
 router.get("/logout", (req, res) => {
-  console.log(req.user)
-  if(req.user) {
-    console.log('logging out')
+  console.log(req.user);
+  if (req.user) {
+    console.log("logging out");
     req.logout();
-    res.send("logged out successful")
+    res.send("logged out successful");
   }
   // res.redirect("/");
 });
-
-
-
 
 module.exports = router;

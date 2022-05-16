@@ -33,7 +33,7 @@ passport.use(
         } else {
           console.log("we found a google profile:");
           // todo: update user info if needed
-          const result = await user.update({
+          const result = await user.updateOne({
             githubId: profile.id,
             username: profile.username,
             email: profile.emails ? profile.emails[0].value : null,

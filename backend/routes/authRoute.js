@@ -14,6 +14,14 @@ const successfulRedirect = (req, res) => {
   res.redirect("http://localhost:3000/profile");
 }
 
+// i don't think this code piece is needed but redirect for failures 
+// show that this should be used. I can't find a way to test it.
+router.get("/login/failed", (req, res) => {
+  console.log("failed to login at route login/failed");
+  // console.log(req)
+  res.status(401).send("failed auth");
+});
+
 
 /*********************************************
                  GOOGLE STRATEGY
