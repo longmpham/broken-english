@@ -36,5 +36,6 @@ require("./localPassport")
 require("./googlePassport")
 require("./githubPassport")
 require("./facebookPassport")
+require("./twitterPassport")
 
 module.exports = passport;

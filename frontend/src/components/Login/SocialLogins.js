@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaFacebook } from "react-icons/fa";
+import { FaGithub, FaFacebook, FaTwitter } from "react-icons/fa";
 
 import "./Login.scss";
 
@@ -21,14 +21,17 @@ const socialsButtons = [
     color: "",
     icon: <FaFacebook />,
   },
+  {
+    name: "Twitter",
+    color: "",
+    icon: <FaTwitter />,
+  },
 ];
 
 const SocialLogin = () => {
-
-
   const handleClick = (prop) => {
     console.log(prop); // gives back Social names, so now we can handle all socials in one go.
-    window.open(`http://localhost:9000/auth/${prop.toLowerCase()}`, "_self")
+    window.open(`http://localhost:9000/auth/${prop.toLowerCase()}`, "_self");
   };
 
   return (
