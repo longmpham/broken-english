@@ -55,6 +55,7 @@ const Register = () => {
           },
           withCredentials: true,
         }
+        console.log(options)
         const response = await axios(options)
         console.log(response);
         if(response.status === 201) {
@@ -62,7 +63,7 @@ const Register = () => {
           console.log("redirecting to home page")
         }
       } catch (error) {
-        console.log(error.response.data)
+        console.log(error)
         // console.log("Something went wrong with the server. Did not login.");
         setValidateMessage((prevValidateMessage) => {
           return ({
