@@ -1,6 +1,7 @@
 const passport = require("passport");
 const UserModel = require("../../models/user");
-const TwitterStrategy = require("passport-twitter").Strategy;
+// const TwitterStrategy = require("passport-twitter").Strategy;
+const TwitterStrategy = require("passport-twitter-oauth2.0")
 
 /*********************************************
                  TWITTER STRATEGY
@@ -8,8 +9,8 @@ const TwitterStrategy = require("passport-twitter").Strategy;
 passport.use(
   new TwitterStrategy(
     {
-      consumerKey: `${process.env.TWITTER_CLIENT_ID}`,
-      consumerSecret: `${process.env.TWITTER_CLIENT_SECRET}`,
+      clientID: `${process.env.TWITTER_CLIENT_ID}`,
+      clientSecret: `${process.env.TWITTER_CLIENT_SECRET}`,
       callbackURL: "/auth/twitter/callback",
     },
     // updated with async await
@@ -21,9 +22,10 @@ passport.use(
           const newUser = await UserModel({
             twitterId: profile.id,
             // todo: find items to save from profile (IF NECESSARY?)
-            username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
-            photo: profile.photos[0].value,
+            username: profile.username,
+            // email: profile.emails[0].value,
+            email: profile.emails ? profile.emails[0].value : null,
+            // photo: profile.profile_image_url,
           });
           const result = await newUser.save();
           console.log("newUser saved:");
@@ -34,10 +36,11 @@ passport.use(
           // todo: update user info if needed
           const result = await user.updateOne({
             twitterId: profile.id,
-            username: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
+            username: profile.username,
+            // email: profile.emails[0].value,
+            email: profile.emails ? profile.emails[0].value : null,
             // todo: if no photo, use generic (value ? photo : stockphoto)
-            photo: profile.photos[0].value,
+            // photo: profile.profile_image_url,
           });
           console.log("updated user: " + result.acknowledged);
           console.log(result);
