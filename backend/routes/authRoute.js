@@ -47,6 +47,7 @@ router.get(
   passport.authenticate("github", { failureRedirect: "login/failed" }),
   successfulRedirect
 );
+
 /*********************************************
                  FACEBOOK STRATEGY
 **********************************************/
@@ -57,6 +58,19 @@ router.get(
 router.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", { failureRedirect: "login/failed" }),
+  successfulRedirect
+);
+
+/*********************************************
+                 TWITTER STRATEGY
+**********************************************/
+router.get(
+  "/auth/twitter",
+  passport.authenticate("twitter")
+);
+router.get(
+  "/auth/twitter/callback",
+  passport.authenticate("twitter", { failureRedirect: "login/failed" }),
   successfulRedirect
 );
 

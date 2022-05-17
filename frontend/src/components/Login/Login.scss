@@ -77,9 +77,17 @@
 .login-form-socials-container div {
   width: 100%;
   transition: 0.3;
-  // display: flex;
-  // justify-content: start;
-  // align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.login-form-socials-container div svg {
+  // flex: 1;
+}
+
+.login-form-socials-container div p {
+  // flex: 1;
 }
 
 .login-social-google-container p {

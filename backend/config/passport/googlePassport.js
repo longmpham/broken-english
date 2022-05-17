@@ -37,6 +37,7 @@ passport.use(
       console.log(profile);
       try {
         const user = await UserModel.findOne({ googleId: profile.id });
+        console.log(user)
         if (!user) {
           const newUser = await UserModel({
             googleId: profile.id,
