@@ -12,7 +12,7 @@ const {
 router.get("/profile", getProfile);
 
 // PUT REQUEST -> update login
-router.get("/update", updateUser);
+router.post("/update", updateUser);
 
 router.get("/login/failed", (req, res) => {
   console.log("failed to login at route login/failed");

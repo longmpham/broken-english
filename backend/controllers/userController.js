@@ -95,7 +95,9 @@ const getProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  res.send("update me");
+  console.log('update me')
+  console.log(req.body)
+  res.status(200).send("update me");
 });
 
 module.exports = {

@@ -35,6 +35,23 @@ const UserSchema = mongoose.Schema(
     photo: {
       type: String,
       required: false,
+    },
+    user: {
+      firstName: {
+        type: String,
+      },
+      lastName: {
+        type: String,
+      },
+      height: {
+        type: String,
+      },
+      weight: {
+        type: String,
+      },
+      gender: {
+        type: String,
+      }
     }
   },
   {

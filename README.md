@@ -52,3 +52,8 @@ Login and Logout features are now working to some smooth degree of uncertainty, 
 Helpful links: https://www.youtube.com/watch?v=cD17CYA1dck&t
 ![Login features](./devImages/loginandoutwithpassportjs.png)
 
+### Update 8:
+
+Social Logins? Yes! Twitter, Google, Github, all work. Facebook is a bit weird and requires some additional "features" that I don't have so that will have to wait, but from what I understand, once I have that "feature" that is missing, the passport will just work. Oh yeah, this is using passportjs, including Local logins! Now it's time to make my login/profile page pretty and have the user add his/her info.
+<!-- ![Login features](./devImages/loginandoutwithpassportjs.png) -->
+
