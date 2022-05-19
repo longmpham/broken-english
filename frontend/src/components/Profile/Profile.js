@@ -158,9 +158,10 @@ const Profile = (props) => {
             <>
               {/* FIRST TIME THE USER LOGS IN, MUST SET INFO */}
               <h2>
-                Welcome! Please enter your profile details so we can save it.
+                Please enter your profile details before we continue.
               </h2>
               <form onSubmit={handleSubmit}>
+                {/* todo: validate input frontend-side. backend already throws empty error */}
                 <label>First Name</label>
                 <input
                   type="text"
@@ -210,11 +211,22 @@ const Profile = (props) => {
                   Submit
                 </button>
               </form>
+              {!updateUser ? (
+                <button className="btn btn-primary" onClick={handleUpdate}>
+                  Update
+                </button>
+              ) : (
+                <button className="btn btn-primary" onClick={handleUpdate}>
+                  X
+                </button>
+              )}
             </>
           )}
         </>
+
+      
       )}
-      {!updateUser && <button onClick={handleUpdate}>Update</button>}
+
     </>
   );
 };

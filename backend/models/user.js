@@ -51,8 +51,21 @@ const UserSchema = mongoose.Schema(
       },
       gender: {
         type: String,
+      },
+    },
+    conversations: [
+      {
+        roomId: {
+          type: String,
+        },
+        name: {
+          type: String,
+        },
+      },
+      {
+        timestamps: true,
       }
-    }
+    ],
   },
   {
     timestamps: true,
