@@ -43,7 +43,7 @@ I've officially let the sender send a message either translated or in english. I
 ### Update 6:
 
 I can now talk to my mom! WOO!!! I can set my own languages, while my mom can set hers. She'll see it in Vietnamese (you can choose your own language) and she can text in Vietnamese but I'll read it in English!!!
-![WE CAN TEXT FINALL!!!](./devImages/userCanSetTheirOwnLanguages.png)
+![WE CAN TEXT FINALLY!!!](./devImages/userCanSetTheirOwnLanguages.png)
 
 ### Update 7:
 

@@ -28,19 +28,17 @@ const registerUser = asyncHandler(async (req, res) => {
       email,
       password: hashedPassword,
     });
-    if (newUser) {
+    if (!newUser) {
       const result = await newUser.save();
       console.log(result);
-      res.status(201).json({
+      return res.status(201).json({
         _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
         password: newUser.password,
-        
       });
-    } else {
-      res.status(400).send("Something went wrong when saving the new user");
     }
+    res.status(400).send("Something went wrong when saving the new user");
   } catch (error) {
     res.status(500).send({ error });
   }
@@ -73,8 +71,8 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getProfile = asyncHandler(async (req, res) => {
-  console.log('get profile')
-  console.log(req.user)
+  console.log("get profile");
+  console.log(req.user);
   // res.send(req.user)
   if (!req.user || req.session.user) {
     res.status(400).send({
@@ -95,9 +93,61 @@ const getProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  console.log('update me')
-  console.log(req.body)
-  res.status(200).send("update me");
+  console.log("update me");
+  console.log(req.body);
+  const { id, firstName, lastName, weight, height, gender } = req.body;
+
+  if (!id || !firstName || !lastName || !weight || !height || !gender) {
+    return res.status(400).send({
+      success: false,
+      message: "The user profile's field(s) are empty",
+    });
+  }
+
+  try {
+    let user = await UserModel.findOne({ _id: id });
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).send({
+        success: false,
+        message: "The user is not found in the database",
+      });
+    }
+
+    const result = await UserModel.updateOne(
+      {
+        _id: user._id,
+      },
+      {
+        $set: {
+          // to set an object within the object, use the '.' operator
+          "user.firstName": firstName,
+          "user.lastName": lastName,
+          "user.weight": weight,
+          "user.height": height,
+          "user.gender": gender,
+        },
+      }
+    );
+
+    if (!result) {
+      return res.status(400).send({
+        success: false,
+        message: "Not able to save user profile's information",
+      });
+    }
+    console.log(result);
+    user = await UserModel.findOne({ _id: id });
+    console.log(user);
+    res.status(200).send({
+      success: true,
+      message: "user information updated",
+      updatedUser: user,
+    });
+  } catch (error) {
+    res.status(500).send({ error });
+  }
 });
 
 module.exports = {

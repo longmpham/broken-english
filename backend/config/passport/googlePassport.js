@@ -49,7 +49,7 @@ passport.use(
           const result = await newUser.save();
           console.log("newUser saved:");
           // console.log(result);
-          cb(null, newUser);
+          return cb(null, newUser);
         } else {
           console.log("we found a google profile:");
           // todo: update user info if needed
