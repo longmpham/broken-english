@@ -30,7 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
     if (!newUser) {
       const result = await newUser.save();
-      console.log(result);
+      // console.log(result);
       return res.status(201).json({
         _id: newUser._id,
         username: newUser.username,
@@ -71,7 +71,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getProfile = asyncHandler(async (req, res) => {
-  console.log("get profile");
+  // console.log("get profile");
   console.log(req.user);
   // res.send(req.user)
   if (!req.user || req.session.user) {
@@ -93,8 +93,7 @@ const getProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  console.log("update me");
-  console.log(req.body);
+  // console.log(req.body);
   const { id, firstName, lastName, weight, height, gender } = req.body;
 
   if (!id || !firstName || !lastName || !weight || !height || !gender) {
@@ -106,7 +105,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
   try {
     let user = await UserModel.findOne({ _id: id });
-    console.log(user);
+    // console.log(user);
 
     if (!user) {
       return res.status(400).send({
@@ -137,9 +136,9 @@ const updateUser = asyncHandler(async (req, res) => {
         message: "Not able to save user profile's information",
       });
     }
-    console.log(result);
+    // console.log(result);
     user = await UserModel.findOne({ _id: id });
-    console.log(user);
+    // console.log(user);
     res.status(200).send({
       success: true,
       message: "user information updated",

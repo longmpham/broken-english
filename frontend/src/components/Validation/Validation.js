@@ -4,11 +4,25 @@ import React from "react";
 // todo: add transition for closing
 
 // todo: add a validatorFunction
-const validate = ({ username, email, password, message, room }) => {
+const validate = ({
+  username,
+  email,
+  password,
+  message,
+  room,
+  firstName,
+  lastName,
+  weight,
+  height,
+  gender,
+}) => {
   // todo: add extra validation towards regex like email must take on @email.com format
   // usernames must include xyz
   // passwords must contain lower, upper, number, symbol
 
+  /*******************************
+   *        USER LOGIN BLOCK      *
+   *******************************/
   if (username === "") {
     return {
       type: "error",
@@ -39,6 +53,41 @@ const validate = ({ username, email, password, message, room }) => {
       message: "Room is empty",
     };
   }
+
+  /*******************************
+   *        PROFILE BLOCK         *
+   *******************************/
+  if (firstName === "") {
+    return {
+      type: "error",
+      message: "First Name is empty",
+    };
+  }
+  if (lastName === "") {
+    return {
+      type: "error",
+      message: "Last Name is empty",
+    };
+  }
+  if (weight === "") {
+    return {
+      type: "error",
+      message: "Weight is empty",
+    };
+  }
+  if (height === "") {
+    return {
+      type: "error",
+      message: "Height is empty",
+    };
+  }
+  if (gender === "") {
+    return {
+      type: "error",
+      message: "Gender is empty",
+    };
+  }
+
   return {
     type: "success",
     message: "Success!",

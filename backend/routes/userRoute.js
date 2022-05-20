@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("../config/passport/passport");
+const checkAuthentication = require('../middleware/authentication')
 const {
   getProfile,
   registerUser,
@@ -12,7 +13,10 @@ const {
 router.get("/profile", getProfile);
 
 // PUT REQUEST -> update login
-router.post("/update", updateUser);
+
+router.post("/update", checkAuthentication, updateUser);
+// router.post("/update", updateUser);
+
 
 router.get("/login/failed", (req, res) => {
   console.log("failed to login at route login/failed");
