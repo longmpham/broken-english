@@ -43,7 +43,7 @@ passport.use(
             // photo: profile.profile_image_url,
           });
           console.log("updated user: " + result.acknowledged);
-          console.log(result);
+          // console.log(result);
 
         }
         cb(null, user);

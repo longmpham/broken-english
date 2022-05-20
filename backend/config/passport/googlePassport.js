@@ -61,7 +61,7 @@ passport.use(
             photo: profile.photos[0].value,
           });
           console.log("updated user: " + result.acknowledged);
-          console.log(result);
+          // console.log(result);
 
         }
         cb(null, user);
