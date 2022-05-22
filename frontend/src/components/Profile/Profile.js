@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { myContext } from "../../Context";
 import { handleValidate, ValidateMessage } from "../Validation/Validation";
@@ -23,11 +24,26 @@ const Profile = (props) => {
     const updateForm = () => {
       setForm((prevForm) => {
         return {
-          firstName: userObject ? userObject.user.user.firstName : "",
-          lastName: userObject ? userObject.user.user.lastName : "",
-          weight: userObject ? userObject.user.user.weight : "",
-          height: userObject ? userObject.user.user.height : "",
-          gender: userObject ? userObject.user.user.gender : "",
+          firstName:
+            userObject && userObject.user.user
+              ? userObject.user.user.firstName
+              : "",
+          lastName:
+            userObject && userObject.user.user
+              ? userObject.user.user.lastName
+              : "",
+          weight:
+            userObject && userObject.user.user
+              ? userObject.user.user.weight
+              : "",
+          height:
+            userObject && userObject.user.user
+              ? userObject.user.user.height
+              : "",
+          gender:
+            userObject && userObject.user.user
+              ? userObject.user.user.gender
+              : "",
         };
       });
     };
@@ -100,15 +116,13 @@ const Profile = (props) => {
         // }
 
         if (!response.data.success) {
-          console.log('something bad happened')
-          return 
+          console.log("something bad happened");
+          return;
         } else {
           // call the updated context object
           getUser();
           setUpdateUser((prevUpdateUser) => false);
-
         }
-        
       } catch (error) {
         console.log(error);
         setValidateMessage((prevValidateMessage) => {
@@ -118,16 +132,16 @@ const Profile = (props) => {
           };
         });
         clearValidationMessage();
-        if(!error.response.data.success) {
-          console.log('response.data.message')
+        if (!error.response.data.success) {
+          console.log("response.data.message");
           setTimeout(() => {
-
-            window.location.href="/login";
-          },5000)
+            window.location.href = "/login";
+          }, 5000);
         }
       }
     }
   };
+
   const handleClose = () => {
     clearValidationMessage(0);
   };
@@ -138,9 +152,9 @@ const Profile = (props) => {
 
   return (
     <>
-      <p>PROFILE PAGE</p>
-      {userObject && (
+      {userObject ? (
         <>
+          <p>PROFILE PAGE</p>
           <p>{userObject.user._id}</p>
           <p>{userObject.user.email}</p>
           <img src={userObject.user.photo} alt={userObject.user.photo} />
@@ -288,16 +302,23 @@ const Profile = (props) => {
               </form>
             </>
           )}
+          {userObject && !updateUser ? (
+            <button className="btn btn-primary" onClick={handleUpdate}>
+              Update
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={handleUpdate}>
+              Cancel
+            </button>
+          )}
         </>
-      )}
-      {(userObject && !updateUser) ? (
-        <button className="btn btn-primary" onClick={handleUpdate}>
-          Update
-        </button>
       ) : (
-        <button className="btn btn-primary" onClick={handleUpdate}>
-          Cancel
-        </button>
+        <>
+          <h2>Not logged in! Please sign in</h2>
+          <Link className="btn btn-primary" to="/login">
+            Login
+          </Link>
+        </>
       )}
     </>
   );

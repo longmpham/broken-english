@@ -10,7 +10,7 @@ const {
 } = require("../controllers/userController");
 
 // GET REQUEST -> get user profile
-router.get("/profile", getProfile);
+router.get("/profile", checkAuthentication, getProfile);
 
 // PUT REQUEST -> update login
 

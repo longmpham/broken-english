@@ -1,4 +1,4 @@
-const passport = require("../config/passport/passport");
+// const passport = require("../config/passport/passport");
 
 const checkAuthentication = (req, res, next) => {
   if(req.isAuthenticated()) {
