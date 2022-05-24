@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import { myContext } from "../../Context";
 import { handleValidate, ValidateMessage } from "../Validation/Validation";
 
+import "./Profile.scss";
+
+// form works but need way to handle updated usercontext within component and camelCase placeholder
+// import Form from "../Components/Form";
+
 const Profile = (props) => {
   const { userObject, getUser } = React.useContext(myContext);
   const [validateMessage, setValidateMessage] = React.useState({
@@ -154,163 +159,192 @@ const Profile = (props) => {
     <>
       {userObject ? (
         <>
-          <p>PROFILE PAGE</p>
-          <p>{userObject.user._id}</p>
-          <p>{userObject.user.email}</p>
-          <img src={userObject.user.photo} alt={userObject.user.photo} />
-          <h2>{userObject.user.username}'s Profile Information</h2>
-          {validateMessage.type && (
-            <ValidateMessage
-              type={validateMessage.type}
-              message={validateMessage.message}
-              handleClose={handleClose}
-            />
-          )}
-          {userObject.user.user ? (
-            !updateUser ? (
-              <>
-                {/* todo: turn this to map-> profile info */}
-                <div>
-                  <span>First Name: </span>
-                  <span>{userObject.user.user.firstName}</span>
+          <div className="profile-root-container">
+            <h1>{userObject.user.username}'s Profile Information</h1>
+            {/* <p>{userObject.user._id}</p> */}
+            {/* <p>{userObject.user.email}</p> */}
+            <img src={userObject.user.photo} alt={userObject.user.photo} />
+            {validateMessage.type && (
+              <ValidateMessage
+                type={validateMessage.type}
+                message={validateMessage.message}
+                handleClose={handleClose}
+              />
+            )}
+            {userObject.user.user ? (
+              !updateUser ? (
+                <div className="profile-card">
+                  {/* todo: turn this to map-> profile info */}
+                  <div className="profile-card-group">
+                    <span>First Name: </span>
+                    <span>{userObject.user.user.firstName}</span>
+                  </div>
+                  <div className="profile-card-group">
+                    <span>Last Name: </span>
+                    <span>{userObject.user.user.lastName}</span>
+                  </div>
+                  <div className="profile-card-group">
+                    <span>Weight: </span>
+                    <span>{userObject.user.user.weight}</span>
+                  </div>
+                  <div className="profile-card-group">
+                    <span>Height: </span>
+                    <span>{userObject.user.user.height}</span>
+                  </div>
+                  <div className="profile-card-group">
+                    <span>Gender: </span>
+                    <span>{userObject.user.user.gender}</span>
+                  </div>
                 </div>
-                <div>
-                  <span>Last Name: </span>
-                  <span>{userObject.user.user.lastName}</span>
-                </div>
-                <div>
-                  <span>Weight: </span>
-                  <span>{userObject.user.user.weight}</span>
-                </div>
-                <div>
-                  <span>Height: </span>
-                  <span>{userObject.user.user.height}</span>
-                </div>
-                <div>
-                  <span>Gender: </span>
-                  <span>{userObject.user.user.gender}</span>
-                </div>
-              </>
+              ) : (
+                <>
+                  {/* <Form form={form} handleChange={handleChange} handleSubmit={handleSubmit}>
+                </Form> */}
+                  <form
+                    onSubmit={handleSubmit}
+                    className="profile-form-container"
+                  >
+                    <div className="form-group">
+                      <label>First Name: </label>
+                      <input
+                        type="text"
+                        className=""
+                        name="firstName"
+                        placeholder={userObject.user.user.firstName}
+                        value={form.firstName}
+                        onChange={handleChange}
+                      ></input>
+                    </div>
+                    <div className="form-group">
+                      <label>Last Name: </label>
+                      <input
+                        type="text"
+                        className=""
+                        name="lastName"
+                        placeholder={userObject.user.user.lastName}
+                        value={form.lastName}
+                        onChange={handleChange}
+                      ></input>
+                    </div>
+                    <div className="form-group">
+                      <label>Weight: </label>
+                      <input
+                        type="text"
+                        className=""
+                        name="weight"
+                        placeholder={userObject.user.user.height}
+                        value={form.weight}
+                        onChange={handleChange}
+                      ></input>
+                    </div>
+                    <div className="form-group">
+                      <label>Height: </label>
+                      <input
+                        type="text"
+                        className=""
+                        name="height"
+                        placeholder={userObject.user.user.height}
+                        value={form.height}
+                        onChange={handleChange}
+                      ></input>
+                    </div>
+                    <div className="form-group">
+                      <label>Gender: </label>
+                      <input
+                        type="text"
+                        className=""
+                        name="gender"
+                        placeholder={userObject.user.user.gender}
+                        value={form.gender}
+                        onChange={handleChange}
+                      ></input>
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                  </form>
+                </>
+              )
             ) : (
               <>
-                <form onSubmit={handleSubmit}>
-                  <label>First Name: </label>
-                  <input
-                    type="text"
-                    className=""
-                    name="firstName"
-                    placeholder={userObject.user.user.firstName}
-                    value={form.firstName}
-                    onChange={handleChange}
-                  ></input>
-                  <label>Last Name: </label>
-                  <input
-                    type="text"
-                    className=""
-                    name="lastName"
-                    placeholder={userObject.user.user.lastName}
-                    value={form.lastName}
-                    onChange={handleChange}
-                  ></input>
-                  <label>Weight: </label>
-                  <input
-                    type="text"
-                    className=""
-                    name="weight"
-                    placeholder={userObject.user.user.height}
-                    value={form.weight}
-                    onChange={handleChange}
-                  ></input>
-                  <label>Height: </label>
-                  <input
-                    type="text"
-                    className=""
-                    name="height"
-                    placeholder={userObject.user.user.height}
-                    value={form.height}
-                    onChange={handleChange}
-                  ></input>
-                  <label>Gender: </label>
-                  <input
-                    type="text"
-                    className=""
-                    name="gender"
-                    placeholder={userObject.user.user.gender}
-                    value={form.gender}
-                    onChange={handleChange}
-                  ></input>
+                {/* FIRST TIME THE USER LOGS IN, MUST SET INFO */}
+                <h2>Please enter your profile details before we continue.</h2>
+                <form
+                  onSubmit={handleSubmit}
+                  className="profile-form-container"
+                >
+                  {/* todo: validate input frontend-side. backend already throws empty error */}
+                  <div className="form-group">
+                    <label>First Name</label>
+                    <input
+                      type="text"
+                      className=""
+                      name="firstName"
+                      placeholder="First Name"
+                      value={form.firstName}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="form-group">
+                    <label>Last Name</label>
+                    <input
+                      type="text"
+                      className=""
+                      name="lastName"
+                      placeholder="Last Name"
+                      value={form.lastName}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="form-group">
+                    <label>Weight</label>
+                    <input
+                      type="text"
+                      className=""
+                      name="weight"
+                      placeholder="Weight"
+                      value={form.weight}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="form-group">
+                    <label>Height</label>
+                    <input
+                      type="text"
+                      className=""
+                      name="height"
+                      placeholder="Height"
+                      value={form.height}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
+                  <div className="form-group">
+                    <label>Gender</label>
+                    <input
+                      type="text"
+                      className=""
+                      name="gender"
+                      placeholder="Gender"
+                      value={form.gender}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
                 </form>
               </>
-            )
-          ) : (
-            <>
-              {/* FIRST TIME THE USER LOGS IN, MUST SET INFO */}
-              <h2>Please enter your profile details before we continue.</h2>
-              <form onSubmit={handleSubmit}>
-                {/* todo: validate input frontend-side. backend already throws empty error */}
-                <label>First Name</label>
-                <input
-                  type="text"
-                  className=""
-                  name="firstName"
-                  placeholder="First Name"
-                  value={form.firstName}
-                  onChange={handleChange}
-                ></input>
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  className=""
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={form.lastName}
-                  onChange={handleChange}
-                ></input>
-                <label>Weight</label>
-                <input
-                  type="text"
-                  className=""
-                  name="weight"
-                  placeholder="Weight"
-                  value={form.weight}
-                  onChange={handleChange}
-                ></input>
-                <label>Height</label>
-                <input
-                  type="text"
-                  className=""
-                  name="height"
-                  placeholder="Height"
-                  value={form.height}
-                  onChange={handleChange}
-                ></input>
-                <label>Gender</label>
-                <input
-                  type="text"
-                  className=""
-                  name="gender"
-                  placeholder="Gender"
-                  value={form.gender}
-                  onChange={handleChange}
-                ></input>
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </form>
-            </>
-          )}
-          {userObject && !updateUser ? (
-            <button className="btn btn-primary" onClick={handleUpdate}>
-              Update
-            </button>
-          ) : (
-            <button className="btn btn-primary" onClick={handleUpdate}>
-              Cancel
-            </button>
-          )}
+            )}
+            {userObject && !updateUser ? (
+              <button className="btn btn-primary" onClick={handleUpdate}>
+                Update
+              </button>
+            ) : (
+              <button className="btn btn-primary" onClick={handleUpdate}>
+                Cancel
+              </button>
+            )}
+          </div>
         </>
       ) : (
         <>

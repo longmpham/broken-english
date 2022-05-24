@@ -1,0 +1,74 @@
+@import "../../Styles/variables.scss";
+
+.profile-root-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.profile-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  // background-color:beige;
+  gap: 0.5rem;
+  padding: 1rem;
+  width: 50%;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $tertiaryColor;
+  width: 100%;
+  gap: 0.25rem;
+  // border-radius: 9px;
+}
+.form-group label {
+  // padding: 0.25rem;
+}
+.form-group input {
+  flex: 1;
+  // border-radius: 9px;
+}
+
+.profile-form-container button {
+  width: 100%;
+}
+
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  // background-color:beige;
+  gap: 0.5rem;
+  padding: 1rem;
+  width: 50%;
+}
+
+.profile-card-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  // background-color: $tertiaryColor;
+  width: 100%;
+}
+.profile-card-group span:nth-child(2) {
+  flex: 1;
+}
+
+.profile-card-group span:nth-child(1) {
+  background-color: $secondaryColor;
+}
+
+.profile-card-group span:nth-child(2) {
+  background-color: $tertiaryColor;
+}
+
