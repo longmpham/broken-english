@@ -1,11 +1,15 @@
 import React from "react";
+import { MdCreate, MdMenu } from "react-icons/md";
 // import { useNavigate } from "react-router-dom"
 
-import "./ConversationList.scss"
+import "./ConversationList.scss";
 
 const ConversationList = () => {
   // let navigate = useNavigate()
   const [showConversationId, setShowConversationId] = React.useState(0);
+  const [showMenu, setShowMenu] = React.useState(false);
+  const [showCreateConversation, setShowCreateConversation] =
+    React.useState(false);
 
   const mockData = [
     {
@@ -92,6 +96,18 @@ const ConversationList = () => {
     // return relativeTime
   };
 
+  const handleCreateConversation = () => {
+    setShowCreateConversation(
+      (prevShowCreateConversation) => !prevShowCreateConversation
+    );
+    console.log("create conversation");
+  };
+
+  const handleMenu = () => {
+    setShowMenu((prevShowMenu) => !prevShowMenu);
+    console.log("show menu");
+  };
+
   const handleShowConversation = (roomId) => {
     console.log(roomId);
     setShowConversationId((prevShowConversationId) => {
@@ -108,42 +124,63 @@ const ConversationList = () => {
               return (
                 <>
                   <div className="conversationList-header-container">
-                    <p>create new conversation</p>
-                    <p>I am user {data.id}</p>
-                    <p>{data.photo}</p>
-                    <p>setup menu burger</p>
+                    <MdCreate onClick={handleCreateConversation}></MdCreate>
+                    <h2>I am user {data.id}</h2>
+                    {/* <p>{data.photo}</p> */}
+                    <MdMenu onClick={handleMenu}></MdMenu>
                   </div>
-                  <div className="conversationList-body-container" key={data.id}>
-                    <span className="conversationList-conversations-container">
-                      {data.conversations.map((conversation) => {
-                        return (
-                          <div
-                            onClick={() =>
-                              handleShowConversation(conversation.roomId)
-                            }
-                            className="conversation-container"
-                            key={conversation}
-                          >
-                            {/* <p>{conversation.roomId}</p> */}
-                            <p>{conversation.receiver}</p>
-                          </div>
-                        );
-                      })}
-                    </span>
-                    <span className="conversationList-conversations-body-container">
-                      {data.conversations[showConversationId].messages.map(
-                        ({ author, message, date }) => {
+                  {showMenu ? (
+                    <>
+                      <p>Menu Setting 1</p>
+                      <p>Menu Setting 2</p>
+                      <p>Menu Setting 3</p>
+                      <p>Menu Setting 4</p>
+                    </>
+                  ) : showCreateConversation ? (
+                    <>
+                      <h1>Create</h1>
+                      <p>username || email</p>
+                      <p>Room</p>
+                    </>
+                  ) : (
+                    <div
+                      className="conversationList-body-container"
+                      key={data.id}
+                    >
+                      <span className="conversationList-conversations-container">
+                        {data.conversations.map((conversation) => {
                           return (
-                            <div className="conversation-body-container" key={message + author + date}>
-                              <p>{message}</p>
-                              <p>{author}</p>
-                              <p>{date}</p>
+                            <div
+                              onClick={() =>
+                                handleShowConversation(conversation.roomId)
+                              }
+                              className="conversation-container"
+                              key={conversation}
+                            >
+                              {/* <p>{conversation.roomId}</p> */}
+                              <p>{conversation.receiver}</p>
                             </div>
                           );
-                        }
-                      )}
-                    </span>
-                  </div>
+                        })}
+                      </span>
+                      <span className="conversationList-conversations-body-container">
+                        {data.conversations[showConversationId].messages.map(
+                          ({ author, message, date }) => {
+                            return (
+                              <div
+                                className="conversation-body-container"
+                                key={message + author + date}
+                              >
+                                <p>{message}</p>
+                                <p>{author}</p>
+                                <p>{date}</p>
+                              </div>
+                            );
+                          }
+                        )}
+                      </span>
+                    </div>
+                  )}
                 </>
               );
             })}
