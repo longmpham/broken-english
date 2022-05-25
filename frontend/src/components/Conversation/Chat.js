@@ -45,7 +45,7 @@ const Chat = () => {
         };
       });
     }, timer);
-  }
+  };
 
   const joinRoom = () => {
     // todo: figure out how to send socket -> useContext?
@@ -70,7 +70,7 @@ const Chat = () => {
         message: `Hey ${form.username}! You've successfully joined room ${form.room}`,
       };
     });
-    clearValidationMessage()
+    clearValidationMessage();
     setShowChat((prevShowChat) => !prevShowChat);
   };
 
@@ -89,7 +89,7 @@ const Chat = () => {
     let isValidated = await handleValidate(form);
 
     setValidateMessage((prevValidateMessage) => isValidated);
-    clearValidationMessage()
+    clearValidationMessage();
 
     if (isValidated.type !== "success") {
       console.log("Did not login.");
@@ -101,7 +101,7 @@ const Chat = () => {
   };
 
   const handleClose = () => {
-    clearValidationMessage(0)
+    clearValidationMessage(0);
   };
 
   const handleKeyPress = (event) => {

@@ -1,0 +1,48 @@
+@import "../../Styles/variables.scss";
+
+.conversationList-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.conversationList-body-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  // align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: $tertiaryColor;
+}
+
+.conversationList-conversations-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: 1 1 20%;
+}
+
+.conversationList-conversations-body-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: 1 0 80%;
+}
+
+.conversation-container {
+  display: flex;
+  cursor: pointer;
+  margin: 0;
+  border: 1px solid black
+}
+.conversation-body-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: grey;
+}

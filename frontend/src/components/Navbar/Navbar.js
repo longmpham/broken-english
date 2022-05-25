@@ -30,6 +30,11 @@ const Navbar = () => {
       link: "/chat",
     },
     {
+      title: "Convs",
+      // title: <MdChat />,
+      link: "/conversations",
+    },
+    {
       title: "Logout",
       // title: <MdChat />,
       link: "/",

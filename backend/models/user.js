@@ -58,13 +58,26 @@ const UserSchema = mongoose.Schema(
         roomId: {
           type: String,
         },
-        name: {
+        receiver: {
           type: String,
         },
+        messsages: [
+          {
+            author: {
+              type: String,
+            },
+            message: {
+              type: String,
+            },
+            date: {
+              type: Date,
+            }
+          },
+        ],
       },
       {
         timestamps: true,
-      }
+      },
     ],
   },
   {
