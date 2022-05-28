@@ -1,10 +1,26 @@
 import React from "react";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 export const myContext = React.createContext({});
 
 const Context = (props) => {
   const [userObject, setUserObject] = React.useState();
+
+  const [socket, setSocket] = React.useState();
+  const url = "http://localhost:9000";
+  // let navigate = useNavigate();
+
+  React.useEffect(() => {
+    const socket = io.connect(url);
+    setSocket((prevSocket) => socket);
+
+    // required to clean up memory leaks! Close if socket dismounts
+    return () => {
+      socket.disconnect();
+    };
+  // }, [setSocket]);
+  }, []);
 
   const getUser = async () => {
     try {

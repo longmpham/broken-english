@@ -31,10 +31,12 @@ const Chat = () => {
     const socket = io.connect(url);
     setSocket((prevSocket) => socket);
 
+    // required to clean up memory leaks! Close if socket dismounts
     return () => {
-      socket.close();
+      socket.disconnect();
     };
-  }, [setSocket]);
+  // }, [setSocket]);
+  }, []);
 
   const clearValidationMessage = (timer = 5000) => {
     setTimeout(() => {

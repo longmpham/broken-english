@@ -1,5 +1,6 @@
 import React from "react";
 import { MdCreate, MdMenu } from "react-icons/md";
+import Chat from "./Chat";
 // import { useNavigate } from "react-router-dom"
 
 import "./ConversationList.scss";
@@ -119,80 +120,64 @@ const ConversationList = () => {
     <div className="conversations-container">
       {mockData.map((data) => {
         return (
-          <>
-            {mockData.map((data) => {
-              return (
-                <>
-                  <div className="conversationList-header-container">
-                    <MdCreate onClick={handleCreateConversation}></MdCreate>
-                    <h2>I am user {data.id}</h2>
-                    {/* <p>{data.photo}</p> */}
-                    <MdMenu onClick={handleMenu}></MdMenu>
-                  </div>
-                  {showMenu ? (
-                    <>
-                      <p>Menu Setting 1</p>
-                      <p>Menu Setting 2</p>
-                      <p>Menu Setting 3</p>
-                      <p>Menu Setting 4</p>
-                    </>
-                  ) : showCreateConversation ? (
-                    <>
-                      <h1>Create</h1>
-                      <p>username || email</p>
-                      <p>Room</p>
-                    </>
-                  ) : (
-                    <div
-                      className="conversationList-body-container"
-                      key={data.id}
-                    >
-                      <span className="conversationList-conversations-container">
-                        {data.conversations.map((conversation) => {
-                          return (
-                            <div
-                              onClick={() =>
-                                handleShowConversation(conversation.roomId)
-                              }
-                              className="conversation-container"
-                              key={conversation}
-                            >
-                              {/* <p>{conversation.roomId}</p> */}
-                              <p>{conversation.receiver}</p>
-                            </div>
-                          );
-                        })}
-                      </span>
-                      <span className="conversationList-conversations-body-container">
-                        {data.conversations[showConversationId].messages.map(
-                          ({ author, message, date }) => {
-                            return (
-                              <div
-                                className="conversation-body-container"
-                                key={message + author + date}
-                              >
-                                <p>{message}</p>
-                                <p>{author}</p>
-                                <p>{date}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </span>
-                    </div>
+          <div key={data.id}>
+            <div className="conversationList-header-container">
+              <MdCreate onClick={handleCreateConversation}></MdCreate>
+              <h2>I am user {data.id}</h2>
+              {/* <p>{data.photo}</p> */}
+              <MdMenu onClick={handleMenu}></MdMenu>
+            </div>
+            {showMenu ? (
+              <>
+                <p>Menu Setting 1</p>
+                <p>Menu Setting 2</p>
+                <p>Menu Setting 3</p>
+                <p>Menu Setting 4</p>
+              </>
+            ) : showCreateConversation ? (
+              <>
+                <h1>Create</h1>
+                <p>username || email</p>
+                <p>Room</p>
+                <Chat></Chat>
+              </>
+            ) : (
+              <div className="conversationList-body-container">
+                <span className="conversationList-conversations-container">
+                  {data.conversations.map((conversation, index) => {
+                    return (
+                      <div
+                        onClick={() =>
+                          handleShowConversation(conversation.roomId)
+                        }
+                        className="conversation-container"
+                        key={`${index}-${conversation}`}
+                      >
+                        {/* <p>{conversation.roomId}</p> */}
+                        <p>{conversation.receiver}</p>
+                      </div>
+                    );
+                  })}
+                </span>
+                <span className="conversationList-conversations-body-container">
+                  {data.conversations[showConversationId].messages.map(
+                    ({ author, message, date }, index) => {
+                      return (
+                        <div
+                          className="conversation-body-container"
+                          key={`${index}-${author}-${message}-${date}`}
+                        >
+                          <p>{message}</p>
+                          <p>{author}</p>
+                          <p>{date}</p>
+                        </div>
+                      );
+                    }
                   )}
-                </>
-              );
-            })}
-          </>
-
-          // <div key={data.id} className="conversations-row">
-          //   <h1>icon</h1>
-          //   <p>{data.id}</p>
-          //   {/* <p>{data.message}</p> */}
-          //   {/* <p>{formatTime(data.date)}</p> */}
-          //   {/* <button onClick={() => { navigate(`/conversation/${data.id}`)}}>CHAT</button> */}
-          // </div>
+                </span>
+              </div>
+            )}
+          </div>
         );
       })}
     </div>

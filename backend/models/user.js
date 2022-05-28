@@ -57,6 +57,7 @@ const UserSchema = mongoose.Schema(
       {
         roomId: {
           type: String,
+          unique: true,
         },
         receiver: {
           type: String,
