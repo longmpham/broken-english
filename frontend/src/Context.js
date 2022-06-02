@@ -9,7 +9,6 @@ const Context = (props) => {
 
   const [socket, setSocket] = React.useState();
   const url = "http://localhost:9000";
-  // let navigate = useNavigate();
 
   React.useEffect(() => {
     const socket = io.connect(url);
@@ -19,7 +18,6 @@ const Context = (props) => {
     return () => {
       socket.disconnect();
     };
-  // }, [setSocket]);
   }, []);
 
   const getUser = async () => {
@@ -41,7 +39,7 @@ const Context = (props) => {
   }, []);
 
   return (
-    <myContext.Provider value={{userObject, getUser}}>{props.children}</myContext.Provider>
+    <myContext.Provider value={{userObject, socket, getUser}}>{props.children}</myContext.Provider>
   );
 };
 

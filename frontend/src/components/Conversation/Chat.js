@@ -1,5 +1,5 @@
 import React from "react";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 // import { useNavigate } from "react-router-dom";
 // import { MdCancel } from "react-icons/md";
 
@@ -7,12 +7,14 @@ import Conversation from "./Conversation";
 
 import "./Chat.scss";
 import { ValidateMessage, handleValidate } from "../Validation/Validation";
+import { myContext } from "../../Context";
 
 // const url = "http://localhost:9000";
 // const socket = io.connect(url);
 
 const Chat = () => {
-  const url = "http://localhost:9000";
+  const { socket } = React.useContext(myContext);
+  // const url = "http://localhost:9000";
   const [form, setForm] = React.useState({
     username: "",
     room: "",
@@ -23,20 +25,19 @@ const Chat = () => {
       message: "",
     },
   ]);
-  const [socket, setSocket] = React.useState();
+  // const [socket, setSocket] = React.useState();
   const [showChat, setShowChat] = React.useState(false);
   // let navigate = useNavigate();
 
-  React.useEffect(() => {
-    const socket = io.connect(url);
-    setSocket((prevSocket) => socket);
+  // React.useEffect(() => {
+  //   const socket = io.connect(url);
+  //   setSocket((prevSocket) => socket);
 
-    // required to clean up memory leaks! Close if socket dismounts
-    return () => {
-      socket.disconnect();
-    };
-  // }, [setSocket]);
-  }, []);
+  //   // required to clean up memory leaks! Close if socket dismounts
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   const clearValidationMessage = (timer = 5000) => {
     setTimeout(() => {
@@ -64,7 +65,8 @@ const Chat = () => {
     // https://stackoverflow.com/questions/71755580/cant-send-socket-with-usenavigate-hook
     // navigate("/conversation",{state:{id:1,socket:socket,form:form}});
     // navigate('/conversation',{state:{id:1,name:'sabaoon'}});
-
+    
+    console.log(socket);
     socket.emit("join_room", form.room);
     setValidateMessage((prevValidateMessage) => {
       return {

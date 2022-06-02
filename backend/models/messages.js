@@ -1,16 +1,19 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const MessageSchema = mongoose.Schema({
-  message: {
-    type: String,
+const MessageSchema = mongoose.Schema(
+  {
+    sender: {
+      type: String,
+    },
+    message: {
+      type: String,
+    },
+    translatedMessage: {
+      type: String,
+    },
   },
-  translatedMessage: {
-    type: String,
-  }
-},
-{
-  timestamps: true,
-});
+  { timestamps: true }
+);
 
 const MessageModel = mongoose.model("Message", MessageSchema);
-module.exports = MessageModel
+module.exports = MessageModel;
